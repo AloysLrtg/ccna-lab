@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f7f7f2"><meta name="description" content="Révise les modules 8 à 10 du CCNA1 ITNv7 avec 62 exercices au texte original et des associations interactives, des schémas et des corrections expliquées.">
+<meta name="theme-color" content="#f7f7f2"><meta name="description" content="Révise les modules 8–10 et 11–13 du CCNA1 ITNv7 : deux banques indépendantes, des associations, des schémas et des corrections expliquées.">
 <title>CCNA Lab — Le réseau, en pratique.</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23233832'/%3E%3Cpath d='M16 20h32M16 32h22M16 44h32' stroke='%23dfef91' stroke-width='6'/%3E%3C/svg%3E">
 <style>
@@ -17,6 +17,10 @@
 .verbatim-title,.option>span:nth-child(2),.pending-options li{white-space:pre-line}.pending-options{font-size:11px;padding-left:20px;line-height:1.8}.topology-five{margin:15px 0 0}.topology-five svg{width:100%;height:auto;display:block;background:#f7f8f1;border:1px solid #dce2d7;border-radius:8px}.topology-five figcaption{font-size:10px;color:#69766f;margin-top:6px}
 
 .full-series{border-top:1px solid #e1e6dc;margin-top:20px;padding-top:16px}.full-series p{font-size:11px;color:#69766f;margin:0 0 11px}.full-series .btn{font-size:11px;padding:11px 13px}.question-exhibit{margin:0 0 20px}.question-exhibit svg{display:block;width:100%;height:auto;border:1px solid #dce2d7;border-radius:10px}.question-exhibit figcaption{font-size:10px;color:#69766f;margin:6px 0 0}.context{overflow-x:auto;white-space:pre;overflow-wrap:normal;max-width:100%}.review-card .question-exhibit{max-width:760px}
+
+/* Independent exam banks; retain the existing visual language. */
+.bank-picker{margin:28px 0}.bank-picker .section-head{margin-bottom:18px}.bank-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.bank-choice{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:10px;padding:24px;border:2px solid var(--line,#dce2d3);border-radius:14px;background:white;color:var(--ink,#233832);font:inherit;cursor:pointer}.bank-choice:hover{border-color:#7e9267}.bank-choice.bank-selected{border-color:#385144;background:#f0f5e4;box-shadow:0 0 0 1px #385144}.bank-label{font-size:14px;font-weight:700;letter-spacing:.04em}.bank-choice strong{font-size:22px}.bank-choice>span:not(.bank-label){font-size:16px;line-height:1.5}.bank-choice small{font-size:14px;color:#526445}.sidebar-banks{display:grid;gap:8px;margin:16px 0}.bank-nav{border:1px solid transparent;background:none;padding:12px;text-align:left;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;color:#233832;font-size:14px}.bank-nav small{display:block;font-size:12px;line-height:1.5;font-weight:400;margin-top:4px}.bank-nav.bank-selected{background:#edf2e6;border-color:#91a879}.bank-choice:focus-visible,.bank-nav:focus-visible{outline:3px solid #b76332;outline-offset:3px}.bank-picker+.resume{margin-top:20px}.question-exhibit svg{max-width:100%;height:auto}.top-pill{white-space:nowrap}
+@media(max-width:650px){.bank-choices{grid-template-columns:1fr}.bank-choice{padding:18px;gap:7px}.bank-choice strong{font-size:20px}.bank-picker{margin:20px 0}.sidebar-banks{grid-template-columns:1fr 1fr}.bank-nav small{font-size:12px}.bank-picker .section-head{align-items:flex-start}.date-tag{display:none}}
 </style>
 
 </head>
@@ -28,7 +32,7 @@
   <button class="nav-item active" id="home-nav"><span aria-hidden="true">▦</span> Tableau de bord</button>
   <button class="nav-item" id="errors-nav"><span aria-hidden="true">↻</span> Revoir mes erreurs <span id="error-count" class="count">0</span></button>
   <div class="side-label modules-label">LE PROGRAMME</div>
-  <div class="module-nav">
+  <div class="sidebar-banks" aria-label="Séries de modules"><button type="button" class="bank-nav" data-bank="8-10">Modules 8–10<small>Communication entre réseaux</small></button><button type="button" class="bank-nav" data-bank="11-13">Modules 11–13<small>Adressage IP</small></button></div><div class="module-nav" id="module-nav">
    <button data-module="8" class="module-link"><span class="module-number">08</span><span>Couche réseau<small>IPv4, IPv6 & routage</small></span></button>
    <button data-module="9" class="module-link"><span class="module-number">09</span><span>Résolution d’adresse<small>ARP & découverte de voisins</small></span></button>
    <button data-module="10" class="module-link"><span class="module-number">10</span><span>Configuration du routeur<small>IOS, interfaces & passerelles</small></span></button>
@@ -36,12 +40,12 @@
   <div class="sidebar-bottom"><span class="status-dot"></span> Un peu chaque jour, ça compte.<br><button class="text-button" id="sources-button">À propos & sources ↗</button></div>
  </aside>
  <div class="workspace">
-  <header class="topbar"><span>CCNA 1 <span class="crumb">/</span> Introduction aux réseaux</span><span class="top-pill"><span class="status-dot"></span> Modules 08 — 10</span></header>
+  <header class="topbar"><span>CCNA 1 <span class="crumb">/</span> Introduction aux réseaux</span><span class="top-pill" id="active-bank-label"><span class="status-dot"></span> Modules 08 — 10</span></header>
   <main id="main" tabindex="-1"></main>
   <footer>Conçu pour comprendre, pas seulement mémoriser.<span>Entraînement indépendant · ITNv7</span></footer>
  </div>
 </div>
-<dialog id="sources-dialog" aria-labelledby="sources-title"><div class="dialog-head"><h2 id="sources-title">À propos de CCNA Lab</h2><button id="close-sources" class="icon-btn" aria-label="Fermer">×</button></div><p>Les énoncés et propositions du texte fourni sont repris mot pour mot pour les modules 8 à 10 ; 62 exercices sont utilisables, seuls les exercices Packet Tracer étant retirés. Ce site n’est pas affilié à Cisco et ne garantit pas les questions de ton examen.</p><p>Le texte fourni est conservé à l’identique pour les énoncés et propositions. Les captures reçues complètent les associations 1 à 4, 6 et 48 ainsi que les exercices 20, 24, 26 et 40. La question 5 est retirée à ta demande. Les 62 autres exercices sont disponibles, en séries de 10, 20, 56 ou dans leur totalité. Les explications peuvent préciser une ambiguïté ou une erreur de la source, sans modifier la question. Les documents ci-dessous permettent de vérifier les notions.</p><ul class="source-list"><li><a href="https://ccnareponses.com/modules-8-10-examen-sur-la-communication-entre-les-reseaux-reponses/" target="_blank" rel="noopener">Page fournie : thèmes à réviser ↗</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc791" target="_blank" rel="noopener">IETF — IPv4 (RFC 791) ↗</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc8200" target="_blank" rel="noopener">IETF — IPv6 (RFC 8200) ↗</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc826" target="_blank" rel="noopener">IETF — ARP (RFC 826) ↗</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc4861" target="_blank" rel="noopener">IETF — Neighbor Discovery (RFC 4861) ↗</a></li><li><a href="https://www.cisco.com/c/en/us/support/docs/ip/ip-routing/116264-technote-ios-00.html" target="_blank" rel="noopener">Cisco — Routes locales et connectées ↗</a></li><li><a href="https://www.cisco.com/c/en/us/td/docs/routers/access/2900/hardware/installation/guide/Hardware_Installation_Guide/Configure.html" target="_blank" rel="noopener">Cisco — Configuration, vérification et sauvegarde ↗</a></li><li><a href="https://www.cisco.com/c/en/us/support/docs/security-vpn/secure-shell-ssh/4145-ssh.html" target="_blank" rel="noopener">Cisco — Configuration de SSH ↗</a></li><li><a href="https://www.cisco.com/c/en/us/support/docs/routers/10000-series-routers/50421-config-register-use.html" target="_blank" rel="noopener">Cisco — Démarrage et registre de configuration ↗</a></li><li><a href="https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6000-series-switches/23563-143.html" target="_blank" rel="noopener">Cisco — Diffusion des unicasts inconnus ↗</a></li></ul><p class="muted">Tes résultats et ta session sont enregistrés uniquement dans ce navigateur, si le stockage est disponible. Aucune connexion ni compte supplémentaire n’est nécessaire.</p></dialog>
+<dialog id="sources-dialog" aria-labelledby="sources-title"><div class="dialog-head"><h2 id="sources-title">À propos de CCNA Lab</h2><button id="close-sources" class="icon-btn" aria-label="Fermer">×</button></div><p>Choisis ta série : modules 8–10 (62 exercices) ou 11–13 (57 exercices). Les banques, sessions en pause, erreurs et résultats sont indépendants. Les questions et les propositions sont mélangées à chaque nouvelle session.</p><p>La banque 8–10 conserve le texte et les supports fournis. La banque 11–13 reprend les données et corrigés de la page de référence, avec des énoncés et explications reformulés ainsi que des supports redessinés. Les activités Packet Tracer (n° 5 pour 8–10 et n° 29 pour 11–13) sont retirées. Les numéros de source permettent de retrouver chaque exercice. Ce site indépendant n’est pas affilié à Cisco et ne garantit pas le contenu de ton examen.</p><ul class="source-list"><li><a href="https://datatracker.ietf.org/doc/html/rfc4443" target="_blank" rel="noopener">IETF — ICMPv6 (RFC 4443)</a></li><li><a href="https://ccnareponses.com/modules-11-13-examen-sur-ladressage-ip-reponses/" target="_blank" rel="noopener">Référence : Modules 11–13 — Adressage IP</a></li><li><a href="https://ccnareponses.com/modules-8-10-examen-sur-la-communication-entre-les-reseaux-reponses/" target="_blank" rel="noopener">Page fournie : thèmes à réviser ↗</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc791" target="_blank" rel="noopener">IETF — IPv4 (RFC 791) ↗</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc8200" target="_blank" rel="noopener">IETF — IPv6 (RFC 8200) ↗</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc826" target="_blank" rel="noopener">IETF — ARP (RFC 826) ↗</a></li><li><a href="https://www.rfc-editor.org/rfc/rfc4861" target="_blank" rel="noopener">IETF — Neighbor Discovery (RFC 4861) ↗</a></li><li><a href="https://www.cisco.com/c/en/us/support/docs/ip/ip-routing/116264-technote-ios-00.html" target="_blank" rel="noopener">Cisco — Routes locales et connectées ↗</a></li><li><a href="https://www.cisco.com/c/en/us/td/docs/routers/access/2900/hardware/installation/guide/Hardware_Installation_Guide/Configure.html" target="_blank" rel="noopener">Cisco — Configuration, vérification et sauvegarde ↗</a></li><li><a href="https://www.cisco.com/c/en/us/support/docs/security-vpn/secure-shell-ssh/4145-ssh.html" target="_blank" rel="noopener">Cisco — Configuration de SSH ↗</a></li><li><a href="https://www.cisco.com/c/en/us/support/docs/routers/10000-series-routers/50421-config-register-use.html" target="_blank" rel="noopener">Cisco — Démarrage et registre de configuration ↗</a></li><li><a href="https://www.cisco.com/c/en/us/support/docs/switches/catalyst-6000-series-switches/23563-143.html" target="_blank" rel="noopener">Cisco — Diffusion des unicasts inconnus ↗</a></li></ul><p class="muted">Tes résultats et ta session sont enregistrés uniquement dans ce navigateur, si le stockage est disponible. Aucune connexion ni compte supplémentaire n’est nécessaire.</p></dialog>
 <dialog id="coverage-dialog" aria-labelledby="coverage-title"><div class="dialog-head"><h2 id="coverage-title">Suivi de ta banque de questions</h2><button id="close-coverage" class="icon-btn" aria-label="Fermer">×</button></div><div id="coverage-content"></div></dialog>
 <div id="announce" class="sr-only" role="status" aria-live="polite"></div>
 <script>
@@ -5945,12 +5949,2463 @@ window.ALL_SOURCE_QUESTIONS = [
 
 </script>
 <script>
+window.QUIZ_BANKS = {"11-13": {
+  "id": "11-13",
+  "label": "Modules 11–13",
+  "title": "Adressage IP",
+  "description": "IPv4, IPv6 et diagnostic ICMP",
+  "modules": [
+    11,
+    12,
+    13
+  ],
+  "questions": [
+    {
+      "id": "ip01",
+      "source": 1,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Découpe 192.168.1.0/24 en quatre sous-réseaux égaux. Quel couple réseau/masque désigne le deuxième bloc, en comptant le sous-réseau zéro ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "192.168.1.64 — 255.255.255.192"
+        },
+        {
+          "id": "1",
+          "text": "240.168.1.64 — 255.255.255.240"
+        },
+        {
+          "id": "2",
+          "text": "192.168.1.32 — 255.255.255.240"
+        },
+        {
+          "id": "3",
+          "text": "192.168.1.128 — 255.255.255.192"
+        },
+        {
+          "id": "4",
+          "text": "192.168.1.8 — 255.255.255.224"
+        }
+      ],
+      "answer": [
+        "0"
+      ],
+      "explain": "Deux bits empruntés donnent quatre /26. Les blocs commencent à .0, .64, .128 et .192 ; le deuxième est donc .64 avec le masque 255.255.255.192.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip02",
+      "source": 2,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Dans 192.168.10.128/26, combien d’adresses peut-on attribuer à des hôtes ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "30"
+        },
+        {
+          "id": "1",
+          "text": "32"
+        },
+        {
+          "id": "2",
+          "text": "60"
+        },
+        {
+          "id": "3",
+          "text": "62"
+        },
+        {
+          "id": "4",
+          "text": "64"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "Il reste 32 − 26 = 6 bits hôte. Sur 64 adresses, deux servent au réseau et à la diffusion : 62 restent attribuables.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip03",
+      "source": 3,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Calcule le nombre d’hôtes utilisables pour 172.16.128.0 avec le masque 255.255.252.0.",
+      "options": [
+        {
+          "id": "0",
+          "text": "510"
+        },
+        {
+          "id": "1",
+          "text": "512"
+        },
+        {
+          "id": "2",
+          "text": "1022"
+        },
+        {
+          "id": "3",
+          "text": "1024"
+        },
+        {
+          "id": "4",
+          "text": "2046"
+        },
+        {
+          "id": "5",
+          "text": "2048"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "255.255.252.0 correspond à /22 : dix bits hôte donnent 2¹⁰ − 2 = 1 022 adresses attribuables.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip04",
+      "source": 4,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Sélectionne les trois plages IPv4 privées de la RFC 1918.",
+      "options": [
+        {
+          "id": "0",
+          "text": "239.0.0.0/8"
+        },
+        {
+          "id": "1",
+          "text": "192.168.0.0/16"
+        },
+        {
+          "id": "2",
+          "text": "10.0.0.0/8"
+        },
+        {
+          "id": "3",
+          "text": "172.16.0.0/12"
+        },
+        {
+          "id": "4",
+          "text": "100.64.0.0/14"
+        },
+        {
+          "id": "5",
+          "text": "169.254.0.0/16"
+        }
+      ],
+      "answer": [
+        "1",
+        "2",
+        "3"
+      ],
+      "explain": "Les trois blocs privés sont 10.0.0.0/8, 172.16.0.0/12 et 192.168.0.0/16. Le lien local 169.254/16 et l’espace partagé 100.64/10 ont d’autres usages.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip05",
+      "source": 5,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Pour joindre tous les hôtes du réseau 172.16.16.0/22, quelle adresse de diffusion faut-il utiliser ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "172.16.23.255"
+        },
+        {
+          "id": "1",
+          "text": "172.16.20.255"
+        },
+        {
+          "id": "2",
+          "text": "172.16.19.255"
+        },
+        {
+          "id": "3",
+          "text": "172.16.16.255"
+        },
+        {
+          "id": "4",
+          "text": "172.16.255.255"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "Avec /22, les blocs avancent de quatre dans le troisième octet. Ce réseau couvre 172.16.16.0 à 172.16.19.255 ; la dernière adresse est la diffusion.",
+      "supportSVG": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 200\" role=\"img\" aria-label=\"Schéma redessiné à partir de la capture fournie\"><rect width=\"100%\" height=\"100%\" rx=\"12\" fill=\"#f7f8f1\"/><path d=\"M225 100 L345 100\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><rect x=\"35\" y=\"70\" width=\"190\" height=\"60\" rx=\"9\" fill=\"#dfedab\" stroke=\"#9baa8b\"/><text x=\"130.0\" y=\"91\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">Routeur A</text><rect x=\"345\" y=\"70\" width=\"340\" height=\"60\" rx=\"9\" fill=\"#fff\" stroke=\"#9baa8b\"/><text x=\"515.0\" y=\"91\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">Réseau à joindre</text><text x=\"515.0\" y=\"108\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">172.16.16.0/22</text></svg>",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip06",
+      "source": 6,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Quel masque offre juste assez d’adresses pour 126 hôtes, avec le moins d’adresses inutilisées ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "255.255.255.0"
+        },
+        {
+          "id": "1",
+          "text": "255.255.255.224"
+        },
+        {
+          "id": "2",
+          "text": "255.255.255.128"
+        },
+        {
+          "id": "3",
+          "text": "255.255.255.240"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "Sept bits hôte offrent 2⁷ − 2 = 126 adresses. Le masque /25, soit 255.255.255.128, convient exactement ; /24 fonctionnerait mais gaspillerait davantage.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip07",
+      "source": 7,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Dans 10.16.10.0/24, les blocs .0/26 et .192/28 sont occupés. Parmi les propositions, quel sous-réseau peut accueillir 25 hôtes sans chevauchement ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "10.16.10.128/28"
+        },
+        {
+          "id": "1",
+          "text": "10.16.10.160/26"
+        },
+        {
+          "id": "2",
+          "text": "10.16.10.240/28"
+        },
+        {
+          "id": "3",
+          "text": "10.16.10.224/26"
+        },
+        {
+          "id": "4",
+          "text": "10.16.10.240/27"
+        },
+        {
+          "id": "5",
+          "text": "10.16.10.64/27"
+        }
+      ],
+      "answer": [
+        "5"
+      ],
+      "explain": "Un /27 fournit 30 hôtes. 10.16.10.64/27 est aligné et libre. Les /28 sont trop petits ; .160/26, .224/26 et .240/27 ne sont pas des adresses réseau correctement alignées.",
+      "supportSVG": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 240\" role=\"img\" aria-label=\"Schéma redessiné à partir de la capture fournie\"><rect width=\"100%\" height=\"100%\" rx=\"12\" fill=\"#f7f8f1\"/><path d=\"M365 70 L120 150\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><path d=\"M365 70 L375 150\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><path d=\"M365 70 L630 150\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><rect x=\"285\" y=\"15\" width=\"160\" height=\"55\" rx=\"9\" fill=\"#dfedab\" stroke=\"#9baa8b\"/><text x=\"365.0\" y=\"36\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">R1</text><rect x=\"15\" y=\"150\" width=\"215\" height=\"65\" rx=\"9\" fill=\"#fff\" stroke=\"#9baa8b\"/><text x=\"122.5\" y=\"171\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">LAN existant</text><text x=\"122.5\" y=\"188\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">10.16.10.0/26</text><rect x=\"270\" y=\"150\" width=\"215\" height=\"65\" rx=\"9\" fill=\"#fff\" stroke=\"#9baa8b\"/><text x=\"377.5\" y=\"171\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">LAN existant</text><text x=\"377.5\" y=\"188\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">10.16.10.192/28</text><rect x=\"525\" y=\"150\" width=\"215\" height=\"65\" rx=\"9\" fill=\"#fff\" stroke=\"#9baa8b\"/><text x=\"632.5\" y=\"171\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">Nouveau LAN</text><text x=\"632.5\" y=\"188\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">25 hôtes</text></svg>",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip08",
+      "source": 8,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Quel intervalle correspond aux adresses multicast IPv4 ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "169.254.0.0 – 169.254.255.255"
+        },
+        {
+          "id": "1",
+          "text": "240.0.0.0 – 254.255.255.255"
+        },
+        {
+          "id": "2",
+          "text": "224.0.0.0 – 239.255.255.255"
+        },
+        {
+          "id": "3",
+          "text": "127.0.0.0 – 127.255.255.255"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "Le multicast IPv4 utilise 224.0.0.0/4, qui couvre 224.0.0.0 à 239.255.255.255.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip09",
+      "source": 9,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Deux sites veulent établir une visioconférence sur Internet, sans VPN. Le site A utilise 209.165.201.10 et reçoit 192.168.25.10 comme adresse du site B. Pourquoi cette dernière ne permet-elle pas de joindre directement B ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Il s’agit d’une adresse de bouclage."
+        },
+        {
+          "id": "1",
+          "text": "Il s’agit d’une adresse IP privée."
+        },
+        {
+          "id": "2",
+          "text": "Il existe un conflit d’adresses IP."
+        },
+        {
+          "id": "3",
+          "text": "Il s’agit d’une adresse link-locale."
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "192.168.25.10 appartient au bloc privé 192.168.0.0/16. Elle ne constitue pas une destination publique directement routable sur Internet.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip10",
+      "source": 10,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Parmi ces six adresses IPv4, repère les trois adresses publiques.",
+      "options": [
+        {
+          "id": "0",
+          "text": "64.104.78.227"
+        },
+        {
+          "id": "1",
+          "text": "172.31.1.25"
+        },
+        {
+          "id": "2",
+          "text": "128.107.12.117"
+        },
+        {
+          "id": "3",
+          "text": "192.168.1.245"
+        },
+        {
+          "id": "4",
+          "text": "198.133.219.17"
+        },
+        {
+          "id": "5",
+          "text": "10.15.250.5"
+        }
+      ],
+      "answer": [
+        "0",
+        "2",
+        "4"
+      ],
+      "explain": "64.104.78.227, 128.107.12.117 et 198.133.219.17 sont publiques. Les trois autres adresses appartiennent aux blocs privés de la RFC 1918.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip11",
+      "source": 11,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Comment nomme-t-on une transmission destinée à tous les hôtes d’un sous-réseau distant ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "multidiffusion"
+        },
+        {
+          "id": "1",
+          "text": "diffusion dirigée"
+        },
+        {
+          "id": "2",
+          "text": "diffusion limitée"
+        },
+        {
+          "id": "3",
+          "text": "monodiffusion"
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "Une diffusion dirigée cible l’adresse de diffusion d’un sous-réseau précis. La diffusion limitée reste sur le lien local ; les routeurs bloquent généralement les diffusions dirigées par défaut.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip12",
+      "source": 12,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Quelle proposition est une adresse IPv6 unicast de portée lien local ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "FEC 8:1::FFFF"
+        },
+        {
+          "id": "1",
+          "text": "FC 90:5678:4251:FFFF"
+        },
+        {
+          "id": "2",
+          "text": "FE0A::100:7788:998 F"
+        },
+        {
+          "id": "3",
+          "text": "FE80::1:4545:6578:ABC1"
+        },
+        {
+          "id": "4",
+          "text": "FD80::1:1234"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "Le bloc lien local est FE80::/10. FE80::1:4545:6578:ABC1 appartient à ce bloc ; les adresses en FC ou FD relèvent des adresses locales uniques.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip13",
+      "source": 13,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Choisis la représentation la plus réduite proposée pour 3FFE:1044:0000:0000:00AB:0000:0000:0057.",
+      "options": [
+        {
+          "id": "0",
+          "text": "3FFE:1044::00AB::0057"
+        },
+        {
+          "id": "1",
+          "text": "3FFE:1044:0:0:AB::57"
+        },
+        {
+          "id": "2",
+          "text": "3FFE:1044:0000:0000:00AB::57"
+        },
+        {
+          "id": "3",
+          "text": "3FFE:1044:0:0:00AB::0057"
+        },
+        {
+          "id": "4",
+          "text": "3FFE:1044:0000:0000:00AB::0057"
+        },
+        {
+          "id": "5",
+          "text": "3FFE:1044::AB::57"
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "On retire les zéros initiaux et on compresse une seule séquence de zéros. La proposition 3FFE:1044:0:0:AB::57 est valide. Deux occurrences de :: seraient interdites. En notation canonique, à longueur égale, on compresserait la première séquence : 3ffe:1044::ab:0:0:57.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip14",
+      "source": 14,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Dans ce plan IPv6, le dernier chiffre hexadécimal du quatrième hextet représente le sous-réseau. Combien de sous-réseaux distincts peut-on numéroter par sous-site ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "256"
+        },
+        {
+          "id": "1",
+          "text": "0"
+        },
+        {
+          "id": "2",
+          "text": "16"
+        },
+        {
+          "id": "3",
+          "text": "4"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "Un chiffre hexadécimal représente quatre bits, donc 2⁴ = 16 valeurs de 0 à F. C’est la capacité du champ sous-réseau de ce plan.",
+      "supportSVG": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 180\" role=\"img\" aria-label=\"Préfixe 2001:DB8:1234:0000::/64. Dans le quatrième hextet : un chiffre site, deux chiffres sous-site, un chiffre sous-réseau.\"><rect width=\"760\" height=\"180\" rx=\"12\" fill=\"#f2f5e9\"/><text x=\"380\" y=\"52\" text-anchor=\"middle\" font-family=\"monospace\" font-size=\"23\" fill=\"#233832\">2001:DB8:1234:0000::/64</text><text x=\"380\" y=\"95\" text-anchor=\"middle\" font-size=\"16\" fill=\"#233832\">Quatrième hextet : [site] [sous-site] [sous-réseau]</text><text x=\"380\" y=\"135\" text-anchor=\"middle\" font-size=\"16\" fill=\"#233832\">Répartition : 1 chiffre | 2 chiffres | 1 chiffre hexadécimal</text></svg>",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip15",
+      "source": 15,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Quelle donnée de l’interface sert de point de départ à la construction d’un identifiant IPv6 par EUI-64 modifié ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "une adresse IPv6 fournie par un serveur DHCPv6"
+        },
+        {
+          "id": "1",
+          "text": "une adresse hexadécimale 64 bits générée automatiquement"
+        },
+        {
+          "id": "2",
+          "text": "l’adresse MAC de l’interface compatible IPv6"
+        },
+        {
+          "id": "3",
+          "text": "une adresse IPv4 configurée sur l’interface"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "EUI-64 modifié part de la MAC sur 48 bits, insère FFFE au milieu et inverse le bit universel/local pour obtenir un identifiant de 64 bits.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip16",
+      "source": 16,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Pour 2001:DB8:BC15:A:12AB::1/64, quels hextets forment la partie réseau ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "2001:DB8:BC15"
+        },
+        {
+          "id": "1",
+          "text": "2001:DB8:BC15:A"
+        },
+        {
+          "id": "2",
+          "text": "2001:DB8:BC15:A:1"
+        },
+        {
+          "id": "3",
+          "text": "2001:DB8:BC15:A:12"
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "Un /64 conserve les quatre premiers hextets pour le préfixe. Ici, la partie réseau est 2001:DB8:BC15:A, que l’on peut écrire 2001:DB8:BC15:A::/64.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip17",
+      "source": 17,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "À quels destinataires s’adresse un paquet IPv6 envoyé à FF02::1 ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Uniquement les routeurs IPv6 configurés"
+        },
+        {
+          "id": "1",
+          "text": "Le périphérique IPv6 sur la liaison qui a été configurée de manière unique avec cette adresse"
+        },
+        {
+          "id": "2",
+          "text": "Uniquement les serveurs DHCP IPv6"
+        },
+        {
+          "id": "3",
+          "text": "Tous les périphériques IPv6 sur la liaison locale ou le réseau local"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "FF02::1 désigne tous les nœuds IPv6 du lien. FF02::2 désigne uniquement les routeurs ; la portée 2 reste locale à la liaison.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip18",
+      "source": 18,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Quel bloc IPv6 sert aux échanges qui doivent rester sur une même liaison ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "FDFF::/7"
+        },
+        {
+          "id": "1",
+          "text": "FE80::/10"
+        },
+        {
+          "id": "2",
+          "text": "2001::/32"
+        },
+        {
+          "id": "3",
+          "text": "FC00::/7"
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "FE80::/10 est le bloc des adresses lien local. Les routeurs ne transmettent pas les paquets ayant une source ou une destination de cette portée vers un autre lien.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip19",
+      "source": 19,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Une même adresse unicast IPv6 est attribuée à plusieurs machines ; le routage atteint l’une d’elles. De quel mécanisme s’agit-il ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "adresse locale unique"
+        },
+        {
+          "id": "1",
+          "text": "anycast"
+        },
+        {
+          "id": "2",
+          "text": "adresse link-local"
+        },
+        {
+          "id": "3",
+          "text": "adresse de monodiffusion globale"
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "Avec anycast, plusieurs interfaces partagent une adresse. Le routage choisit une instance selon ses métriques ; il ne duplique pas le paquet pour toutes les instances.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip20",
+      "source": 20,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Quels sont les deux types d’adresses unicast IPv6 parmi ces propositions ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "bouclage"
+        },
+        {
+          "id": "1",
+          "text": "multidiffusion"
+        },
+        {
+          "id": "2",
+          "text": "link-local"
+        },
+        {
+          "id": "3",
+          "text": "diffusion"
+        },
+        {
+          "id": "4",
+          "text": "anycast"
+        }
+      ],
+      "answer": [
+        "0",
+        "2"
+      ],
+      "explain": "Le bouclage ::1 et les adresses lien local sont des unicast. Multicast et anycast sont d’autres modes de destination ; IPv6 ne possède pas de broadcast.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip21",
+      "source": 21,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Quel mécanisme permet à un hôte de former son adresse IPv6 globale sans serveur chargé de gérer les baux ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "DHCPv6 sans état"
+        },
+        {
+          "id": "1",
+          "text": "Adressage IPv6 statique"
+        },
+        {
+          "id": "2",
+          "text": "SLAAC"
+        },
+        {
+          "id": "3",
+          "text": "DHCPv6 dynamique"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "SLAAC utilise les informations de préfixe annoncées par le routeur. L’hôte compose son identifiant d’interface et vérifie l’absence de doublon.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip22",
+      "source": 22,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Sur quel protocole reposent les annonces de routeur utilisées par SLAAC ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "DHCPv6"
+        },
+        {
+          "id": "1",
+          "text": "ICMPv6"
+        },
+        {
+          "id": "2",
+          "text": "Protocole UDP"
+        },
+        {
+          "id": "3",
+          "text": "ARPv6"
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "Les sollicitations et annonces de routeur sont des messages ICMPv6 du protocole de découverte des voisins. Elles transportent les informations utilisées par SLAAC.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip23",
+      "source": 23,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Associe les trois techniques de coexistence IPv4/IPv6 à leur principe.",
+      "options": [
+        {
+          "id": "r0=c0",
+          "text": "IPv4 et IPv6 fonctionnent en parallèle sur le réseau → DHCP"
+        },
+        {
+          "id": "r0=c1",
+          "text": "IPv4 et IPv6 fonctionnent en parallèle sur le réseau → Traduction"
+        },
+        {
+          "id": "r0=c2",
+          "text": "IPv4 et IPv6 fonctionnent en parallèle sur le réseau → Tunnel"
+        },
+        {
+          "id": "r0=c3",
+          "text": "IPv4 et IPv6 fonctionnent en parallèle sur le réseau → Double pile"
+        },
+        {
+          "id": "r1=c0",
+          "text": "Un paquet IPv6 est encapsulé dans IPv4 → DHCP"
+        },
+        {
+          "id": "r1=c1",
+          "text": "Un paquet IPv6 est encapsulé dans IPv4 → Traduction"
+        },
+        {
+          "id": "r1=c2",
+          "text": "Un paquet IPv6 est encapsulé dans IPv4 → Tunnel"
+        },
+        {
+          "id": "r1=c3",
+          "text": "Un paquet IPv6 est encapsulé dans IPv4 → Double pile"
+        },
+        {
+          "id": "r2=c0",
+          "text": "Les paquets sont convertis entre IPv4 et IPv6 → DHCP"
+        },
+        {
+          "id": "r2=c1",
+          "text": "Les paquets sont convertis entre IPv4 et IPv6 → Traduction"
+        },
+        {
+          "id": "r2=c2",
+          "text": "Les paquets sont convertis entre IPv4 et IPv6 → Tunnel"
+        },
+        {
+          "id": "r2=c3",
+          "text": "Les paquets sont convertis entre IPv4 et IPv6 → Double pile"
+        }
+      ],
+      "answer": [
+        "r0=c3",
+        "r1=c2",
+        "r2=c1"
+      ],
+      "explain": "La double pile exécute les deux versions. Le tunnel encapsule un paquet dans un autre ; la traduction convertit entre les versions. DHCP distribue des paramètres et ne réalise pas cette coexistence.",
+      "kind": "matching",
+      "matches": [
+        {
+          "id": "r0",
+          "prompt": "IPv4 et IPv6 fonctionnent en parallèle sur le réseau"
+        },
+        {
+          "id": "r1",
+          "prompt": "Un paquet IPv6 est encapsulé dans IPv4"
+        },
+        {
+          "id": "r2",
+          "prompt": "Les paquets sont convertis entre IPv4 et IPv6"
+        }
+      ],
+      "choices": [
+        {
+          "id": "c0",
+          "text": "DHCP"
+        },
+        {
+          "id": "c1",
+          "text": "Traduction"
+        },
+        {
+          "id": "c2",
+          "text": "Tunnel"
+        },
+        {
+          "id": "c3",
+          "text": "Double pile"
+        }
+      ],
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip24",
+      "source": 24,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Le tracert de PC1 vers 10.1.0.2 n’obtient qu’une réponse, de 192.168.1.254, puis des délais dépassés. Sur quel équipement commencer les vérifications ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "PC2"
+        },
+        {
+          "id": "1",
+          "text": "R1"
+        },
+        {
+          "id": "2",
+          "text": "SW2"
+        },
+        {
+          "id": "3",
+          "text": "SW1"
+        },
+        {
+          "id": "4",
+          "text": "R2"
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "R1 est la dernière étape qui répond. On vérifie d’abord son interface vers R2 et sa route vers PC2, puis le lien suivant. Les astérisques seuls ne prouvent pas quel équipement est défaillant.",
+      "supportSVG": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 150\" role=\"img\" aria-label=\"Schéma redessiné à partir de la capture fournie\"><rect width=\"100%\" height=\"100%\" rx=\"12\" fill=\"#f7f8f1\"/><path d=\"M125 72 L180 72\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><path d=\"M265 72 L320 72\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><path d=\"M450 72 L505 72\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><path d=\"M590 72 L640 72\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><rect x=\"15\" y=\"40\" width=\"110\" height=\"65\" rx=\"9\" fill=\"#fff\" stroke=\"#9baa8b\"/><text x=\"70.0\" y=\"61\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">PC1</text><text x=\"70.0\" y=\"78\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">192.168.1.1</text><rect x=\"180\" y=\"40\" width=\"85\" height=\"65\" rx=\"9\" fill=\"#fff\" stroke=\"#9baa8b\"/><text x=\"222.5\" y=\"61\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">SW1</text><rect x=\"320\" y=\"40\" width=\"130\" height=\"65\" rx=\"9\" fill=\"#dfedab\" stroke=\"#9baa8b\"/><text x=\"385.0\" y=\"61\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">R1</text><text x=\"385.0\" y=\"78\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">192.168.1.254</text><rect x=\"505\" y=\"40\" width=\"85\" height=\"65\" rx=\"9\" fill=\"#dfedab\" stroke=\"#9baa8b\"/><text x=\"547.5\" y=\"61\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">R2</text><rect x=\"640\" y=\"40\" width=\"100\" height=\"65\" rx=\"9\" fill=\"#fff\" stroke=\"#9baa8b\"/><text x=\"690.0\" y=\"61\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">SW2 → PC2</text><text x=\"690.0\" y=\"78\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">10.1.0.2</text></svg>",
+      "context": "PC1> tracert 10.1.0.2\n  1   2 ms   2 ms   2 ms   192.168.1.254\n  2    *      *      *     Request timed out\n  3    *      *      *     Request timed out\n  4  ^C",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip25",
+      "source": 25,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Quel protocole transporte les messages de diagnostic d’écho et les erreurs utilisés dans le suivi de chemin IP ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Telnet"
+        },
+        {
+          "id": "1",
+          "text": "TCP"
+        },
+        {
+          "id": "2",
+          "text": "ICMP"
+        },
+        {
+          "id": "3",
+          "text": "SNMP"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "ICMP transporte les réponses de diagnostic et les erreurs, notamment le dépassement de délai. Selon l’outil, les sondes traceroute peuvent être ICMP, UDP ou TCP ; tracert sous Windows utilise des requêtes d’écho ICMP.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip26",
+      "source": 26,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Associe chaque usage IPv4 à l’adresse qui lui correspond. Une adresse proposée restera inutilisée.",
+      "options": [
+        {
+          "id": "r0=c0",
+          "text": "Adresse privée → 64.102.90.23"
+        },
+        {
+          "id": "r0=c1",
+          "text": "Adresse privée → 169.254.1.5"
+        },
+        {
+          "id": "r0=c2",
+          "text": "Adresse privée → 192.0.2.123"
+        },
+        {
+          "id": "r0=c3",
+          "text": "Adresse privée → 240.2.6.255"
+        },
+        {
+          "id": "r0=c4",
+          "text": "Adresse privée → 172.19.20.5"
+        },
+        {
+          "id": "r0=c5",
+          "text": "Adresse privée → 127.0.0.1"
+        },
+        {
+          "id": "r1=c0",
+          "text": "Adresse de bouclage → 64.102.90.23"
+        },
+        {
+          "id": "r1=c1",
+          "text": "Adresse de bouclage → 169.254.1.5"
+        },
+        {
+          "id": "r1=c2",
+          "text": "Adresse de bouclage → 192.0.2.123"
+        },
+        {
+          "id": "r1=c3",
+          "text": "Adresse de bouclage → 240.2.6.255"
+        },
+        {
+          "id": "r1=c4",
+          "text": "Adresse de bouclage → 172.19.20.5"
+        },
+        {
+          "id": "r1=c5",
+          "text": "Adresse de bouclage → 127.0.0.1"
+        },
+        {
+          "id": "r2=c0",
+          "text": "Adresse expérimentale / réservée → 64.102.90.23"
+        },
+        {
+          "id": "r2=c1",
+          "text": "Adresse expérimentale / réservée → 169.254.1.5"
+        },
+        {
+          "id": "r2=c2",
+          "text": "Adresse expérimentale / réservée → 192.0.2.123"
+        },
+        {
+          "id": "r2=c3",
+          "text": "Adresse expérimentale / réservée → 240.2.6.255"
+        },
+        {
+          "id": "r2=c4",
+          "text": "Adresse expérimentale / réservée → 172.19.20.5"
+        },
+        {
+          "id": "r2=c5",
+          "text": "Adresse expérimentale / réservée → 127.0.0.1"
+        },
+        {
+          "id": "r3=c0",
+          "text": "Adresse TEST-NET → 64.102.90.23"
+        },
+        {
+          "id": "r3=c1",
+          "text": "Adresse TEST-NET → 169.254.1.5"
+        },
+        {
+          "id": "r3=c2",
+          "text": "Adresse TEST-NET → 192.0.2.123"
+        },
+        {
+          "id": "r3=c3",
+          "text": "Adresse TEST-NET → 240.2.6.255"
+        },
+        {
+          "id": "r3=c4",
+          "text": "Adresse TEST-NET → 172.19.20.5"
+        },
+        {
+          "id": "r3=c5",
+          "text": "Adresse TEST-NET → 127.0.0.1"
+        },
+        {
+          "id": "r4=c0",
+          "text": "Adresse lien local → 64.102.90.23"
+        },
+        {
+          "id": "r4=c1",
+          "text": "Adresse lien local → 169.254.1.5"
+        },
+        {
+          "id": "r4=c2",
+          "text": "Adresse lien local → 192.0.2.123"
+        },
+        {
+          "id": "r4=c3",
+          "text": "Adresse lien local → 240.2.6.255"
+        },
+        {
+          "id": "r4=c4",
+          "text": "Adresse lien local → 172.19.20.5"
+        },
+        {
+          "id": "r4=c5",
+          "text": "Adresse lien local → 127.0.0.1"
+        }
+      ],
+      "answer": [
+        "r0=c4",
+        "r1=c5",
+        "r2=c3",
+        "r3=c2",
+        "r4=c1"
+      ],
+      "explain": "169.254/16 est lien local ; 192.0.2/24 sert à la documentation ; 240/4 est réservé ; 172.19.20.5 est privée ; 127/8 est le bouclage. 64.102.90.23 est l’intrus public.",
+      "kind": "matching",
+      "matches": [
+        {
+          "id": "r0",
+          "prompt": "Adresse privée"
+        },
+        {
+          "id": "r1",
+          "prompt": "Adresse de bouclage"
+        },
+        {
+          "id": "r2",
+          "prompt": "Adresse expérimentale / réservée"
+        },
+        {
+          "id": "r3",
+          "prompt": "Adresse TEST-NET"
+        },
+        {
+          "id": "r4",
+          "prompt": "Adresse lien local"
+        }
+      ],
+      "choices": [
+        {
+          "id": "c0",
+          "text": "64.102.90.23"
+        },
+        {
+          "id": "c1",
+          "text": "169.254.1.5"
+        },
+        {
+          "id": "c2",
+          "text": "192.0.2.123"
+        },
+        {
+          "id": "c3",
+          "text": "240.2.6.255"
+        },
+        {
+          "id": "c4",
+          "text": "172.19.20.5"
+        },
+        {
+          "id": "c5",
+          "text": "127.0.0.1"
+        }
+      ],
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip27",
+      "source": 27,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Écris sous forme /n le masque IPv4 255.255.255.224.",
+      "options": [
+        {
+          "id": "0",
+          "text": "/26"
+        },
+        {
+          "id": "1",
+          "text": "/25"
+        },
+        {
+          "id": "2",
+          "text": "/27"
+        },
+        {
+          "id": "3",
+          "text": "/28"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "Les trois premiers octets contiennent 24 bits à 1, puis 224 s’écrit 11100000. Le masque compte donc 27 bits à 1 : /27.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip28",
+      "source": 28,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Dans quel bloc 192.168.1.96 peut-elle servir d’adresse d’hôte, et non d’adresse réseau ou de diffusion ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "192.168.1.32/27"
+        },
+        {
+          "id": "1",
+          "text": "192.168.1.64/26"
+        },
+        {
+          "id": "2",
+          "text": "192.168.1.32/28"
+        },
+        {
+          "id": "3",
+          "text": "192.168.1.64/29"
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "192.168.1.64/26 couvre .64 à .127 ; les hôtes vont de .65 à .126. L’adresse .96 fait bien partie de cette plage.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip30",
+      "source": 30,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Dans un sous-réseau, qui est visé par un paquet broadcast ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "un groupe d’hôtes spécialement défini"
+        },
+        {
+          "id": "1",
+          "text": "tous les hôtes du même sous-réseau"
+        },
+        {
+          "id": "2",
+          "text": "le voisin le plus proche sur le même réseau"
+        },
+        {
+          "id": "3",
+          "text": "tous les hôtes sur Internet"
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "Une diffusion vise tous les hôtes du domaine de diffusion concerné. Elle n’est pas distribuée à l’ensemble d’Internet.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip31",
+      "source": 31,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Réduis l’écriture de 2002:0042:0010:c400:0000:0000:0000:0909.",
+      "options": [
+        {
+          "id": "0",
+          "text": "2002:42::25:1090:0:99"
+        },
+        {
+          "id": "1",
+          "text": "2002:4200::25:1090:0:99"
+        },
+        {
+          "id": "2",
+          "text": "200:420:110:c4b::910:0:90"
+        },
+        {
+          "id": "3",
+          "text": "2002:42:10:c400::909"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "Les zéros initiaux de chaque hextet disparaissent. Les trois hextets nuls consécutifs se remplacent par ::, ce qui donne 2002:42:10:c400::909.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip32",
+      "source": 32,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Après un ping vers 192.135.250.103, un message ICMPv4 Destination Unreachable porte le code 1. Quelle est sa signification ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Adresse inaccessible"
+        },
+        {
+          "id": "1",
+          "text": "au-delà de la portée de l’adresse source"
+        },
+        {
+          "id": "2",
+          "text": "communication avec la destination administrativement interdite"
+        },
+        {
+          "id": "3",
+          "text": "hôte inaccessible"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "Pour ICMPv4 type 3, le code 0 signifie réseau inaccessible et le code 1 signifie hôte inaccessible. Le code doit toujours être interprété avec le type du message.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip33",
+      "source": 33,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Combien de sous-réseaux /64 peut-on tirer de 2001:DB8::/48 sans toucher aux 64 bits d’identifiant d’interface ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "4 096"
+        },
+        {
+          "id": "1",
+          "text": "16"
+        },
+        {
+          "id": "2",
+          "text": "256"
+        },
+        {
+          "id": "3",
+          "text": "65 536"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "Entre /48 et /64, seize bits servent à numéroter les sous-réseaux : 2¹⁶ = 65 536 sous-réseaux /64.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip34",
+      "source": 34,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "En découpant 2001:db8::/48 en blocs /52, quelle est l’adresse du dernier bloc ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "2001:db8:0:f::/52"
+        },
+        {
+          "id": "1",
+          "text": "2001:db8:0:8000::/52"
+        },
+        {
+          "id": "2",
+          "text": "2001:db8:0:f000::/52"
+        },
+        {
+          "id": "3",
+          "text": "2001:db8:0:f00::/52"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "Quatre bits sont ajoutés au préfixe. Dans le quatrième hextet, ils prennent les valeurs 0 à F en position de poids fort : le dernier bloc est 2001:db8:0:f000::/52.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip35",
+      "source": 35,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Classe chacune de ces adresses IPv6 selon sa fonction.",
+      "options": [
+        {
+          "id": "r0=c0",
+          "text": "2001:DB8::BAF:3F57:FE94 → Lien local"
+        },
+        {
+          "id": "r0=c1",
+          "text": "2001:DB8::BAF:3F57:FE94 → Multicast de nœud sollicité"
+        },
+        {
+          "id": "r0=c2",
+          "text": "2001:DB8::BAF:3F57:FE94 → Unicast global"
+        },
+        {
+          "id": "r0=c3",
+          "text": "2001:DB8::BAF:3F57:FE94 → Multicast de tous les nœuds"
+        },
+        {
+          "id": "r0=c4",
+          "text": "2001:DB8::BAF:3F57:FE94 → Bouclage"
+        },
+        {
+          "id": "r0=c5",
+          "text": "2001:DB8::BAF:3F57:FE94 → Locale unique"
+        },
+        {
+          "id": "r1=c0",
+          "text": "FF02::1 → Lien local"
+        },
+        {
+          "id": "r1=c1",
+          "text": "FF02::1 → Multicast de nœud sollicité"
+        },
+        {
+          "id": "r1=c2",
+          "text": "FF02::1 → Unicast global"
+        },
+        {
+          "id": "r1=c3",
+          "text": "FF02::1 → Multicast de tous les nœuds"
+        },
+        {
+          "id": "r1=c4",
+          "text": "FF02::1 → Bouclage"
+        },
+        {
+          "id": "r1=c5",
+          "text": "FF02::1 → Locale unique"
+        },
+        {
+          "id": "r2=c0",
+          "text": "::1 → Lien local"
+        },
+        {
+          "id": "r2=c1",
+          "text": "::1 → Multicast de nœud sollicité"
+        },
+        {
+          "id": "r2=c2",
+          "text": "::1 → Unicast global"
+        },
+        {
+          "id": "r2=c3",
+          "text": "::1 → Multicast de tous les nœuds"
+        },
+        {
+          "id": "r2=c4",
+          "text": "::1 → Bouclage"
+        },
+        {
+          "id": "r2=c5",
+          "text": "::1 → Locale unique"
+        },
+        {
+          "id": "r3=c0",
+          "text": "FF02::1:FFAE:F85F → Lien local"
+        },
+        {
+          "id": "r3=c1",
+          "text": "FF02::1:FFAE:F85F → Multicast de nœud sollicité"
+        },
+        {
+          "id": "r3=c2",
+          "text": "FF02::1:FFAE:F85F → Unicast global"
+        },
+        {
+          "id": "r3=c3",
+          "text": "FF02::1:FFAE:F85F → Multicast de tous les nœuds"
+        },
+        {
+          "id": "r3=c4",
+          "text": "FF02::1:FFAE:F85F → Bouclage"
+        },
+        {
+          "id": "r3=c5",
+          "text": "FF02::1:FFAE:F85F → Locale unique"
+        }
+      ],
+      "answer": [
+        "r0=c2",
+        "r1=c3",
+        "r2=c4",
+        "r3=c1"
+      ],
+      "explain": "2001:DB8::BAF:3F57:FE94 illustre un unicast global (préfixe réservé à la documentation). FF02::1 vise tous les nœuds ; FF02::1:FFAE:F85F un groupe de nœud sollicité ; ::1 le bouclage.",
+      "kind": "matching",
+      "matches": [
+        {
+          "id": "r0",
+          "prompt": "2001:DB8::BAF:3F57:FE94"
+        },
+        {
+          "id": "r1",
+          "prompt": "FF02::1"
+        },
+        {
+          "id": "r2",
+          "prompt": "::1"
+        },
+        {
+          "id": "r3",
+          "prompt": "FF02::1:FFAE:F85F"
+        }
+      ],
+      "choices": [
+        {
+          "id": "c0",
+          "text": "Lien local"
+        },
+        {
+          "id": "c1",
+          "text": "Multicast de nœud sollicité"
+        },
+        {
+          "id": "c2",
+          "text": "Unicast global"
+        },
+        {
+          "id": "c3",
+          "text": "Multicast de tous les nœuds"
+        },
+        {
+          "id": "c4",
+          "text": "Bouclage"
+        },
+        {
+          "id": "c5",
+          "text": "Locale unique"
+        }
+      ],
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip36",
+      "source": 36,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "À quelle catégorie appartient FE80::1 ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Adresse de monodiffusion globale"
+        },
+        {
+          "id": "1",
+          "text": "Adresse de multidiffusion"
+        },
+        {
+          "id": "2",
+          "text": "Adresse link-local"
+        },
+        {
+          "id": "3",
+          "text": "Adresse de bouclage"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "FE80::1 appartient au bloc FE80::/10. C’est une adresse unicast lien local, utilisable pour des échanges sur la même liaison.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip37",
+      "source": 37,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Quelle réduction conserve exactement la valeur fe80:09ea:0000:2200:0000:0000:0fe0:0290 ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "fe80:9ea:0:2200::fe0:290"
+        },
+        {
+          "id": "1",
+          "text": "fe80:9ea0::2020::bf:e0:9290"
+        },
+        {
+          "id": "2",
+          "text": "fe80:9:20::b000:290"
+        },
+        {
+          "id": "3",
+          "text": "fe80:9ea0::2020:0:bf:e0:9290"
+        }
+      ],
+      "answer": [
+        "0"
+      ],
+      "explain": "L’hextet nul isolé reste 0 et les deux hextets nuls successifs deviennent ::. Le résultat est fe80:9ea:0:2200::fe0:290.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip38",
+      "source": 38,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Pour chaque adresse avec son préfixe, indique si elle désigne un hôte, un réseau ou une diffusion.",
+      "options": [
+        {
+          "id": "r0=c0",
+          "text": "192.168.100.161/25 → Hôte"
+        },
+        {
+          "id": "r0=c1",
+          "text": "192.168.100.161/25 → Réseau"
+        },
+        {
+          "id": "r0=c2",
+          "text": "192.168.100.161/25 → Diffusion"
+        },
+        {
+          "id": "r1=c0",
+          "text": "203.0.113.100/24 → Hôte"
+        },
+        {
+          "id": "r1=c1",
+          "text": "203.0.113.100/24 → Réseau"
+        },
+        {
+          "id": "r1=c2",
+          "text": "203.0.113.100/24 → Diffusion"
+        },
+        {
+          "id": "r2=c0",
+          "text": "172.110.12.64/28 → Hôte"
+        },
+        {
+          "id": "r2=c1",
+          "text": "172.110.12.64/28 → Réseau"
+        },
+        {
+          "id": "r2=c2",
+          "text": "172.110.12.64/28 → Diffusion"
+        },
+        {
+          "id": "r3=c0",
+          "text": "10.10.10.128/25 → Hôte"
+        },
+        {
+          "id": "r3=c1",
+          "text": "10.10.10.128/25 → Réseau"
+        },
+        {
+          "id": "r3=c2",
+          "text": "10.10.10.128/25 → Diffusion"
+        },
+        {
+          "id": "r4=c0",
+          "text": "10.0.0.159/27 → Hôte"
+        },
+        {
+          "id": "r4=c1",
+          "text": "10.0.0.159/27 → Réseau"
+        },
+        {
+          "id": "r4=c2",
+          "text": "10.0.0.159/27 → Diffusion"
+        },
+        {
+          "id": "r5=c0",
+          "text": "192.168.1.191/26 → Hôte"
+        },
+        {
+          "id": "r5=c1",
+          "text": "192.168.1.191/26 → Réseau"
+        },
+        {
+          "id": "r5=c2",
+          "text": "192.168.1.191/26 → Diffusion"
+        }
+      ],
+      "answer": [
+        "r0=c0",
+        "r1=c0",
+        "r2=c1",
+        "r3=c1",
+        "r4=c2",
+        "r5=c2"
+      ],
+      "explain": "La partie hôte entièrement à zéro indique le réseau ; entièrement à un, la diffusion. .64/28 et .128/25 sont des réseaux ; .159/27 et .191/26 des diffusions ; les deux autres adresses sont des hôtes. L’adresse multicast 224.10.0.254/24 de la source est un distracteur non utilisé.",
+      "kind": "matching",
+      "matches": [
+        {
+          "id": "r0",
+          "prompt": "192.168.100.161/25"
+        },
+        {
+          "id": "r1",
+          "prompt": "203.0.113.100/24"
+        },
+        {
+          "id": "r2",
+          "prompt": "172.110.12.64/28"
+        },
+        {
+          "id": "r3",
+          "prompt": "10.10.10.128/25"
+        },
+        {
+          "id": "r4",
+          "prompt": "10.0.0.159/27"
+        },
+        {
+          "id": "r5",
+          "prompt": "192.168.1.191/26"
+        }
+      ],
+      "choices": [
+        {
+          "id": "c0",
+          "text": "Hôte"
+        },
+        {
+          "id": "c1",
+          "text": "Réseau"
+        },
+        {
+          "id": "c2",
+          "text": "Diffusion"
+        }
+      ],
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip39",
+      "source": 39,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Quel nombre minimal de bits faut-il emprunter pour disposer d’au moins cinq sous-réseaux ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Deux"
+        },
+        {
+          "id": "1",
+          "text": "Cinq"
+        },
+        {
+          "id": "2",
+          "text": "Quatre"
+        },
+        {
+          "id": "3",
+          "text": "Trois"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "Deux bits produisent quatre sous-réseaux, ce qui ne suffit pas. Trois bits en produisent huit : c’est le minimum pour cinq réseaux.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip40",
+      "source": 40,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Découpe 192.168.1.64/26 pour loger séparément 18 hôtes et 10 hôtes. Quels sont les deux blocs adaptés parmi les choix ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "192.168.1.128/27"
+        },
+        {
+          "id": "1",
+          "text": "192.168.1.192/28"
+        },
+        {
+          "id": "2",
+          "text": "192.168.1.64/27"
+        },
+        {
+          "id": "3",
+          "text": "192.168.1.16/28"
+        },
+        {
+          "id": "4",
+          "text": "192.168.1.96/28"
+        }
+      ],
+      "answer": [
+        "2",
+        "4"
+      ],
+      "explain": "Le groupe de 18 hôtes nécessite /27 (30 hôtes), celui de 10 nécessite /28 (14 hôtes). .64/27 et .96/28 restent dans le /26 initial sans se chevaucher.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip41",
+      "source": 41,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Qui reçoit une transmission multicast ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "un groupe d’hôtes spécialement défini"
+        },
+        {
+          "id": "1",
+          "text": "un hôte spécifique"
+        },
+        {
+          "id": "2",
+          "text": "périphériques réseau directement connectés"
+        },
+        {
+          "id": "3",
+          "text": "le voisin le plus proche sur le même réseau"
+        }
+      ],
+      "answer": [
+        "0"
+      ],
+      "explain": "La multidiffusion vise les membres du groupe concerné. Elle se distingue de l’unicast vers un seul destinataire et du broadcast vers tous les hôtes du domaine.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip42",
+      "source": 42,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "À quoi servent les messages ICMP dans un réseau IP ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Informer les routeurs des modifications de la topologie du réseau"
+        },
+        {
+          "id": "1",
+          "text": "Contrôler le processus de résolution d’un nom de domaine en adresse IP"
+        },
+        {
+          "id": "2",
+          "text": "Garantir l’acheminement d’un paquet IP"
+        },
+        {
+          "id": "3",
+          "text": "Fournir des commentaires sur les transmissions de paquets IP"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "ICMP fournit des diagnostics et signale certains problèmes de traitement des paquets. Il ne garantit pas la livraison et ne remplace pas la résolution DNS.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip43",
+      "source": 43,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Pour la destination IPv6 fe80:65ab:dcc1::100, une erreur ICMPv6 Destination Unreachable indique le code 4. Que faut-il comprendre ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Protocole inaccessible"
+        },
+        {
+          "id": "1",
+          "text": "Port inaccessible"
+        },
+        {
+          "id": "2",
+          "text": "Réseau inaccessible"
+        },
+        {
+          "id": "3",
+          "text": "hôte inaccessible"
+        }
+      ],
+      "answer": [
+        "1"
+      ],
+      "explain": "En ICMPv6 type 1, le code 4 signifie port inaccessible. La numérotation diffère de celle des codes Destination Unreachable d’ICMPv4.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip44",
+      "source": 44,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Un paquet de diffusion est émis sur un réseau IPv4 local. Quel ensemble d’hôtes est ciblé ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "un hôte spécifique"
+        },
+        {
+          "id": "1",
+          "text": "périphériques réseau directement connectés"
+        },
+        {
+          "id": "2",
+          "text": "tous les hôtes sur Internet"
+        },
+        {
+          "id": "3",
+          "text": "tous les hôtes du même sous-réseau"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "Le broadcast cible tous les hôtes du même sous-réseau ou domaine de diffusion. Un routeur ne relaie pas automatiquement ce trafic sur les autres réseaux.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip45",
+      "source": 45,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Quelle écriture courte correspond à fe80:0000:0000:0000:0220:0b3f:f0e0:0029 ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "fe80::220:b3f:f0e0:29"
+        },
+        {
+          "id": "1",
+          "text": "fe80:9ea0::2020::bf:e0:9290"
+        },
+        {
+          "id": "2",
+          "text": "fe80:9ea:0:2200::fe0:290"
+        },
+        {
+          "id": "3",
+          "text": "fe80:9ea0::2020:0:bf:e0:9290"
+        }
+      ],
+      "answer": [
+        "0"
+      ],
+      "explain": "On compresse les trois hextets nuls contigus et on retire les zéros initiaux : fe80::220:b3f:f0e0:29.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip46",
+      "source": 46,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Une erreur ICMPv6 Destination Unreachable, après un ping vers 2001:DB8:face:39::10, porte le code 3. Qu’indique-t-elle ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Adresse inaccessible"
+        },
+        {
+          "id": "1",
+          "text": "Protocole inaccessible"
+        },
+        {
+          "id": "2",
+          "text": "Réseau inaccessible"
+        },
+        {
+          "id": "3",
+          "text": "hôte inaccessible"
+        }
+      ],
+      "answer": [
+        "0"
+      ],
+      "explain": "Pour ICMPv6 type 1, le code 3 indique que l’adresse de destination est inaccessible. Il ne faut pas le confondre avec le code 3 d’ICMPv4, qui désigne un port inaccessible.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip47",
+      "source": 47,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Associe chaque sous-réseau /27 à l’hôte valide proposé. Deux adresses resteront inutilisées.",
+      "options": [
+        {
+          "id": "r0=c0",
+          "text": "192.168.1.32/27 → 192.168.1.63"
+        },
+        {
+          "id": "r0=c1",
+          "text": "192.168.1.32/27 → 192.168.1.68"
+        },
+        {
+          "id": "r0=c2",
+          "text": "192.168.1.32/27 → 192.168.1.128"
+        },
+        {
+          "id": "r0=c3",
+          "text": "192.168.1.32/27 → 192.168.1.48"
+        },
+        {
+          "id": "r0=c4",
+          "text": "192.168.1.32/27 → 192.168.1.121"
+        },
+        {
+          "id": "r1=c0",
+          "text": "192.168.1.64/27 → 192.168.1.63"
+        },
+        {
+          "id": "r1=c1",
+          "text": "192.168.1.64/27 → 192.168.1.68"
+        },
+        {
+          "id": "r1=c2",
+          "text": "192.168.1.64/27 → 192.168.1.128"
+        },
+        {
+          "id": "r1=c3",
+          "text": "192.168.1.64/27 → 192.168.1.48"
+        },
+        {
+          "id": "r1=c4",
+          "text": "192.168.1.64/27 → 192.168.1.121"
+        },
+        {
+          "id": "r2=c0",
+          "text": "192.168.1.96/27 → 192.168.1.63"
+        },
+        {
+          "id": "r2=c1",
+          "text": "192.168.1.96/27 → 192.168.1.68"
+        },
+        {
+          "id": "r2=c2",
+          "text": "192.168.1.96/27 → 192.168.1.128"
+        },
+        {
+          "id": "r2=c3",
+          "text": "192.168.1.96/27 → 192.168.1.48"
+        },
+        {
+          "id": "r2=c4",
+          "text": "192.168.1.96/27 → 192.168.1.121"
+        }
+      ],
+      "answer": [
+        "r0=c3",
+        "r1=c1",
+        "r2=c4"
+      ],
+      "explain": "Le bloc .32/27 contient les hôtes .33 à .62 ; .64/27 contient .65 à .94 ; .96/27 contient .97 à .126. .63 est une diffusion et .128 commence le bloc suivant.",
+      "kind": "matching",
+      "matches": [
+        {
+          "id": "r0",
+          "prompt": "192.168.1.32/27"
+        },
+        {
+          "id": "r1",
+          "prompt": "192.168.1.64/27"
+        },
+        {
+          "id": "r2",
+          "prompt": "192.168.1.96/27"
+        }
+      ],
+      "choices": [
+        {
+          "id": "c0",
+          "text": "192.168.1.63"
+        },
+        {
+          "id": "c1",
+          "text": "192.168.1.68"
+        },
+        {
+          "id": "c2",
+          "text": "192.168.1.128"
+        },
+        {
+          "id": "c3",
+          "text": "192.168.1.48"
+        },
+        {
+          "id": "c4",
+          "text": "192.168.1.121"
+        }
+      ],
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip48",
+      "source": 48,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Pour un réseau IPv4 /26, combien d’adresses restent attribuables après retrait du réseau et du broadcast ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "62"
+        },
+        {
+          "id": "1",
+          "text": "64"
+        },
+        {
+          "id": "2",
+          "text": "254"
+        },
+        {
+          "id": "3",
+          "text": "16"
+        },
+        {
+          "id": "4",
+          "text": "32"
+        },
+        {
+          "id": "5",
+          "text": "256"
+        }
+      ],
+      "answer": [
+        "0"
+      ],
+      "explain": "Six bits hôte donnent 64 combinaisons. Les deux valeurs réservées au réseau et à la diffusion laissent 62 adresses d’hôte.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip49",
+      "source": 49,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Un ping vers 2001:DB8:face:39::10 déclenche une erreur ICMPv6 Destination Unreachable avec le code 2. Que signifie ce code ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "au-delà de la portée de l’adresse source"
+        },
+        {
+          "id": "1",
+          "text": "communication avec la destination administrativement interdite"
+        },
+        {
+          "id": "2",
+          "text": "Adresse inaccessible"
+        },
+        {
+          "id": "3",
+          "text": "Aucun route vers la destination"
+        }
+      ],
+      "answer": [
+        "0"
+      ],
+      "explain": "Le code 2 du type 1 ICMPv6 indique que la destination dépasse la portée de l’adresse source. Une adresse de portée trop limitée ne permet pas cet échange.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip50",
+      "source": 50,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Sur un routeur, quelle adresse source est choisie par défaut pour les sondes traceroute ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "une adresse IP de bouclage"
+        },
+        {
+          "id": "1",
+          "text": "l’adresse IP la plus élevée sur le routeur"
+        },
+        {
+          "id": "2",
+          "text": "l’adresse IP de l’interface sortante"
+        },
+        {
+          "id": "3",
+          "text": "l’adresse IP la moins élevée sur le routeur"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "Le routeur utilise normalement l’adresse de son interface de sortie. Les outils étendus permettent de choisir une autre adresse source pour le diagnostic.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip51",
+      "source": 51,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Quel message ICMPv6 un routeur émet-il quand le Hop Limit ne permet plus de transférer un paquet ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Réseau inaccessible"
+        },
+        {
+          "id": "1",
+          "text": "Port inaccessible"
+        },
+        {
+          "id": "2",
+          "text": "dépassement du délai"
+        },
+        {
+          "id": "3",
+          "text": "Protocole inaccessible"
+        }
+      ],
+      "answer": [
+        "2"
+      ],
+      "explain": "Le routeur élimine le paquet et peut renvoyer Time Exceeded (dépassement du délai), type 3 code 0 en ICMPv6. Le paquet ne poursuit pas son trajet.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip52",
+      "source": 52,
+      "module": 11,
+      "topic": "Adressage IPv4",
+      "title": "Attribue chaque bloc IPv4 au réseau dont il satisfait le besoin : A = 100 hôtes, B = 50, C = 25, D = 2.",
+      "options": [
+        {
+          "id": "r0=c0",
+          "text": "Réseau A · 100 hôtes → 192.168.0.96/27"
+        },
+        {
+          "id": "r0=c1",
+          "text": "Réseau A · 100 hôtes → 192.168.0.128/25"
+        },
+        {
+          "id": "r0=c2",
+          "text": "Réseau A · 100 hôtes → 192.168.0.80/30"
+        },
+        {
+          "id": "r0=c3",
+          "text": "Réseau A · 100 hôtes → 192.168.0.0/26"
+        },
+        {
+          "id": "r1=c0",
+          "text": "Réseau B · 50 hôtes → 192.168.0.96/27"
+        },
+        {
+          "id": "r1=c1",
+          "text": "Réseau B · 50 hôtes → 192.168.0.128/25"
+        },
+        {
+          "id": "r1=c2",
+          "text": "Réseau B · 50 hôtes → 192.168.0.80/30"
+        },
+        {
+          "id": "r1=c3",
+          "text": "Réseau B · 50 hôtes → 192.168.0.0/26"
+        },
+        {
+          "id": "r2=c0",
+          "text": "Réseau C · 25 hôtes → 192.168.0.96/27"
+        },
+        {
+          "id": "r2=c1",
+          "text": "Réseau C · 25 hôtes → 192.168.0.128/25"
+        },
+        {
+          "id": "r2=c2",
+          "text": "Réseau C · 25 hôtes → 192.168.0.80/30"
+        },
+        {
+          "id": "r2=c3",
+          "text": "Réseau C · 25 hôtes → 192.168.0.0/26"
+        },
+        {
+          "id": "r3=c0",
+          "text": "Réseau D · 2 hôtes → 192.168.0.96/27"
+        },
+        {
+          "id": "r3=c1",
+          "text": "Réseau D · 2 hôtes → 192.168.0.128/25"
+        },
+        {
+          "id": "r3=c2",
+          "text": "Réseau D · 2 hôtes → 192.168.0.80/30"
+        },
+        {
+          "id": "r3=c3",
+          "text": "Réseau D · 2 hôtes → 192.168.0.0/26"
+        }
+      ],
+      "answer": [
+        "r0=c1",
+        "r1=c3",
+        "r2=c0",
+        "r3=c2"
+      ],
+      "explain": "Un /25 fournit 126 hôtes, un /26 en fournit 62, un /27 en fournit 30 et un /30 en fournit 2. Ces capacités excluent les adresses réseau et diffusion.",
+      "kind": "matching",
+      "matches": [
+        {
+          "id": "r0",
+          "prompt": "Réseau A · 100 hôtes"
+        },
+        {
+          "id": "r1",
+          "prompt": "Réseau B · 50 hôtes"
+        },
+        {
+          "id": "r2",
+          "prompt": "Réseau C · 25 hôtes"
+        },
+        {
+          "id": "r3",
+          "prompt": "Réseau D · 2 hôtes"
+        }
+      ],
+      "choices": [
+        {
+          "id": "c0",
+          "text": "192.168.0.96/27"
+        },
+        {
+          "id": "c1",
+          "text": "192.168.0.128/25"
+        },
+        {
+          "id": "c2",
+          "text": "192.168.0.80/30"
+        },
+        {
+          "id": "c3",
+          "text": "192.168.0.0/26"
+        }
+      ],
+      "supportSVG": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 760 280\" role=\"img\" aria-label=\"Schéma redessiné à partir de la capture fournie\"><rect width=\"100%\" height=\"100%\" rx=\"12\" fill=\"#f7f8f1\"/><path d=\"M330 72 L430 72\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><path d=\"M180 105 L180 180\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><path d=\"M580 105 L580 180\" fill=\"none\" stroke=\"#6b8265\" stroke-width=\"2\"/><rect x=\"30\" y=\"40\" width=\"300\" height=\"65\" rx=\"9\" fill=\"#fff\" stroke=\"#9baa8b\"/><text x=\"180.0\" y=\"61\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">Réseau C</text><text x=\"180.0\" y=\"78\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">25 hôtes</text><rect x=\"430\" y=\"40\" width=\"300\" height=\"65\" rx=\"9\" fill=\"#dfedab\" stroke=\"#9baa8b\"/><text x=\"580.0\" y=\"61\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">Réseau D</text><text x=\"580.0\" y=\"78\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">2 hôtes</text><rect x=\"30\" y=\"180\" width=\"300\" height=\"65\" rx=\"9\" fill=\"#fff\" stroke=\"#9baa8b\"/><text x=\"180.0\" y=\"201\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">Réseau B</text><text x=\"180.0\" y=\"218\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">50 hôtes</text><rect x=\"430\" y=\"180\" width=\"300\" height=\"65\" rx=\"9\" fill=\"#fff\" stroke=\"#9baa8b\"/><text x=\"580.0\" y=\"201\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"12\" font-family=\"Arial\">Réseau A</text><text x=\"580.0\" y=\"218\" text-anchor=\"middle\" fill=\"#233832\" font-size=\"10\" font-family=\"Arial\">100 hôtes</text></svg>",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip53",
+      "source": 53,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Quelle forme courte représente 2001:0db8:0000:0000:0000:a0b0:0008:0001 ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "2001:db8:0:1::8:1"
+        },
+        {
+          "id": "1",
+          "text": "2001:db80:0:1::80:1"
+        },
+        {
+          "id": "2",
+          "text": "2001:db8::ab8:1:0:1000"
+        },
+        {
+          "id": "3",
+          "text": "2001:db8::a0b0:8:1"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "Les trois hextets nuls deviennent :: ; 0db8, 0008 et 0001 deviennent db8, 8 et 1. Le résultat est 2001:db8::a0b0:8:1.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip54",
+      "source": 54,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Après un ping vers 198.133.219.8, un message ICMPv4 Destination Unreachable contient le code 0. Quelle erreur indique-t-il ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Protocole inaccessible"
+        },
+        {
+          "id": "1",
+          "text": "hôte inaccessible"
+        },
+        {
+          "id": "2",
+          "text": "Port inaccessible"
+        },
+        {
+          "id": "3",
+          "text": "Réseau inaccessible"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "Le type 3 code 0 d’ICMPv4 signifie réseau inaccessible. Un simple code 0 ne suffirait pas : le type 0 code 0 est au contraire une réponse d’écho.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip55",
+      "source": 55,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Pendant un traceroute IPv6, quelle valeur du Hop Limit empêche un routeur de transférer la sonde ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "lorsque la valeur du champ Limite le nombre de tronçons atteint 255"
+        },
+        {
+          "id": "1",
+          "text": "Lorsque le routeur reçoit un message de dépassement de délai ICMP"
+        },
+        {
+          "id": "2",
+          "text": "Lorsque l’hôte répond par un message de réponse d’écho ICMP"
+        },
+        {
+          "id": "3",
+          "text": "lorsque la valeur du champ Limite le nombre de tronçons atteint zéro"
+        }
+      ],
+      "answer": [
+        "3"
+      ],
+      "explain": "À zéro, le Hop Limit ne permet plus un transfert. Le routeur élimine la sonde ; la réponse Time Exceeded permet à traceroute de révéler cette étape du chemin.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip56",
+      "source": 56,
+      "module": 12,
+      "topic": "Adressage IPv6",
+      "title": "Réduis correctement 2001:0db8:0000:0000:0ab8:0001:0000:1000.",
+      "options": [
+        {
+          "id": "0",
+          "text": "2001:db8::ab8:1:0:1000"
+        },
+        {
+          "id": "1",
+          "text": "2001:db8:0:1::8:1"
+        },
+        {
+          "id": "2",
+          "text": "2001:db8::a0b0:8:1"
+        },
+        {
+          "id": "3",
+          "text": "2001:db8:1::ab8:0:1"
+        }
+      ],
+      "answer": [
+        "0"
+      ],
+      "explain": "Les deux hextets nuls consécutifs deviennent ::. Le zéro isolé doit rester explicite : 2001:db8::ab8:1:0:1000.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip57",
+      "source": 57,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Pour un ping IPv6 vers 2001:db8:3040:114::88, que signifie une erreur Destination Unreachable de code 4 ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "Port inaccessible"
+        },
+        {
+          "id": "1",
+          "text": "hôte inaccessible"
+        },
+        {
+          "id": "2",
+          "text": "Protocole inaccessible"
+        },
+        {
+          "id": "3",
+          "text": "Réseau inaccessible"
+        }
+      ],
+      "answer": [
+        "0"
+      ],
+      "explain": "Le type 1 code 4 d’ICMPv6 indique un port inaccessible. Le contexte ICMPv6 est essentiel, car les codes ne correspondent pas à ceux d’ICMPv4.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    },
+    {
+      "id": "ip58",
+      "source": 58,
+      "module": 13,
+      "topic": "ICMP et diagnostic",
+      "title": "Quel composant vérifie un ping envoyé à 127.0.0.1 ?",
+      "options": [
+        {
+          "id": "0",
+          "text": "La pile TCP/IP sur un hôte réseau"
+        },
+        {
+          "id": "1",
+          "text": "La connectivité entre deux périphériques Cisco adjacents"
+        },
+        {
+          "id": "2",
+          "text": "La connectivité entre un PC et la passerelle par défaut"
+        },
+        {
+          "id": "3",
+          "text": "La connectivité physique d’un PC particulier et du réseau"
+        },
+        {
+          "id": "4",
+          "text": "La connectivité entre deux PC sur le même réseau"
+        }
+      ],
+      "answer": [
+        "0"
+      ],
+      "explain": "127.0.0.1 est l’adresse de bouclage. Ce test valide le fonctionnement local de la pile TCP/IP, sans démontrer que le câble, la passerelle ou un hôte distant sont joignables.",
+      "supportCaption": "Schéma redessiné à partir des données de la page de référence."
+    }
+  ],
+  "sourceURL": "https://ccnareponses.com/modules-11-13-examen-sur-ladressage-ip-reponses/",
+  "excluded": [
+    {
+      "source": 29,
+      "title": "Activité Packet Tracer",
+      "reason": "Retirée : nécessite le fichier d’activité Packet Tracer."
+    }
+  ]
+}};
+
+</script>
+<script>
 (function(root){
  'use strict';
  const shuffle=(items,random=Math.random)=>{const out=[...items];for(let i=out.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[out[i],out[j]]=[out[j],out[i]];}return out;};
  const isCorrect=(question,selected=[])=>(question.acceptedAnswers||[question.answer]).some(answer=>selected.length===answer.length&&answer.every(id=>selected.includes(id)));
  const createSession=(pool,config)=>{const questions=shuffle(pool).slice(0,Math.min(Number(config.count)||pool.length,pool.length));return {version:1,id:Date.now()+'-'+Math.random().toString(36).slice(2,8),mode:config.mode,ids:questions.map(q=>q.id),order:Object.fromEntries(questions.map(q=>[q.id,shuffle(q.options.map(o=>o.id))])),selected:{},locked:{},flags:{},index:0,started:Date.now(),modules:[...new Set(questions.map(q=>q.module))]};};
- const score=(session,bank)=>{const questions=session.ids.map(id=>bank.find(q=>q.id===id));return {correct:questions.filter(q=>isCorrect(q,session.selected[q.id]||[])).length,total:questions.length,unanswered:questions.filter(q=>!(session.selected[q.id]||[]).length).length,modules:[8,9,10].map(m=>{const qs=questions.filter(q=>q.module===m);return {module:m,total:qs.length,correct:qs.filter(q=>isCorrect(q,session.selected[q.id]||[])).length};})};};
+ const score=(session,bank)=>{const questions=session.ids.map(id=>bank.find(q=>q.id===id));return {correct:questions.filter(q=>isCorrect(q,session.selected[q.id]||[])).length,total:questions.length,unanswered:questions.filter(q=>!(session.selected[q.id]||[]).length).length,modules:[...new Set(questions.map(q=>q.module))].sort((a,b)=>a-b).map(m=>{const qs=questions.filter(q=>q.module===m);return {module:m,total:qs.length,correct:qs.filter(q=>isCorrect(q,session.selected[q.id]||[])).length};})};};
  const validSession=(s,bank)=>!!s&&s.version===1&&['training','exam'].includes(s.mode)&&Array.isArray(s.ids)&&s.ids.length>0&&new Set(s.ids).size===s.ids.length&&s.ids.every(id=>bank.some(q=>q.id===id))&&Number.isInteger(s.index)&&s.index>=0&&s.index<s.ids.length&&s.selected&&s.locked&&s.flags&&s.order&&s.ids.every(id=>{const q=bank.find(q=>q.id===id),order=s.order[id],selected=s.selected[id]||[];return Array.isArray(order)&&order.length===q.options.length&&new Set(order).size===order.length&&order.every(oid=>q.options.some(o=>o.id===oid))&&Array.isArray(selected)&&new Set(selected).size===selected.length&&selected.every(oid=>order.includes(oid));});
  const api={shuffle,isCorrect,createSession,score,validSession};root.QUIZ_ENGINE=api;if(typeof module!=='undefined')module.exports=api;
 })(globalThis);
@@ -5958,22 +8413,37 @@ window.ALL_SOURCE_QUESTIONS = [
 </script>
 <script>
 (()=>{'use strict';
-const BANK=window.QUESTIONS,E=window.QUIZ_ENGINE,$=s=>document.querySelector(s),main=$('#main');
-const names={8:'Couche réseau',9:'Résolution d’adresse',10:'Configuration du routeur'};
+const E=window.QUIZ_ENGINE,$=s=>document.querySelector(s),main=$('#main');
+const BANKS={'8-10':{id:'8-10',label:'Modules 8–10',title:'Communication entre réseaux',description:'Couche réseau, ARP et configuration du routeur',modules:[8,9,10],questions:window.QUESTIONS,excluded:window.EXCLUDED_QUESTIONS||[],sourceURL:'https://ccnareponses.com/modules-8-10-examen-sur-la-communication-entre-les-reseaux-reponses/'},...(window.QUIZ_BANKS||{})};
+let active='8-10';try{const remembered=localStorage.getItem('ccnalab-active-bank');if(BANKS[remembered])active=remembered;}catch{}
+let BANK=BANKS[active].questions;
+const group=()=>BANKS[active],moduleIds=()=>group().modules;
+const storagePrefix=()=>active==='8-10'?'ccnalab-source-v4-complete-':'ccnalab-11-13-v1-';
+const names={8:'Couche réseau',9:'Résolution d’adresse',10:'Configuration du routeur',11:'Adressage IPv4',12:'Adressage IPv6',13:'ICMP et diagnostic'};
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-let storage=true;function load(key,fallback){try{return JSON.parse(localStorage.getItem('ccnalab-source-v4-complete-'+key))??fallback;}catch{storage=false;return fallback;}}function save(key,value){try{localStorage.setItem('ccnalab-source-v4-complete-'+key,JSON.stringify(value));}catch{storage=false;}}
+let storage=true;function load(key,fallback){try{return JSON.parse(localStorage.getItem(storagePrefix()+key))??fallback;}catch{storage=false;return fallback;}}function save(key,value){try{localStorage.setItem(storagePrefix()+key,JSON.stringify(value));}catch{storage=false;}}
 let history=load('history',[]);if(!Array.isArray(history))history=[];history=history.filter(h=>h&&typeof h.correct==='number'&&h.total>0&&Number.isFinite(h.finished));
 let wrong=load('wrong',[]);if(!Array.isArray(wrong))wrong=[];wrong=wrong.filter(id=>BANK.some(q=>q.id===id));
 let session=load('session',null);if(!E.validSession(session,BANK))session=null;
-let config={modules:[8,9,10],mode:'training',count:20},view='home',result=null,reviewFilter='all',finishWarning=false,setupNotice='';
+let config={modules:[...moduleIds()],mode:'training',count:20},view='home',result=null,reviewFilter='all',finishWarning=false,setupNotice='';
+function switchBank(id){
+ if(!BANKS[id]||id===active)return;
+ active=id;BANK=group().questions;try{localStorage.setItem('ccnalab-active-bank',id);}catch{storage=false;}
+ history=load('history',[]);if(!Array.isArray(history))history=[];history=history.filter(h=>h&&typeof h.correct==='number'&&h.total>0&&Number.isFinite(h.finished));
+ wrong=load('wrong',[]);if(!Array.isArray(wrong))wrong=[];wrong=wrong.filter(id=>BANK.some(q=>q.id===id));
+ session=load('session',null);if(!E.validSession(session,BANK))session=null;
+ config={modules:[...moduleIds()],mode:'training',count:20};result=null;finishWarning=false;setupNotice='';reviewFilter='all';home();focusMain();
+ announce(group().label+' sélectionnés. '+BANK.length+' questions disponibles.');
+}
+function bankPicker(){return `<section class="bank-picker" aria-label="Choisir une banque de modules"><div class="section-head"><div><h2>Quels modules veux-tu réviser ?</h2><p>Chaque série possède ses questions, sa progression et ses erreurs.</p></div></div><div class="bank-choices">${Object.values(BANKS).map(b=>`<button type="button" data-bank="${b.id}" class="bank-choice ${b.id===active?'bank-selected':''}" aria-pressed="${b.id===active}"><span class="bank-label">${b.label}</span><strong>${esc(b.title)}</strong><span>${esc(b.description)}</span><small>${b.questions.length} questions${b.id===active?' · Sélectionné':''}</small></button>`).join('')}</div></section>`;}
 const acceptedIds=q=>[...new Set((q.acceptedAnswers||[q.answer]).flat())];
 const question=id=>BANK.find(q=>q.id===id), persist=()=>save('session',session);
 function announce(text){$('#announce').textContent=text;}function focusMain(){main.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
-function updateNav(){const ec=$('#error-count');ec.textContent=wrong.length;$('#home-nav').classList.toggle('active',view==='home');$('#errors-nav').classList.toggle('active',view==='errors');}
+function updateNav(){const label=$('#active-bank-label');if(label)label.textContent=group().label;document.querySelectorAll('[data-bank]').forEach(b=>{b.classList.toggle('bank-selected',b.dataset.bank===active);b.setAttribute('aria-pressed',String(b.dataset.bank===active));});const nav=$('#module-nav');if(nav)nav.innerHTML=moduleIds().map(m=>`<button data-module="${m}" class="module-link"><span class="module-number">${String(m).padStart(2,'0')}</span><span>${names[m]}</span></button>`).join('');const ec=$('#error-count');ec.textContent=wrong.length;$('#home-nav').classList.toggle('active',view==='home');$('#errors-nav').classList.toggle('active',view==='errors');}
 function heroGraphic(){return `<svg viewBox="0 0 450 265" role="img" aria-label="Un paquet traverse un routeur entre deux réseaux locaux"><defs><pattern id="grid" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#a0b18b" opacity=".2"/></pattern></defs><rect width="450" height="265" fill="url(#grid)"/><path d="M94 124H354" stroke="#9baa83" stroke-width="1.5" stroke-dasharray="5 5"/><rect x="33" y="84" width="93" height="72" rx="12" fill="#385144" stroke="#7c9370"/><rect x="58" y="101" width="43" height="28" rx="3" fill="none" stroke="#dfedab" stroke-width="1.5"/><path d="M79 130v8m-13 0h26" stroke="#dfedab" stroke-width="1.5"/><text x="79" y="183" fill="#e8efd8" font-size="11" text-anchor="middle">LAN A</text><text x="79" y="201" fill="#9fae95" font-size="9" text-anchor="middle">192.168.10.0/24</text><rect x="181" y="69" width="93" height="110" rx="16" fill="#dfedab"/><ellipse cx="227" cy="108" rx="26" ry="15" fill="none" stroke="#324a36" stroke-width="1.5"/><path d="M208 108h35m-6-5 6 5-6 5" fill="none" stroke="#324a36" stroke-width="1.5"/><text x="227" y="153" fill="#324a36" font-size="10" text-anchor="middle" font-weight="600">ROUTEUR</text><rect x="327" y="84" width="93" height="72" rx="12" fill="#385144" stroke="#7c9370"/><rect x="352" y="101" width="43" height="28" rx="3" fill="none" stroke="#dfedab" stroke-width="1.5"/><path d="M373 130v8m-13 0h26" stroke="#dfedab" stroke-width="1.5"/><text x="373" y="183" fill="#e8efd8" font-size="11" text-anchor="middle">LAN B</text><text x="373" y="201" fill="#9fae95" font-size="9" text-anchor="middle">192.168.20.0/24</text><rect x="139" y="116" width="26" height="17" rx="3" fill="#d37a50"/><path d="m143 120 9 6 9-6" stroke="#ffe3cb" fill="none"/><text x="227" y="38" fill="#a8bb96" font-size="9" text-anchor="middle" letter-spacing="2">UN PAQUET. PLUSIEURS RÉSEAUX.</text><text x="227" y="240" fill="#a8bb96" font-size="9" text-anchor="middle">IP pour le trajet · MAC pour le prochain saut</text></svg>`;}
 function miniDiagram(type){if(!type)return '';if(type==='layers')return `<div class="mini-diagram"><svg viewBox="0 0 560 125" role="img" aria-label="Trame Ethernet contenant un paquet IP contenant un datagramme UDP et les données"><rect x="10" y="10" width="540" height="105" rx="9" fill="#243c33"/><text x="25" y="32" fill="#dfedab" font-size="12">Trame Ethernet</text><rect x="110" y="42" width="420" height="58" rx="7" fill="#dfecc8"/><text x="123" y="62" fill="#233832" font-size="11">Paquet IP</text><rect x="240" y="63" width="274" height="26" rx="5" fill="#fff7e5"/><text x="257" y="81" fill="#233832" font-size="11">Datagramme UDP + données</text></svg></div>`;return `<div class="mini-diagram"><svg viewBox="0 0 560 130" role="img" aria-label="PC A et sa passerelle R1 sur le LAN 10, puis PC B sur le LAN 20"><path d="M145 52H412" stroke="#81936d" stroke-width="2"/><path d="m233 47 8 5-8 5m169-10 8 5-8 5" stroke="#81936d" fill="none"/><rect x="10" y="15" width="139" height="74" rx="8" fill="#fff" stroke="#d2dcc4"/><text x="79" y="42" text-anchor="middle" font-size="12" fill="#233832">PC A</text><text x="79" y="62" text-anchor="middle" font-size="10" fill="#69766f">192.168.10.10/24</text><rect x="211" y="15" width="139" height="74" rx="8" fill="#dfecc8"/><text x="280" y="42" text-anchor="middle" font-size="12" fill="#233832">R1 · passerelle</text><text x="280" y="62" text-anchor="middle" font-size="10" fill="#69766f">.10.1 / .20.1</text><rect x="411" y="15" width="139" height="74" rx="8" fill="#fff" stroke="#d2dcc4"/><text x="480" y="42" text-anchor="middle" font-size="12" fill="#233832">PC B</text><text x="480" y="62" text-anchor="middle" font-size="10" fill="#69766f">192.168.20.20/24</text><text x="280" y="114" text-anchor="middle" font-size="10" fill="#69766f">Deux LAN distincts · Exemple sans NAT</text></svg></div>`;}
 
-function renderSupport(q){return q.supportSVG?`<figure class="question-exhibit">${q.supportSVG}<figcaption>Schéma redessiné d’après la capture fournie, avec les mêmes données.</figcaption></figure>`:'';}
+function renderSupport(q){return q.supportSVG?`<figure class="question-exhibit">${q.supportSVG}<figcaption>${esc(q.supportCaption||"Schéma redessiné d’après la capture fournie, avec les mêmes données.")}</figcaption></figure>`:'';}
 function renderAnswers(q,sel,locked){
  if(q.kind==='matching'){
   const rows=[...new Set(session.order[q.id].map(id=>id.split('=')[0]))];
@@ -5986,19 +8456,20 @@ function renderAnswers(q,sel,locked){
 }
 
 function showCoverage(){
- const excluded=window.EXCLUDED_QUESTIONS||[],all=[...BANK.map(q=>({...q,ready:true})),...excluded.map(q=>({...q,ready:false}))].sort((a,b)=>a.source-b.source);
- $('#coverage-content').innerHTML=`<p><b>${BANK.length} exercices jouables sur ${all.length} numéros d’origine.</b> La question 5 est retirée à ta demande ; tous les autres exercices sont disponibles avec leurs supports.</p><p>Les énoncés et les propositions du texte fourni sont conservés mot pour mot, y compris les répétitions. Les associations 1 à 4, 6 et 48 reprennent les libellés des images reçues. Les précisions techniques sont uniquement dans le corrigé.</p><div class="coverage-list">${all.map(q=>`<details><summary><span class="source-number">N° ${q.source}</span><span>${esc(q.title)}</span><b class="coverage-state ${q.ready?'':'pending'}">${q.ready?'Prêt':'Retirée'}</b></summary><p>${q.ready?(q.note?esc(q.note):'Énoncé et propositions reproduits à l’identique du texte fourni.') : esc(q.reason)}</p>${!q.ready&&q.options?.length?`<ul class="pending-options">${q.options.map(o=>`<li>${esc(o.text)}</li>`).join('')}</ul>`:''}${q.ready?renderSupport(q):''}</details>`).join('')}</div>`;
+ const excluded=group().excluded||[],all=[...BANK.map(q=>({...q,ready:true})),...excluded.map(q=>({...q,ready:false}))].sort((a,b)=>a.source-b.source);
+ $('#coverage-content').innerHTML=`<p><b>${group().label} : ${BANK.length} exercices jouables sur ${all.length} numéros de référence.</b> ${active==='8-10'?'Les énoncés du document fourni sont conservés.':'Les exercices suivent les données et les réponses de la page fournie ; les énoncés et explications sont reformulés. Les associations sont interactives et les supports redessinés.'} Les activités Packet Tracer sont retirées.</p><p><a href="${group().sourceURL}" target="_blank" rel="noopener">Consulter la page de référence</a></p><div class="coverage-list">${all.map(q=>`<details><summary><span class="source-number">N° ${q.source}</span><span>${esc(q.title)}</span><b class="coverage-state ${q.ready?'':'pending'}">${q.ready?'Prêt':'Retirée'}</b></summary><p>${q.ready?(q.note?esc(q.note):'Question disponible avec correction expliquée.') : esc(q.reason)}</p>${q.ready?renderSupport(q):''}</details>`).join('')}</div>`;
  $('#coverage-dialog').showModal();
 }
 
 function readConfig(){if(!$('#setup-form'))return;config.modules=[...document.querySelectorAll('input[name="modules"]:checked')].map(n=>Number(n.value));config.mode=$('input[name="mode"]:checked')?.value||'training';config.count=Number($('#count-select').value);}
 function available(){return BANK.filter(q=>config.modules.includes(q.module));}
-function home(){view='home';updateNav();const best=history.length?Math.max(...history.map(h=>Math.round(h.correct/h.total*100))):null;main.innerHTML=`<div class="welcome"><div><div class="eyebrow">COMPRENDRE. S’ENTRAÎNER. PROGRESSER.</div><h1>À toi de jouer.</h1><p>Un nouveau parcours pour maîtriser la communication entre réseaux.</p></div><span class="date-tag">CCNA 1 · ITNv7<br>Ta prochaine étape commence ici.</span></div>
+function home(){view='home';updateNav();const best=history.length?Math.max(...history.map(h=>Math.round(h.correct/h.total*100))):null;main.innerHTML=`<div class="welcome"><div><div class="eyebrow">COMPRENDRE. S’ENTRAÎNER. PROGRESSER.</div><h1>À toi de jouer.</h1><p>${esc(group().title)} · ${BANK.length} questions pour progresser.</p></div><span class="date-tag">CCNA 1 · ITNv7<br>Ta prochaine étape commence ici.</span></div>
+${bankPicker()}
 ${session?`<div class="resume"><div><strong>Ta session t’attend.</strong><small>${Object.keys(session.selected).filter(id=>session.selected[id].length).length} / ${session.ids.length} questions renseignées · ${session.mode==='exam'?'Mode examen':'Mode entraînement'}</small></div><div class="button-row"><button class="btn primary" data-action="resume">Reprendre →</button><button class="text-button" data-action="discard">Abandonner</button></div></div>`:''}
-<section class="hero" aria-label="Présentation de l’entraînement"><div class="hero-content"><div class="hero-kicker">COMMUNICATION ENTRE LES RÉSEAUX</div><h2>Le réseau devient clair.<br><em>Une question à la fois.</em></h2><p>Relie les notions, teste tes réflexes et comprends le pourquoi de chaque réponse.</p><div class="hero-meta"><span>↗ 62 exercices · texte d’origine</span><span>⇄ Ordre aléatoire</span></div></div><div class="hero-visual">${heroGraphic()}</div></section>
+<section class="hero" aria-label="Présentation de l’entraînement"><div class="hero-content"><div class="hero-kicker">${esc(group().title.toUpperCase())}</div><h2>Le réseau devient clair.<br><em>Une question à la fois.</em></h2><p>Relie les notions, teste tes réflexes et comprends le pourquoi de chaque réponse.</p><div class="hero-meta"><span>${BANK.length} exercices · ${group().label}</span><span>⇄ Ordre aléatoire</span></div></div><div class="hero-visual">${heroGraphic()}</div></section>
 <div class="stats"><div class="stat"><span class="stat-icon">✓</span><div><strong>${history.length}</strong><small>session${history.length>1?'s':''} terminée${history.length>1?'s':''}</small></div></div><div class="stat"><span class="stat-icon">↗</span><div><strong>${best===null?'—':best+' %'}</strong><small>meilleur score enregistré</small></div></div><div class="stat"><span class="stat-icon">↻</span><div><strong>${wrong.length}</strong><small>notion${wrong.length>1?'s':''} à retravailler</small></div></div></div>
-<div class="coverage-banner"><div><strong>Les mêmes questions. Les mêmes propositions.</strong><p>62 exercices prêts, avec tous les supports nécessaires. La question 5 (Packet Tracer) est retirée. Choisis une série de 56 ou parcours les 62 questions sans répétition.</p></div><button class="btn" data-action="coverage">Voir le suivi des 63 questions ↗</button></div>
-<div class="section-head"><div><h2>Compose ta session</h2><p>Choisis ton terrain de jeu. On s’occupe de mélanger les cartes.</p></div><span class="step-label">01 — 03 · PRÊT EN QUELQUES CLICS</span></div><div class="setup-grid"><form id="setup-form" class="panel"><label class="field-label">01 &nbsp; Quels modules veux-tu réviser ?</label><div class="module-choices">${[8,9,10].map(m=>`<label class="module-choice"><input type="checkbox" name="modules" value="${m}" ${config.modules.includes(m)?'checked':''}><span class="module-tile"><strong>${String(m).padStart(2,'0')}</strong>${names[m]}</span></label>`).join('')}</div><label class="field-label">02 &nbsp; À ton rythme ou en conditions d’examen ?</label><div class="mode-choices"><label class="mode-option"><input type="radio" name="mode" value="training" ${config.mode==='training'?'checked':''}><span class="mode-tile"><strong>✦ &nbsp; Entraînement</strong><small>Comprends chaque réponse grâce à la correction immédiate.</small></span></label><label class="mode-option"><input type="radio" name="mode" value="exam" ${config.mode==='exam'?'checked':''}><span class="mode-tile"><strong>◷ &nbsp; Examen</strong><small>Réponds librement, puis découvre ton bilan à la fin.</small></span></label></div><div class="setup-bottom"><div class="length-field"><label for="count-select" class="field-label">03 &nbsp; Combien de questions ?</label><select id="count-select"><option value="10">10 questions · session express</option><option value="20">20 questions · session classique</option><option value="56">56 questions · série longue</option><option value="0">Toutes les questions sélectionnées (62)</option></select></div><button class="btn primary" type="submit" ${session?'disabled':''}>Lancer la session <span aria-hidden="true">→</span></button></div><p id="setup-note" class="muted" style="font-size:10px;margin:13px 0 0"></p><div class="full-series"><p>Un parcours sur les trois modules, dans le mode choisi ci-dessus.</p><div class="button-row"><button type="button" class="btn" data-action="series56" ${session?'disabled':''}>Série de 56 questions →</button><button type="button" class="btn primary" data-action="full-session" ${session?'disabled':''}>Tout revoir · 62 questions →</button></div></div>${session?'<p class="storage-note">Reprends ou abandonne ta session en cours avant d’en lancer une autre.</p>':''}${setupNotice?`<p class="storage-note" role="status">${esc(setupNotice)}</p>`:''}</form><aside class="tip-panel"><div class="overline">LE BON RÉFLEXE</div><h3>Apprends le chemin,<br>pas la réponse.</h3><p>Les questions et les propositions changent d’ordre à chaque session. Appuie-toi sur les notions, pas sur la lettre de la réponse.</p><div class="tip-list"><div><span>1</span> Lis le scénario jusqu’au bout.</div><div><span>2</span> Repère la couche concernée.</div><div><span>3</span> Explique ton choix avant de valider.</div></div></aside></div>
+<div class="coverage-banner"><div><strong>${group().label} · ${BANK.length} exercices disponibles</strong><p>${active==='8-10'?'La banque du texte fourni est conservée, avec ses schémas et ses associations.':'Une série dédiée à l’adressage IPv4, IPv6 et aux diagnostics ICMP, avec six exercices d’association.'} Choisis une série de 56 ou parcours toute la banque. ${active==='8-10'?'Question 5':'Question 29'} (Packet Tracer) retirée.</p></div><button class="btn" data-action="coverage">Voir les questions et les supports</button></div>
+<div class="section-head"><div><h2>Compose ta session</h2><p>Choisis ton terrain de jeu. On s’occupe de mélanger les cartes.</p></div><span class="step-label">01 — 03 · PRÊT EN QUELQUES CLICS</span></div><div class="setup-grid"><form id="setup-form" class="panel"><label class="field-label">01 &nbsp; Quels chapitres de cette série ?</label><div class="module-choices">${moduleIds().map(m=>`<label class="module-choice"><input type="checkbox" name="modules" value="${m}" ${config.modules.includes(m)?'checked':''}><span class="module-tile"><strong>${String(m).padStart(2,'0')}</strong>${names[m]}</span></label>`).join('')}</div><label class="field-label">02 &nbsp; À ton rythme ou en conditions d’examen ?</label><div class="mode-choices"><label class="mode-option"><input type="radio" name="mode" value="training" ${config.mode==='training'?'checked':''}><span class="mode-tile"><strong>✦ &nbsp; Entraînement</strong><small>Comprends chaque réponse grâce à la correction immédiate.</small></span></label><label class="mode-option"><input type="radio" name="mode" value="exam" ${config.mode==='exam'?'checked':''}><span class="mode-tile"><strong>◷ &nbsp; Examen</strong><small>Réponds librement, puis découvre ton bilan à la fin.</small></span></label></div><div class="setup-bottom"><div class="length-field"><label for="count-select" class="field-label">03 &nbsp; Combien de questions ?</label><select id="count-select"><option value="10">10 questions · session express</option><option value="20">20 questions · session classique</option><option value="56">56 questions · série longue</option><option value="0">Toutes les questions sélectionnées (${BANK.length})</option></select></div><button class="btn primary" type="submit" ${session?'disabled':''}>Lancer la session <span aria-hidden="true">→</span></button></div><p id="setup-note" class="muted" style="font-size:10px;margin:13px 0 0"></p><div class="full-series"><p>Une série complète sur ${group().label.toLowerCase()}, dans le mode choisi ci-dessus. Tes choix de chapitres s’appliquent au bouton « Lancer la session ».</p><div class="button-row"><button type="button" class="btn" data-action="series56" ${session?'disabled':''}>Série de 56 questions →</button><button type="button" class="btn primary" data-action="full-session" ${session?'disabled':''}>Tout revoir · ${BANK.length} questions</button></div></div>${session?'<p class="storage-note">Reprends ou abandonne ta session en cours avant d’en lancer une autre.</p>':''}${setupNotice?`<p class="storage-note" role="status">${esc(setupNotice)}</p>`:''}</form><aside class="tip-panel"><div class="overline">LE BON RÉFLEXE</div><h3>Apprends le chemin,<br>pas la réponse.</h3><p>Les questions et les propositions changent d’ordre à chaque session. Appuie-toi sur les notions, pas sur la lettre de la réponse.</p><div class="tip-list"><div><span>1</span> Lis le scénario jusqu’au bout.</div><div><span>2</span> Repère la couche concernée.</div><div><span>3</span> Explique ton choix avant de valider.</div></div></aside></div>
 ${history.length?`<section class="history"><div class="section-head"><div><h2>Tes dernières sessions</h2><p>Chaque session complète laisse une trace de ta progression.</p></div></div>${history.slice(0,4).map(h=>`<div class="history-row"><span>${new Date(h.finished).toLocaleDateString('fr-FR',{day:'numeric',month:'short'})}</span><span>${h.mode==='exam'?'Examen':'Entraînement'} · ${h.total} questions</span><span class="badge">${h.correct} / ${h.total} · ${Math.round(h.correct/h.total*100)} %</span></div>`).join('')}</section>`:''}${!storage?'<p class="storage-note">Le stockage du navigateur est indisponible. La progression est conservée seulement pendant cette visite.</p>':''}`;
 $('#count-select').value=String(config.count);updateSetup();}
 function updateSetup(){readConfig();const n=available().length,select=$('#count-select');const longOption=select.querySelector('option[value="56"]'),allOption=select.querySelector('option[value="0"]');if(longOption)longOption.disabled=n<56;if(allOption)allOption.textContent=`Toutes les questions sélectionnées (${n})`;if(config.count===56&&n<56){config.count=0;select.value='0';}const size=config.count===0?n:Math.min(config.count,n);$('#setup-note').textContent=`${size} questions dans cette session sur ${n} disponibles · Sans répétition · Ordre mélangé · Sans limite de temps`;$('#setup-form button[type="submit"]').disabled=!n||!!session;}
@@ -6008,15 +8479,15 @@ function finishPanel(){const unanswered=session.ids.filter(id=>!(session.selecte
 function finish(){const report=E.score(session,BANK);result={...session,finished:Date.now(),report};const set=new Set(wrong);for(const id of session.ids){if(E.isCorrect(question(id),session.selected[id]||[]))set.delete(id);else set.add(id);}wrong=[...set];save('wrong',wrong);history.unshift({id:session.id,mode:session.mode,finished:result.finished,correct:report.correct,total:report.total});history=history.slice(0,100);save('history',history);session=null;persist();reviewFilter='all';renderResult();focusMain();}
 function reviewCard(q,s,i){const ok=E.isCorrect(q,s),answers=q.options.filter(o=>acceptedIds(q).includes(o.id));return `<article class="review-card"><div class="review-label ${ok?'':'bad'}">${ok?'✓ Bonne réponse':'↗ À retravailler'} · MODULE ${q.module} · Source n° ${q.source} · ${esc(q.topic)}</div><h3>${i+1}. ${esc(q.title)}</h3>${q.context?`<pre class="context">${esc(q.context)}</pre>`:''}${renderSupport(q)}<div class="answer-line"><span class="muted">Ta réponse :</span> ${s.length?q.options.filter(o=>s.includes(o.id)).map(o=>esc(o.text)).join(' · '):'Aucune réponse'}</div><div class="answer-line"><b>${q.acceptedAnswers?'Réponses acceptées (une seule suffit)':'Correction'} :</b> ${answers.map(o=>esc(o.text)).join(' · ')}</div><p class="explanation">${esc(q.explain)}</p></article>`;}
 function renderResult(){if(!result)return home();view='result';updateNav();const r=result.report,percent=Math.round(r.correct/r.total*100),failed=result.ids.filter(id=>!E.isCorrect(question(id),result.selected[id]||[]));main.innerHTML=`<div class="quiz-head"><button class="text-button" data-action="home">← Tableau de bord</button><span>SESSION TERMINÉE</span></div><section class="result-hero"><div class="score-ring" style="--score:${percent}"><span>${percent} %</span></div><div><div class="eyebrow">UN PAS DE PLUS</div><h1>${percent>=80?'Tes révisions portent leurs fruits.':percent>=50?'Les bases se construisent.':'Chaque erreur t’indique la suite.'}</h1><p>${r.correct} bonne${r.correct>1?'s':''} réponse${r.correct>1?'s':''} sur ${r.total} · ${r.unanswered} sans réponse<br>Ce score d’entraînement ne prédit pas le résultat de l’examen officiel.</p></div></section><div class="result-stats">${r.modules.map(m=>`<div class="result-module"><h3>MODULE ${m.module} · ${names[m.module]}</h3><strong>${m.total?m.correct+' / '+m.total:'—'}</strong><div class="progress-track"><div class="progress-bar" style="width:${m.total?m.correct/m.total*100:0}%"></div></div></div>`).join('')}</div><div class="button-row"><button class="btn primary" data-action="retry-errors" ${failed.length?'':'disabled'}>Retravailler ces ${failed.length} erreurs ↻</button><button class="btn" data-action="new">Nouvelle session mélangée →</button><button class="btn" data-action="home">Changer les réglages</button></div><div class="review-top"><h2>La correction, en détail</h2><div class="switch-filter" aria-label="Filtrer le corrigé"><button data-filter="all" class="${reviewFilter==='all'?'on':''}" aria-pressed="${reviewFilter==='all'}">Toutes (${r.total})</button><button data-filter="errors" class="${reviewFilter==='errors'?'on':''}" aria-pressed="${reviewFilter==='errors'}">Mes erreurs (${failed.length})</button></div></div>${result.ids.map((id,i)=>{const q=question(id),s=result.selected[id]||[];return reviewFilter==='errors'&&E.isCorrect(q,s)?'':reviewCard(q,s,i);}).join('')}${reviewFilter==='errors'&&!failed.length?'<div class="empty">Aucune erreur dans cette session. Bien joué !</div>':''}`;}
-function errorsPage(){view='errors';updateNav();main.innerHTML=`<div class="welcome"><div><div class="eyebrow">FAIRE DES ERREURS, C’EST APPRENDRE</div><h1>On reprend ensemble.</h1><p>${wrong.length} question${wrong.length>1?'s':''} à retravailler, enregistrée${wrong.length>1?'s':''} dans ce navigateur.</p></div></div>${wrong.length?`<div class="panel"><h2>Un parcours ciblé sur tes erreurs</h2><p class="muted" style="margin-top:12px">Les questions sont remélangées et corrigées immédiatement. Une bonne réponse dans une session terminée retire la question de cette liste.</p><button class="btn primary" data-action="all-errors" ${session?'disabled':''}>Revoir mes ${wrong.length} erreurs →</button>${session?'<p class="storage-note">Une session est déjà en cours. Reprends-la ou abandonne-la depuis le tableau de bord.</p>':''}</div><div class="history">${[8,9,10].map(m=>`<div class="history-row"><span>Module ${m} · ${names[m]}</span><span class="badge">${wrong.filter(id=>question(id).module===m).length} à revoir</span></div>`).join('')}</div>`:`<div class="empty"><h2>Un terrain tout neuf.</h2><p>Termine une session : les questions à retravailler apparaîtront ici.</p><button class="btn primary" data-action="home">Composer une session →</button></div>`}`;focusMain();}
+function errorsPage(){view='errors';updateNav();main.innerHTML=`<div class="welcome"><div><div class="eyebrow">FAIRE DES ERREURS, C’EST APPRENDRE</div><h1>On reprend ensemble.</h1><p>${wrong.length} question${wrong.length>1?'s':''} à retravailler, enregistrée${wrong.length>1?'s':''} dans ce navigateur.</p></div></div>${wrong.length?`<div class="panel"><h2>Un parcours ciblé sur tes erreurs</h2><p class="muted" style="margin-top:12px">Les questions sont remélangées et corrigées immédiatement. Une bonne réponse dans une session terminée retire la question de cette liste.</p><button class="btn primary" data-action="all-errors" ${session?'disabled':''}>Revoir mes ${wrong.length} erreurs →</button>${session?'<p class="storage-note">Une session est déjà en cours. Reprends-la ou abandonne-la depuis le tableau de bord.</p>':''}</div><div class="history">${moduleIds().map(m=>`<div class="history-row"><span>Module ${m} · ${names[m]}</span><span class="badge">${wrong.filter(id=>question(id).module===m).length} à revoir</span></div>`).join('')}</div>`:`<div class="empty"><h2>Un terrain tout neuf.</h2><p>Termine une session : les questions à retravailler apparaîtront ici.</p><button class="btn primary" data-action="home">Composer une session →</button></div>`}`;focusMain();}
 main.addEventListener('submit',ev=>{if(ev.target.id==='setup-form'){ev.preventDefault();readConfig();start();}});
 main.addEventListener('change',ev=>{
  if(ev.target.closest('#setup-form')){updateSetup();return;}
  const input=ev.target.closest('[data-match]');
  if(input&&session){const q=question(session.ids[session.index]);if(q.kind!=='matching'||(session.mode==='training'&&session.locked[q.id]))return;const rid=input.dataset.match,value=input.value;if(!q.matches.some(r=>r.id===rid))return;const selected=(session.selected[q.id]||[]).filter(id=>!id.startsWith(rid+'='));if(value&&q.options.some(o=>o.id===rid+'='+value))selected.push(rid+'='+value);session.selected[q.id]=selected;persist();renderQuiz();main.querySelector(`[data-match="${rid}"]`)?.focus({preventScroll:true});}
 });
-main.addEventListener('click',ev=>{const opt=ev.target.closest('[data-option]');if(opt&&session){const q=question(session.ids[session.index]);if(session.mode==='training'&&session.locked[q.id])return;const id=opt.dataset.option,sel=session.selected[q.id]||[];session.selected[q.id]=q.answer.length===1?[id]:sel.includes(id)?sel.filter(x=>x!==id):[...sel,id];finishWarning=false;persist();renderQuiz();main.querySelector(`[data-option="${id}"]`)?.focus({preventScroll:true});return;}const jump=ev.target.closest('[data-jump]');if(jump&&session){session.index=Number(jump.dataset.jump);finishWarning=false;persist();renderQuiz();focusMain();return;}const filter=ev.target.closest('[data-filter]');if(filter){reviewFilter=filter.dataset.filter;renderResult();main.querySelector(`[data-filter="${reviewFilter}"]`)?.focus({preventScroll:true});return;}const action=ev.target.closest('[data-action]')?.dataset.action;if(!action)return;switch(action){case 'series56':case 'full-session':readConfig();config.modules=[8,9,10];config.count=action==='series56'?56:0;start(BANK);break;case 'coverage':showCoverage();break;case 'home':case 'pause':home();focusMain();break;case 'resume':renderQuiz();focusMain();break;case 'discard':session=null;persist();setupNotice='Session abandonnée. Tes sessions terminées sont conservées.';home();break;case 'validate':if(session){const q=question(session.ids[session.index]);if((session.selected[q.id]||[]).length!==q.answer.length)return;session.locked[q.id]=true;persist();renderQuiz();announce(E.isCorrect(q,session.selected[q.id])?'Bonne réponse. '+q.explain:'Réponse à revoir. '+q.explain);}break;case 'prev':case 'next':session.index=Math.max(0,Math.min(session.ids.length-1,session.index+(action==='next'?1:-1)));finishWarning=false;persist();renderQuiz();focusMain();break;case 'flag':{const id=session.ids[session.index];session.flags[id]=!session.flags[id];persist();renderQuiz();main.querySelector('[data-action="flag"]')?.focus({preventScroll:true});break;}case 'finish':finishWarning=true;renderQuiz();$('.warning')?.scrollIntoView({behavior:'smooth',block:'nearest'});main.querySelector('[data-action="confirm-finish"]')?.focus({preventScroll:true});break;case 'cancel-finish':finishWarning=false;renderQuiz();break;case 'confirm-finish':finish();break;case 'new':config.modules=result.modules;start(result.ids.map(question));break;case 'retry-errors':config.mode='training';config.count=0;start(result.ids.filter(id=>!E.isCorrect(question(id),result.selected[id]||[])).map(question));break;case 'all-errors':config.mode='training';config.count=0;start(wrong.map(question));break;}});
-$('#home-nav').addEventListener('click',()=>{home();focusMain();});$('#errors-nav').addEventListener('click',errorsPage);$('#brand').addEventListener('click',ev=>{ev.preventDefault();home();focusMain();});document.querySelectorAll('[data-module]').forEach(button=>button.addEventListener('click',()=>{config.modules=[Number(button.dataset.module)];home();$('#setup-form').scrollIntoView({behavior:'smooth',block:'center'});announce('Module '+button.dataset.module+' sélectionné.');}));
+main.addEventListener('click',ev=>{const bankButton=ev.target.closest('[data-bank]');if(bankButton){switchBank(bankButton.dataset.bank);return;}const opt=ev.target.closest('[data-option]');if(opt&&session){const q=question(session.ids[session.index]);if(session.mode==='training'&&session.locked[q.id])return;const id=opt.dataset.option,sel=session.selected[q.id]||[];session.selected[q.id]=q.answer.length===1?[id]:sel.includes(id)?sel.filter(x=>x!==id):[...sel,id];finishWarning=false;persist();renderQuiz();main.querySelector(`[data-option="${id}"]`)?.focus({preventScroll:true});return;}const jump=ev.target.closest('[data-jump]');if(jump&&session){session.index=Number(jump.dataset.jump);finishWarning=false;persist();renderQuiz();focusMain();return;}const filter=ev.target.closest('[data-filter]');if(filter){reviewFilter=filter.dataset.filter;renderResult();main.querySelector(`[data-filter="${reviewFilter}"]`)?.focus({preventScroll:true});return;}const action=ev.target.closest('[data-action]')?.dataset.action;if(!action)return;switch(action){case 'series56':case 'full-session':readConfig();config.modules=[...moduleIds()];config.count=action==='series56'?56:0;start(BANK);break;case 'coverage':showCoverage();break;case 'home':case 'pause':home();focusMain();break;case 'resume':renderQuiz();focusMain();break;case 'discard':session=null;persist();setupNotice='Session abandonnée. Tes sessions terminées sont conservées.';home();break;case 'validate':if(session){const q=question(session.ids[session.index]);if((session.selected[q.id]||[]).length!==q.answer.length)return;session.locked[q.id]=true;persist();renderQuiz();announce(E.isCorrect(q,session.selected[q.id])?'Bonne réponse. '+q.explain:'Réponse à revoir. '+q.explain);}break;case 'prev':case 'next':session.index=Math.max(0,Math.min(session.ids.length-1,session.index+(action==='next'?1:-1)));finishWarning=false;persist();renderQuiz();focusMain();break;case 'flag':{const id=session.ids[session.index];session.flags[id]=!session.flags[id];persist();renderQuiz();main.querySelector('[data-action="flag"]')?.focus({preventScroll:true});break;}case 'finish':finishWarning=true;renderQuiz();$('.warning')?.scrollIntoView({behavior:'smooth',block:'nearest'});main.querySelector('[data-action="confirm-finish"]')?.focus({preventScroll:true});break;case 'cancel-finish':finishWarning=false;renderQuiz();break;case 'confirm-finish':finish();break;case 'new':config.modules=result.modules;start(result.ids.map(question));break;case 'retry-errors':config.mode='training';config.count=0;start(result.ids.filter(id=>!E.isCorrect(question(id),result.selected[id]||[])).map(question));break;case 'all-errors':config.mode='training';config.count=0;start(wrong.map(question));break;}});
+$('#home-nav').addEventListener('click',()=>{home();focusMain();});$('#errors-nav').addEventListener('click',errorsPage);$('#brand').addEventListener('click',ev=>{ev.preventDefault();home();focusMain();});document.querySelector('.sidebar').addEventListener('click',ev=>{const b=ev.target.closest('[data-bank]');if(b){switchBank(b.dataset.bank);return;}const button=ev.target.closest('[data-module]');if(button){config.modules=[Number(button.dataset.module)];home();$('#setup-form').scrollIntoView({behavior:'smooth',block:'center'});announce('Module '+button.dataset.module+' sélectionné.');}});
 $('#close-coverage').addEventListener('click',()=>$('#coverage-dialog').close());
 const dialog=$('#sources-dialog');$('#sources-button').addEventListener('click',()=>dialog.showModal());$('#close-sources').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',ev=>{if(ev.target===dialog){const r=dialog.getBoundingClientRect();if(ev.clientX<r.left||ev.clientX>r.right||ev.clientY<r.top||ev.clientY>r.bottom)dialog.close();}});
 document.addEventListener('keydown',ev=>{if(view!=='quiz'||!session||dialog.open||ev.altKey||ev.ctrlKey||ev.metaKey||/INPUT|SELECT|TEXTAREA/.test(ev.target.tagName))return;if(/^[1-6]$/.test(ev.key)){const index=Number(ev.key)-1;const oid=session.order[session.ids[session.index]][index];if(oid!==undefined){ev.preventDefault();main.querySelector(`[data-option="${oid}"]`)?.click();}}else if(ev.key==='Enter'&&(ev.target===main||ev.target===document.body)){const target=main.querySelector('[data-action="validate"]:not(:disabled),[data-action="next"],[data-action="finish"]');if(target){ev.preventDefault();target.click();}}});
