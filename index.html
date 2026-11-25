@@ -161,6 +161,81 @@
   body .study-sheet :is(.study-callout,.study-steps li) { background: #f1f4ed; color: #1d2b22; }
   body .study-sheet li::marker { color: #3a5b33; }
 }
+
+/* Lesson diagrams use native HTML so the labels work on mobile and in print. */
+.lesson-jumps {
+  display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 18px 0 22px;
+  font-size: 13px; color: var(--accent-text); font-weight: 650;
+}
+.lesson-visuals { display: grid; gap: 15px; }
+.lesson-visual {
+  margin: 0; padding: clamp(12px, 3vw, 20px); border: 1px solid var(--line);
+  border-radius: 13px; background: var(--surface-alt);
+}
+.lesson-visual h2 { margin-bottom: 14px; }
+.lesson-visual .lesson-caption { margin-top: 12px; color: var(--muted); font-size: 13px; }
+.lesson-node, .lesson-blocks li, .lesson-peers strong {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+  padding: 10px 12px; overflow-wrap: anywhere;
+}
+.lesson-node, .lesson-blocks li { display: grid; gap: 4px; }
+.lesson-node span, .lesson-connector { font-size: 12px; color: var(--muted); }
+.lesson-path, .lesson-blocks, .lesson-messages { list-style: none; padding: 0; margin: 0; }
+.lesson-path { display: grid; grid-template-columns: repeat(var(--path-nodes), minmax(0, 1fr)); gap: 12px; }
+.lesson-path li { min-width: 0; position: relative; }
+.lesson-node { min-height: 76px; }
+.lesson-connector { line-height: 1.35; margin: 8px 7px 0; }
+.lesson-arrow {
+  height: 2px; position: absolute; width: 17px; top: 35px; right: -15px; z-index: 1;
+  background: var(--selected-border); border-radius: 3px;
+}
+.lesson-arrow::after {
+  content: ''; position: absolute; right: 0; top: -3px; width: 6px; height: 6px;
+  border-top: 2px solid var(--selected-border); border-right: 2px solid var(--selected-border); transform: rotate(45deg);
+}
+.lesson-blocks { display: grid; grid-template-columns: repeat(var(--block-count), minmax(0, 1fr)); gap: 6px; }
+.lesson-blocks li:nth-child(even) { background: var(--surface-note); }
+.lesson-blocks code { color: var(--accent-text); white-space: normal; }
+.lesson-peers { display: flex; justify-content: space-between; gap: 16px; font-size: 13px; }
+.lesson-messages { display: grid; gap: 10px; margin: 7px 18px 0; }
+.lesson-message { min-width: 0; padding: 3px 10px 0; border-inline: 1px dashed var(--selected-border); text-align: center; }
+.message-line { position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--accent-text); }
+.message-line::before, .message-line::after { content: ''; flex: 1; border-top: 2px solid var(--selected-border); }
+.lesson-message .message-line strong { padding: 2px 7px; text-align: center; font-size: 13px; }
+.lesson-message .message-line strong::after {
+  content: ''; position: absolute; top: calc(50% - 4px); right: 1px; width: 6px; height: 6px;
+  border-top: 2px solid var(--selected-border); border-right: 2px solid var(--selected-border); transform: rotate(45deg);
+}
+.lesson-message.reply .message-line strong::after { right: auto; left: 1px; transform: rotate(-135deg); }
+.message-detail { display: block; font-size: 12px; color: var(--muted); line-height: 1.45; padding-bottom: 4px; }
+.lesson-table > div { overflow-x: auto; }
+.lesson-table table { border-collapse: collapse; width: 100%; font-size: 13px; background: var(--surface); }
+.lesson-table th, .lesson-table td {
+  border: 1px solid var(--line); padding: 7px 9px; text-align: left; vertical-align: top; overflow-wrap: anywhere;
+}
+.lesson-table thead { background: var(--surface-note); }
+.lesson-table tbody th { font-weight: 620; }
+.lesson-practice details { border-bottom: 1px solid var(--line); padding: 8px 0; }
+.lesson-practice summary { cursor: pointer; font-weight: 630; }
+.lesson-practice details p { padding: 8px 0 2px 16px; color: var(--muted); }
+.lesson-source { color: var(--accent-text); }
+.lesson-source a { overflow-wrap: anywhere; }
+@media (max-width: 540px) {
+  .lesson-path, .lesson-blocks { grid-template-columns: 1fr; gap: 7px; }
+  .lesson-node { min-height: 0; }
+  .lesson-connector { position: static; margin: 5px 0 1px 18px; display: flex; align-items: center; gap: 8px; }
+  .lesson-arrow { position: relative; right: auto; top: auto; width: 11px; margin-right: 2px; transform: rotate(90deg); flex-shrink: 0; }
+  .lesson-peers strong { padding: 7px 8px; }
+  .lesson-messages { margin-inline: 6px; }
+}
+@media print {
+  body .study-sheet {
+    --surface: #fff; --surface-note: #edf3e3; --surface-alt: #f4f6f1;
+    --muted: #425449; --accent-text: #36542e; --line: #aebbaf; --selected-border: #718a5e;
+  }
+  body .study-sheet :is(.lesson-visual,.lesson-practice details) { break-inside: avoid; }
+  .lesson-visual { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
 </style>
 
 </head>
@@ -8671,6 +8746,185 @@ window.CCNA_SHEETS = {
   }
 };
 
+/* Original diagrams and worked examples, organized by the linked ITNv7 lessons. */
+const lessonDetails = {
+  8: {
+    source: "https://ccnareponses.com/introduction-aux-reseaux-modules-8-couche-reseau/",
+    visuals: [
+      {type:'path', title:'Ce qui change quand un paquet traverse R1', label:'Réseau local A, routeur R1, réseau local B',
+       nodes:[['PC A','192.168.10.10'],['R1','Sélection de la route'],['PC B','192.168.20.20']],
+       links:['Trame A → MAC de R1 côté A','Nouvelle trame : MAC de R1 côté B → B'],
+       caption:'Sans NAT, le paquet vise toujours 192.168.20.20. R1 remplace l’enveloppe de liaison et diminue le TTL.'},
+      {type:'table', title:'Champs à reconnaître', headers:['Fonction','IPv4','IPv6'],
+       rows:[['Taille de l’en-tête de base','20 octets minimum','40 octets'],
+             ['Compteur de sauts','TTL','Hop Limit'],['Données transportées','Protocol','Next Header'],
+             ['Fragmentation','Source ou routeur si autorisée','Source uniquement'],
+             ['Contrôle de l’en-tête de base','Somme de contrôle','Aucune somme de contrôle']]}
+    ],
+    extra:[['Que se passe-t-il sans route ?', 'Si aucune route spécifique ni route par défaut ne correspond, le routeur ne peut pas transférer le paquet. La route par défaut est 0.0.0.0/0 en IPv4 et ::/0 en IPv6.'],
+           ['MTU et encapsulation', 'La MTU limite la taille du paquet IP qu’un lien accepte. Si un paquet IPv6 est trop grand pour la sortie, le routeur le rejette et peut renvoyer ICMPv6 Packet Too Big. La source adapte la taille.']],
+    practice:[['Quelle route gagne pour 192.168.10.25 : /16, 192.168.10.0/24 ou /0 ?', 'Le /24, car c’est le préfixe correspondant le plus long.'],
+              ['En Ethernet, quelle MAC cible le PC pour une IP située sur un autre LAN ?', 'La MAC de sa passerelle locale. L’IP de destination du paquet reste celle du PC distant.']]
+  },
+  9: {
+    source: "https://ccnareponses.com/introduction-aux-reseaux-modules-9-resolution-dadresse/",
+    visuals:[
+      {type:'exchange', title:'Résolution ARP sur le LAN', peers:['PC A','Passerelle R1'],
+       messages:[['right','Requête en diffusion','Qui possède 192.168.10.1 ? Destination Ethernet FF:FF:FF:FF:FF:FF.'],
+                 ['left','Réponse en monodiffusion','192.168.10.1 correspond à ma MAC.'],
+                 ['right','Trame de données','Le PC utilise la MAC de R1.']],
+       caption:'Tout le VLAN reçoit la requête. La passerelle répond parce qu’elle possède l’IPv4 recherchée.'},
+      {type:'table', title:'Quelle table consulter ?', headers:['Outil','Ce qu’il associe'],
+       rows:[['arp -a ou show ip arp','IPv4 → MAC d’un voisin'],['show mac address-table','MAC → port et VLAN'],
+             ['show ipv6 neighbors','IPv6 → informations sur le voisin'],['show ip route','Préfixe → chemin de sortie']]}
+    ],
+    extra:[['Résoudre la bonne IP', 'Si le destinataire est local, résous son adresse. Si le destinataire est distant, résous l’adresse de la passerelle ou du prochain saut indiqué par la route.'],
+           ['Équivalent IPv6', 'La sollicitation de voisin (NS) peut utiliser le multicast de nœud sollicité de la cible. La cible répond normalement avec une annonce de voisin (NA). NDP utilise ICMPv6.']],
+    practice:[['ARP est-il un mécanisme de résolution de noms ?', 'Non. ARP associe une IPv4 à une MAC sur le LAN. DNS résout les noms.'],
+              ['Qu’est-ce qui permet à un commutateur de choisir un port de sortie ?', 'Sa table MAC, construite notamment en apprenant la MAC source des trames reçues.']]
+  },
+  10: {
+    source: "https://ccnareponses.com/introduction-aux-reseaux-modules-10-configuration-des-parametres-de-base-de-routeur/",
+    visuals:[
+      {type:'path', title:'Deux LAN, deux interfaces sur R1', label:'Configuration IPv4 et passerelles',
+       nodes:[['PC A','192.168.10.10/24'],['R1','G0/0 .10.1 · G0/1 .20.1'],['PC B','192.168.20.20/24']],
+       links:['Passerelle A : 192.168.10.1','Passerelle B : 192.168.20.1'],
+       caption:'Chaque PC indique l’adresse complète de l’interface du routeur présente sur son propre LAN.'},
+      {type:'table', title:'Modes IOS et commandes', headers:['Invite','Commande à ce niveau','Effet'],
+       rows:[['R1>','enable','Passe en EXEC privilégié'],['R1#','configure terminal','Passe en configuration globale'],
+             ['R1(config)#','interface gigabitEthernet 0/0','Sélectionne l’interface'],['R1(config-if)#','ip address … puis no shutdown','Attribue l’adresse et lève la désactivation'],
+             ['R1#','copy running-config startup-config','Sauvegarde pour le prochain démarrage']]}
+    ],
+    extra:[['Protéger et identifier l’équipement', 'Le nom d’hôte identifie le routeur. enable secret protège l’accès au mode privilégié. Une description d’interface explique le rôle du lien. Les lignes de console et VTY contrôlent les modes d’accès de gestion.'],
+           ['Contrôle à faire après la configuration', 'Utilise show ip interface brief, puis vérifie que l’état et le protocole sont up. Pour le transfert IPv6, active ipv6 unicast-routing. Teste la passerelle depuis le PC, puis une adresse située sur l’autre LAN.']],
+    practice:[['Pourquoi un PC en 192.168.10.10/24 ne doit-il pas prendre 192.168.20.1 comme passerelle ?', 'Ce routeur n’est pas joignable directement à cette IP depuis son lien. Il lui faut 192.168.10.1.'],
+              ['Quelle commande permet de retrouver les modifications après redémarrage ?', 'copy running-config startup-config.']]
+  },
+  11: {
+    source: "https://ccnareponses.com/introduction-aux-reseaux-modules-11-adressage-ipv4/",
+    visuals:[
+      {type:'blocks', title:'Découper un /24 en quatre /26', caption:'Deux bits empruntés donnent quatre blocs de 64 adresses, dont 62 hôtes ordinaires par bloc.',
+       blocks:[['.0/26','.0 à .63'],['.64/26','.64 à .127'],['.128/26','.128 à .191'],['.192/26','.192 à .255']]},
+      {type:'table', title:'Quel masque choisir ?', headers:['Préfixe','Masque','Hôtes utilisables'],
+       rows:[['/25','255.255.255.128','126'],['/26','255.255.255.192','62'],['/27','255.255.255.224','30'],['/28','255.255.255.240','14'],['/30','255.255.255.252','2']]}
+    ],
+    extra:[['Catégories IPv4', 'Unicast vise une destination. Broadcast vise tous les hôtes du réseau concerné. Multicast vise les membres d’un groupe. 255.255.255.255 est la diffusion limitée au lien. Ne déduis pas qu’une adresse est publique simplement parce qu’elle n’est pas privée.'],
+           ['Faire un plan VLSM', 'Pour 50 hôtes, choisis /26. Pour 25 hôtes, choisis /27. Dans 192.168.1.0/24, réserve par exemple .0/26 puis .64/27. Vérifie le pas, la capacité et l’absence de recouvrement.']],
+    practice:[['Quelle adresse de diffusion a le réseau 172.16.16.0/22 ?', '172.16.19.255. Le pas est 4 dans le troisième octet, donc le bloc couvre les valeurs 16 à 19.'],
+              ['Quel préfixe minimal en taille permet d’accueillir 126 hôtes ?', '/25. Sept bits hôte donnent 128 adresses au total et 126 utilisables.']]
+  },
+  12: {
+    source: "https://ccnareponses.com/introduction-aux-reseaux-modules-12-adressage-ipv6/",
+    visuals:[
+      {type:'blocks', title:'Lire 2001:db8:1234:a::1/64', caption:'Le quatrième hextet sélectionne le LAN dans ce plan /48. Les quatre hextets de droite forment l’identifiant d’interface.',
+       blocks:[['Préfixe de site · 48 bits','2001:db8:1234'],['Sous-réseau · 16 bits','000a'],['Interface · 64 bits','0000:0000:0000:0001']]},
+      {type:'exchange', title:'Comment un hôte construit son adresse avec SLAAC', peers:['Hôte','Routeur IPv6'],
+       messages:[['right','RS','Sollicite une annonce auprès des routeurs du lien.'],
+                 ['left','RA','Annonce le préfixe utilisable et peut indiquer le routeur par défaut.']],
+       caption:'L’hôte choisit son identifiant d’interface et vérifie l’absence de doublon avant d’utiliser la nouvelle adresse.'}
+    ],
+    extra:[['Portées à distinguer', 'Une adresse de liaison locale FE80::/10 reste sur le lien. Une adresse unicast globale appartient à un espace de routage global, mais 2001:db8::/32 est réservé à la documentation. Une adresse anycast permet au routage de choisir l’une de plusieurs instances.'],
+           ['EUI-64 modifié', 'À partir de 00:1a:2b:3c:4d:5e, insère ff:fe au milieu et inverse le bit U/L du premier octet. L’identifiant vaut 021a:2bff:fe3c:4d5e. Il existe aussi des identifiants stables opaques ou temporaires.']],
+    practice:[['Combien de préfixes /64 dans un /48 ?', '65 536, car 16 bits restent disponibles pour numéroter les sous-réseaux.'],
+              ['Que distingue FF02::1 de FE80::1 ?', 'FF02::1 cible tous les nœuds du lien. FE80::1 désigne une interface précise sur le lien.']]
+  },
+  13: {
+    source: "https://ccnareponses.com/introduction-aux-reseaux-modules-13-icmp/",
+    visuals:[
+      {type:'exchange', title:'Ce que mesure ping', peers:['Hôte source','Hôte destination'],
+       messages:[['right','Echo Request','La source démarre la mesure.'],['left','Echo Reply','La source mesure le temps aller-retour (RTT).']],
+       caption:'Une réponse confirme que cette sonde a pu faire l’aller-retour. Elle ne vérifie pas à elle seule le fonctionnement d’un service Web.'},
+      {type:'table', title:'Messages à reconnaître', headers:['Signal','ICMPv4','ICMPv6'],
+       rows:[['Demande / réponse d’écho','Types 8 / 0','Types 128 / 129'],
+             ['Destination inaccessible','Type 3','Type 1'],['Temps dépassé','Type 11','Type 3'],
+             ['Paquet trop grand','Type 3, code 4 si DF','Type 2']]}
+    ],
+    extra:[['Pourquoi traceroute révèle les routeurs', 'Une sonde avec TTL ou Hop Limit de 1 expire au premier routeur. Une valeur de 2 atteint le suivant, et ainsi de suite. Les réponses Time Exceeded indiquent les équipements qui traitent les sondes.'],
+           ['Du local au distant', '127.0.0.1 ou ::1 vérifie la pile locale. La passerelle teste un échange avec le routeur du LAN. Une IP distante teste aussi le routage et le retour. Un test par nom ajoute la résolution DNS.']],
+    practice:[['ICMPv6 type 1, code 4 : quelle erreur ?', 'Port inaccessible. En ICMPv4, le code 4 de type 3 indique un autre problème.'],
+              ['Un saut est marqué *, puis le suivant répond. Le routeur étoilé est-il forcément en panne ?', 'Non. Il peut transférer les sondes sans répondre lui-même dans le délai.']]
+  },
+  14: {
+    source: "https://ccnareponses.com/introduction-aux-reseaux-modules-14-couche-de-transport/",
+    visuals:[
+      {type:'exchange', title:'Le début d’une connexion TCP', peers:['Client','Serveur'],
+       messages:[['right','SYN','Le client annonce son numéro de séquence initial.'],
+                 ['left','SYN + ACK','Le serveur acquitte le SYN et annonce sa propre séquence.'],
+                 ['right','ACK','Le client acquitte le SYN du serveur.']],
+       caption:'À la fermeture, chaque sens utilise son propre FIN et l’autre côté l’acquitte. Dans un scénario à quatre messages : FIN client, ACK serveur, FIN serveur, ACK client.'},
+      {type:'table', title:'Choisir entre TCP et UDP', headers:['Critère','TCP','UDP'],
+       rows:[['Type de données','Flux d’octets','Datagrammes'],
+             ['Avant l’envoi','Connexion à établir','Envoi direct'],
+             ['Fiabilité et ordre','ACK, retransmissions et séquences','À la charge de l’application si elle en a besoin'],
+             ['Contrôle de flux','Fenêtre annoncée par le récepteur','Pas de fenêtre UDP']]}
+    ],
+    extra:[['Séquence, ACK et fenêtre', 'Le numéro de séquence situe le premier octet de données du segment. Un ACK cumulatif confirme la réception jusqu’à l’octet précédent. La fenêtre annoncée indique combien de données le récepteur peut encore accepter. Elle est distincte de la fenêtre de congestion.'],
+           ['Ports et sockets', 'Les deux IP et les deux ports identifient une connexion TCP. Les ports système vont de 0 à 1023, les ports enregistrés de 1024 à 49151 et les ports dynamiques ou privés de 49152 à 65535.']],
+    practice:[['Premier octet numéroté 1, deux blocs de 1 500 octets reçus dans l’ordre. Quel ACK ?', '3001. Les octets 1 à 3000 sont arrivés, donc l’octet suivant attendu porte le numéro 3001.'],
+              ['UDP fournit-il les accusés de réception et la remise en ordre ?', 'Non. UDP peut calculer une somme de contrôle mais ne confirme ni ne réordonne les datagrammes.']]
+  },
+  15: {
+    source: "https://ccnareponses.com/introduction-aux-reseaux-modules-15-couche-application/",
+    visuals:[
+      {type:'exchange', title:'Attribution initiale DHCPv4 (DORA)', peers:['Client sans bail','Serveur DHCP'],
+       messages:[['right','Discover','Recherche initiale, généralement en diffusion.'],
+                 ['left','Offer','Le serveur propose une configuration.'],
+                 ['right','Request','Le client demande le bail retenu.'],
+                 ['left','ACK','Le serveur confirme le bail.']],
+       caption:'Le client reçoit typiquement une IPv4, un masque, une passerelle et des serveurs DNS.'},
+      {type:'table', title:'Services et ports usuels', headers:['Service','Port par défaut','Rôle'],
+       rows:[['DNS','53 UDP/TCP','Résolution et données de noms'],
+             ['HTTP / HTTPS','80 / 443','Consultation et échanges Web'],
+             ['SMTP / POP3 / IMAP','25 / 110 / 143 TCP','Acheminement / récupération / consultation'],
+             ['FTP / TFTP','21 TCP (contrôle) / 69 UDP (initial)','Transfert de fichiers'],
+             ['DHCPv4','67 / 68 UDP','Serveur / client DHCP'],
+             ['SNMP / SSH','161 UDP / 22 TCP','Supervision / gestion chiffrée']]}
+    ],
+    extra:[['Distinguer les opérations Web', 'GET demande une représentation. PUT remplace ou crée la ressource visée selon la sémantique du serveur. POST demande au serveur de traiter les données soumises. HTTPS protège HTTP avec TLS.'],
+           ['Partage de fichiers et messagerie', 'SMB permet de travailler sur des partages avec une session persistante. FTP sépare le canal de contrôle des connexions de données. DNS MX aide à trouver le serveur du domaine destinataire, puis SMTP y achemine le message.']],
+    practice:[['Quel port cible la requête initiale TFTP ?', 'UDP 69. FTP est un autre protocole et utilise notamment TCP 21 pour son contrôle.'],
+              ['Quel enregistrement donne le serveur de réception d’un domaine ?', 'MX, avec un nom de serveur et une préférence.']]
+  },
+  16: {
+    source: "https://ccnareponses.com/introduction-aux-reseaux-modules-16-principes-fondamentaux-de-la-securite-du-reseau/",
+    visuals:[
+      {type:'path', title:'Défense en profondeur dans un petit réseau', label:'Trois contrôles complémentaires',
+       nodes:[['Périmètre','Pare-feu avec état'],['Réseau','VLAN et contrôle des accès'],['Terminaux','Correctifs et comptes limités']],
+       links:['Limiter les échanges autorisés','Réduire les accès entre zones'],
+       caption:'Les protections se cumulent. La journalisation et les sauvegardes complètent ces mesures.'},
+      {type:'table', title:'AAA : trois décisions différentes', headers:['Fonction','Question','Exemple'],
+       rows:[['Authentification','Qui est-ce ?','Vérifier un compte et son secret'],
+             ['Autorisation','Que peut-il faire ?','Limiter le rôle aux commandes nécessaires'],
+             ['Comptabilisation','Qu’a-t-il fait ?','Enregistrer les actions de gestion']]}
+    ],
+    extra:[['Associer risques et protections', 'Le vol d’informations touche la confidentialité, l’altération touche l’intégrité et une interruption touche la disponibilité. Les sauvegardes testées facilitent la restauration, les mises à jour réduisent les failles connues et le cloisonnement limite l’impact d’un incident.'],
+           ['Durcir les périphériques', 'Utilise un compte nominatif, un secret unique, SSH et des délais d’inactivité adaptés. Coupe les services inutilisés. Un IDS alerte. Un IPS peut également bloquer le trafic suspect.']],
+    practice:[['Quel mécanisme vérifie qu’un paquet correspond à une session autorisée ?', 'L’inspection avec état, qui suit les échanges dans une table de connexions.'],
+              ['Quel service AAA décide des commandes que l’utilisateur peut exécuter ?', 'L’autorisation. L’authentification vérifie son identité.']]
+  },
+  17: {
+    source: "https://ccnareponses.com/introduction-aux-reseaux-modules-17-conception-dun-reseau-de-petite-taille/",
+    visuals:[
+      {type:'path', title:'Localiser le premier test qui échoue', label:'Diagnostic du PC vers le service distant',
+       nodes:[['Poste','Adresse, masque et lien'],['Passerelle','ARP ou ND puis ping'],['Réseau distant','Route et retour'],['Service','DNS puis application']],
+       links:['Tester le LAN','Tester une IP distante','Tester le nom'],
+       caption:'Une étape en échec oriente l’enquête. Compare les résultats et cherche aussi un filtrage ou une route de retour absente.'},
+      {type:'table', title:'Choisir la commande selon le symptôme', headers:['Objectif','Commande'],
+       rows:[['Lire l’IP du PC Windows','ipconfig /all'],['Tester la résolution d’un nom','nslookup'],
+             ['Repérer les sauts répondants','tracert ou traceroute'],['Vérifier duplex et compteurs','show interfaces'],
+             ['Voir les routes IPv4','show ip route'],['Consulter les voisins Cisco','show cdp neighbors detail']]}
+    ],
+    extra:[['Penser à la croissance', 'Documente l’adressage, les liens et les applications. Dimensionne l’équipement pour la charge et l’évolution. La redondance offre une voie de secours et doit être conçue pour éviter les boucles. La QoS aide à prioriser la voix ou la vidéo interactive en cas de congestion.'],
+           ['Référence et vérification finale', 'Relève une référence de latence et de charge en conditions normales. Formule une hypothèse, teste-la, applique une correction, puis valide le service et documente. Un ping étendu peut choisir la source afin de tester le retour vers un réseau précis.']],
+    practice:[['Le poste résout bien le nom mais un service ne répond pas. Que vérifier ensuite ?', 'L’adresse obtenue, la joignabilité, puis les ports, le filtrage et le service lui-même selon le symptôme.'],
+              ['Quel outil permet de vérifier le débit et le duplex d’un port Cisco ?', 'show interfaces, avec les compteurs d’erreurs et l’état du lien.']]
+  }
+};
+
+for (const [number, details] of Object.entries(lessonDetails)) {
+  Object.assign(window.CCNA_SHEETS[number], details);
+}
+
 </script>
 <script>
 (()=>{'use strict';
@@ -8724,7 +8978,7 @@ function initTheme() {
 function renderSheets() {
  view = 'sheets';
  updateNav();
- main.innerHTML = `<div class="welcome"><div><h1>Fiches de révision</h1><p>Relis un module, puis entraîne-toi sur ses questions.</p></div></div>
+ main.innerHTML = `<div class="welcome"><div><h1>Fiches de révision</h1><p>Retrouve les schémas, les notions clés et les exercices corrigés des modules 8 à 17.</p></div></div>
  <div class="sheets-tools"><label for="sheet-search">Rechercher une notion</label><input id="sheet-search" type="search" placeholder="Ex. SLAAC, ports ou routage" autocomplete="off"><p id="sheets-count" class="muted" role="status"></p></div>
  <div id="sheet-grid" class="sheet-grid"></div>`;
  filterSheets('');
@@ -8741,6 +8995,43 @@ function filterSheets(value) {
  <span class="module-badge">Module ${number}</span><strong>${esc(names[number])}</strong><span>${esc(sheet.summary)}</span></button>`).join('')
  || '<p class="empty">Aucune fiche ne correspond à cette recherche.</p>';
 }
+function renderLessonVisual(visual) {
+ let content;
+ switch (visual.type) {
+  case 'path':
+   content = `<ol class="lesson-path" style="--path-nodes:${visual.nodes.length}" aria-label="${esc(visual.label)}">
+     ${visual.nodes.map(([name, detail], index) => `<li><div class="lesson-node"><strong>${esc(name)}</strong><span>${esc(detail)}</span></div>
+       ${visual.links[index] ? `<div class="lesson-connector"><span class="lesson-arrow" aria-hidden="true"></span><span>${esc(visual.links[index])}</span></div>` : ''}</li>`).join('')}
+   </ol>`;
+   break;
+  case 'blocks':
+   content = `<ul class="lesson-blocks" style="--block-count:${visual.blocks.length}">
+     ${visual.blocks.map(([name, detail]) => `<li><strong>${esc(name)}</strong><code>${esc(detail)}</code></li>`).join('')}
+   </ul>`;
+   break;
+  case 'exchange':
+   content = `<div class="lesson-peers" aria-hidden="true">${visual.peers.map(peer => `<strong>${esc(peer)}</strong>`).join('')}</div>
+   <ol class="lesson-messages">
+     ${visual.messages.map(([direction, label, detail]) => {
+      const [from, to] = direction === 'left' ? [...visual.peers].reverse() : visual.peers;
+      return `<li class="lesson-message ${direction === 'left' ? 'reply' : 'request'}">
+       <span class="sr-only">De ${esc(from)} vers ${esc(to)}. </span><div class="message-line"><strong>${esc(label)}</strong></div>
+       <span class="message-detail">${esc(detail)}</span></li>`;
+     }).join('')}
+   </ol>`;
+   break;
+  case 'table':
+   content = `<div class="lesson-table"><table aria-label="${esc(visual.title)}">
+      <thead><tr>${visual.headers.map(header => `<th scope="col">${esc(header)}</th>`).join('')}</tr></thead>
+      <tbody>${visual.rows.map(([first, ...rest]) => `<tr><th scope="row">${esc(first)}</th>${rest.map(cell => `<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody>
+   </table></div>`;
+   break;
+  default: return '';
+ }
+ return `<figure class="lesson-visual lesson-${visual.type}"><figcaption><h2>${esc(visual.title)}</h2></figcaption>
+   ${content}${visual.caption ? `<p class="lesson-caption">${esc(visual.caption)}</p>` : ''}</figure>`;
+}
+
 function renderSheet(number) {
  const sheet = sheets[number], bank = findBank(number);
  if (!sheet || !bank) return renderSheets();
@@ -8754,10 +9045,17 @@ function renderSheet(number) {
  ${sheetOrigin === 'quiz' && session ? '<button class="text-button" data-action="resume">Reprendre le QCM</button>' : ''}
  </div><article class="study-sheet panel">
  <header><span class="module-badge">Module ${number}</span><h1>${esc(names[number])}</h1><p>${esc(sheet.summary)}</p></header>
- <ol class="study-steps" aria-label="Séquence à retenir">${sheet.steps.map(step => `<li>${esc(step)}</li>`).join('')}</ol>
- ${sheet.sections.map(([title, body]) => `<section><h2>${esc(title)}</h2><p>${esc(body)}</p></section>`).join('')}
- <div class="study-callout"><h2>Exemple</h2><p>${esc(sheet.example)}</p></div>
+ <nav class="lesson-jumps no-print" aria-label="Dans la fiche"><a href="#lesson-notions">Notions clés</a><a href="#lesson-practice">S’auto-évaluer</a><a href="#lesson-source">Cours de référence</a></nav>
+ <div class="lesson-visuals">${(sheet.visuals || []).map(renderLessonVisual).join('')}</div>
+ <div class="lesson-notions" id="lesson-notions">
+ ${[...sheet.sections, ...(sheet.extra || [])].map(([title, body]) => `<section><h2>${esc(title)}</h2><p>${esc(body)}</p></section>`).join('')}
+ </div>
+ <div class="study-callout"><h2>Exemple résolu</h2><p>${esc(sheet.example)}</p></div>
  <div class="study-callout caution"><h2>Piège à éviter</h2><p>${esc(sheet.pitfall)}</p></div>
+ <section class="lesson-practice" id="lesson-practice"><h2>Vérifie que tu as compris</h2>
+ ${(sheet.practice || []).map(([prompt, answer]) => `<details><summary>${esc(prompt)}</summary><p>${esc(answer)}</p></details>`).join('')}
+ </section>
+ <p id="lesson-source" class="lesson-source"><a href="${esc(sheet.source)}" target="_blank" rel="noopener noreferrer">Cours du module ${number} sur CCNA Réponses ↗</a></p>
  <div class="button-row no-print"><button class="btn primary" data-action="sheet-quiz" data-sheet="${number}">S’entraîner · ${Math.min(10, available)} questions</button>
  <button class="btn" data-action="print-sheet">Imprimer ou enregistrer en PDF</button></div>
  </article>`;
