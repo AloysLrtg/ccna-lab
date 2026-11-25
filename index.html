@@ -21,6 +21,146 @@
 /* Independent exam banks; retain the existing visual language. */
 .bank-picker{margin:28px 0}.bank-picker .section-head{margin-bottom:18px}.bank-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.bank-choice{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:10px;padding:24px;border:2px solid var(--line,#dce2d3);border-radius:14px;background:white;color:var(--ink,#233832);font:inherit;cursor:pointer}.bank-choice:hover{border-color:#7e9267}.bank-choice.bank-selected{border-color:#385144;background:#f0f5e4;box-shadow:0 0 0 1px #385144}.bank-label{font-size:14px;font-weight:700;letter-spacing:.04em}.bank-choice strong{font-size:22px}.bank-choice>span:not(.bank-label){font-size:16px;line-height:1.5}.bank-choice small{font-size:14px;color:#526445}.sidebar-banks{display:grid;gap:8px;margin:16px 0}.bank-nav{border:1px solid transparent;background:none;padding:12px;text-align:left;border-radius:10px;font:inherit;font-weight:700;cursor:pointer;color:#233832;font-size:14px}.bank-nav small{display:block;font-size:12px;line-height:1.5;font-weight:400;margin-top:4px}.bank-nav.bank-selected{background:#edf2e6;border-color:#91a879}.bank-choice:focus-visible,.bank-nav:focus-visible{outline:3px solid #b76332;outline-offset:3px}.bank-picker+.resume{margin-top:20px}.question-exhibit svg{max-width:100%;height:auto}.top-pill{white-space:nowrap}
 @media(max-width:650px){.bank-choices{grid-template-columns:1fr}.bank-choice{padding:18px;gap:7px}.bank-choice strong{font-size:20px}.bank-picker{margin:20px 0}.sidebar-banks{grid-template-columns:1fr 1fr}.bank-nav small{font-size:12px}.bank-picker .section-head{align-items:flex-start}.date-tag{display:none}}
+
+/* Study tools share the quiz palette in both themes. */
+:root {
+  color-scheme: light;
+  --surface: #fff;
+  --surface-alt: #f1f5e9;
+  --surface-note: #edf3e3;
+  --surface-warm: #fff1e3;
+  --surface-good: #eaf5e9;
+  --surface-bad: #fcefe8;
+  --accent-text: #3a5b33;
+  --selected-border: #819a68;
+}
+.sidebar { overflow-y: auto; }
+.topbar-actions { display: flex; align-items: center; gap: 12px; }
+.theme-switch { white-space: nowrap; font-size: 12px; }
+.theme-switch span { font-size: 16px; margin-right: 4px; }
+.sheets-tools { display: grid; gap: 8px; margin: 0 0 22px; max-width: 560px; }
+.sheets-tools label { font-weight: 650; }
+.sheets-tools input {
+  width: 100%; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); padding: 12px 14px; border-radius: 10px; font: inherit;
+}
+.sheets-tools input::placeholder { color: var(--muted); }
+.sheets-tools p { margin: 0; font-size: 13px; }
+.sheet-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
+.sheet-grid .empty { grid-column: 1 / -1; }
+.sheet-tile {
+  min-width: 0; display: flex; flex-direction: column; align-items: flex-start;
+  gap: 10px; padding: 20px; text-align: left; font: inherit;
+  color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 13px;
+}
+.sheet-tile:hover { border-color: var(--selected-border); background: var(--surface-alt); }
+.sheet-tile strong { font-size: 18px; line-height: 1.3; }
+.sheet-tile > span:last-child { color: var(--muted); font-size: 14px; }
+.study-sheet { max-width: 900px; }
+.study-sheet header p { margin-top: 10px; color: var(--muted); }
+.study-sheet h1 { margin: 10px 0 0; }
+.study-sheet section { margin: 25px 0; }
+.study-sheet h2 { font-size: 19px; margin-bottom: 6px; }
+.study-sheet p { font-size: 15px; margin-bottom: 0; }
+.sheet-back { margin-bottom: 14px; }
+.study-steps {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 8px;
+  list-style-position: inside; padding: 0; margin: 26px 0;
+}
+.study-steps li { padding: 10px 12px; background: var(--surface-note); border-radius: 8px; font-weight: 620; }
+.study-steps li::marker { color: var(--accent-text); font-weight: 750; }
+.study-callout { padding: 14px 16px; margin: 14px 0; border-radius: 10px; background: var(--surface-note); }
+.study-callout.caution { background: var(--surface-warm); }
+.study-sheet .button-row { margin-top: 24px; }
+.question-study-actions { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 15px 0 0; }
+.question-study-actions .btn { font-size: 12px; }
+.favorite-button[aria-pressed=true] { background: var(--surface-warm); }
+.favorites-panel { margin-top: 22px; }
+.favorites-panel h2 { margin: 0 0 10px; }
+.favorites-panel p { margin: 8px 0 0; }
+.favorites-panel details { margin-top: 13px; }
+.favorites-panel summary { cursor: pointer; }
+.favorites-panel ul { list-style: none; padding: 0; margin: 8px 0 0; }
+.favorites-panel li { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; padding: 9px 0; border-top: 1px solid var(--line); }
+.favorites-panel li span { flex: 1 1 300px; }
+
+:root[data-theme=dark] {
+  color-scheme: dark;
+  --ink: #e3eee7;
+  --muted: #aabeb1;
+  --paper: #111a17;
+  --line: #3b5046;
+  --white: #1a2621;
+  --surface: #1a2621;
+  --surface-alt: #22332a;
+  --surface-note: #293e31;
+  --surface-warm: #392a20;
+  --surface-good: #213e2d;
+  --surface-bad: #472c28;
+  --accent-text: #d0e9ab;
+  --selected-border: #94af78;
+  --dark: #24382d;
+  --orange: #ffa77b;
+  --error: #ffc2b1;
+  --success: #b7e4b6;
+}
+[data-theme=dark] :is(.sidebar,.count,.top-pill,.stat,.panel,.bank-choice,.quiz-card,.navigation-card,.result-module,.switch-filter,.review-card,.empty,.icon-btn,.coverage-list details,.option,.btn,select) {
+  background: var(--surface); border-color: var(--line);
+}
+[data-theme=dark] :is(.version,.module-number,.stat-icon,.q-dot,.tip-panel,.context,.source-note,.match-row,.mini-diagram) {
+  background: var(--surface-alt); border-color: var(--line);
+}
+[data-theme=dark] :is(.coverage-banner,.resume,.module-badge,.badge,.nav-item.active) {
+  background: var(--surface-note); color: var(--ink); border-color: var(--line);
+}
+[data-theme=dark] :is(.nav-item:hover,.module-link:hover,.btn:hover,.option:hover:not(:disabled)) { background: var(--surface-alt); }
+[data-theme=dark] :is(.side-label,.crumb,footer,.stat-icon,.source-note,.coverage-banner p,.bank-choice small,.bank-nav,.tip-panel p,.tip-panel .overline,.tip-list>div,.question-exhibit figcaption,.topology-five figcaption,.full-series p,.match-row select:disabled) {
+  color: var(--muted);
+}
+[data-theme=dark] :is(.bank-choice.bank-selected,.bank-nav.bank-selected,.module-choice input:checked+.module-tile,.mode-option input:checked+.mode-tile,.option.selected) {
+  border-color: var(--selected-border); background: var(--surface-note); box-shadow: none;
+}
+[data-theme=dark] :is(.btn.primary,.switch-filter button.on,.q-dot.answered,.option.selected .option-letter) {
+  background: #cfe799; color: #18251b; border-color: #cfe799;
+}
+[data-theme=dark] .btn.primary:hover { background: #e2f2b7; }
+[data-theme=dark] :is(.option.correct,.match-good,.feedback:not(.bad),.q-dot.right) { background: var(--surface-good); border-color: #70a079; color: var(--success); }
+[data-theme=dark] :is(.option.wrong,.match-bad,.feedback.bad,.q-dot.failed,.btn.danger) { background: var(--surface-bad); border-color: #b17d72; color: var(--error); }
+[data-theme=dark] :is(.warning,.source-number,.favorite-button[aria-pressed=true]) { background: var(--surface-warm); color: #ffd5ad; border-color: #805d48; }
+[data-theme=dark] :is(.match-good small,.coverage-state) { color: var(--success); }
+[data-theme=dark] :is(.match-bad small,.coverage-state.pending) { color: var(--error); }
+[data-theme=dark] :is(.progress-track,.tip-list span) { background: #3a5141; }
+[data-theme=dark] :is(.full-series,.navigation-card,.question-exhibit svg) { border-color: var(--line); }
+[data-theme=dark] input:is([type=checkbox],[type=radio]) { accent-color: #cfe799; }
+
+@media (max-width: 1100px) { .sheet-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 680px) {
+  .sidebar-banks { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); width: 100%; gap: 5px; margin: 0; }
+  .sidebar-banks .bank-nav { padding: 7px 4px; font-size: 11px; text-align: center; white-space: nowrap; }
+  .sidebar-banks .bank-nav small { display: none; }
+  .topbar-actions { gap: 7px; }
+  .theme-switch { padding: 6px 8px; font-size: 11px; }
+  .theme-switch span { margin: 0; }
+}
+@media (max-width: 455px) {
+  .topbar > span { display: none; }
+  .topbar-actions { margin-left: auto; }
+  .topbar { gap: 7px; }
+  .sheet-grid { grid-template-columns: 1fr; }
+  .study-steps { grid-template-columns: 1fr; }
+}
+@media print {
+  @page { margin: 16mm; }
+  body:has(.study-sheet) :is(.sidebar,.topbar,footer,.no-print) { display: none !important; }
+  body:has(.study-sheet), body:has(.study-sheet) .workspace, body:has(.study-sheet) main {
+    display: block; background: #fff; color: #151e19; width: 100%; margin: 0; padding: 0;
+  }
+  body .study-sheet { padding: 0; max-width: none; border: 0; background: #fff !important; color: #151e19; }
+  body .study-sheet :is(header p,.module-badge) { color: #26382e; background: #fff; }
+  body .study-sheet :is(section,.study-callout,.study-steps) { break-inside: avoid; }
+  body .study-sheet :is(.study-callout,.study-steps li) { background: #f1f4ed; color: #1d2b22; }
+  body .study-sheet li::marker { color: #3a5b33; }
+}
 </style>
 
 </head>
@@ -29,8 +169,9 @@
  <aside class="sidebar" aria-label="Navigation principale">
   <a class="brand" href="#" id="brand"><span class="brand-mark" aria-hidden="true">⌁</span> ccna<span class="brand-light">lab</span><span class="version">v7</span></a>
   <div class="side-label">TON ESPACE DE RÉVISION</div>
-  <button class="nav-item active" id="home-nav"><span aria-hidden="true">▦</span> Tableau de bord</button>
-  <button class="nav-item" id="errors-nav"><span aria-hidden="true">↻</span> Revoir mes erreurs <span id="error-count" class="count">0</span></button>
+  <button class="nav-item active" id="home-nav" aria-label="Tableau de bord"><span aria-hidden="true">▦</span> Tableau de bord</button>
+  <button class="nav-item" id="errors-nav" aria-label="Erreurs et questions difficiles"><span aria-hidden="true">↻</span> Erreurs et questions difficiles <span id="error-count" class="count">0</span></button>
+  <button class="nav-item" id="sheets-nav" aria-label="Fiches de révision"><span aria-hidden="true">▤</span> Fiches de révision</button>
   <div class="side-label modules-label">LE PROGRAMME</div>
   <div class="sidebar-banks" id="sidebar-banks" aria-label="Séries de modules"></div><div class="module-nav" id="module-nav">
    <button data-module="8" class="module-link"><span class="module-number">08</span><span>Couche réseau<small>IPv4, IPv6 & routage</small></span></button>
@@ -40,7 +181,7 @@
   <div class="sidebar-bottom"><span class="status-dot"></span> Un peu chaque jour, ça compte.<br><button class="text-button" id="sources-button">À propos & sources ↗</button></div>
  </aside>
  <div class="workspace">
-  <header class="topbar"><span>CCNA 1 <span class="crumb">/</span> Introduction aux réseaux</span><span class="top-pill" id="active-bank-label"><span class="status-dot"></span> Modules 08 — 10</span></header>
+  <header class="topbar"><span>CCNA 1 <span class="crumb">/</span> Introduction aux réseaux</span><div class="topbar-actions"><span class="top-pill" id="active-bank-label">Modules 8–10</span><button class="btn theme-switch" id="theme-toggle" type="button" aria-pressed="false"><span aria-hidden="true">☾</span> Mode sombre</button></div></header>
   <main id="main" tabindex="-1"></main>
   <footer>Conçu pour comprendre, pas seulement mémoriser.<span>Entraînement indépendant · ITNv7</span></footer>
  </div>
@@ -8416,6 +8557,122 @@ Object.assign(window.QUIZ_BANKS ||= {}, {"14-15":{"id":"14-15","label":"Modules 
 
 </script>
 <script>
+/* Original study notes aligned with the CCNA Lab question banks. */
+window.CCNA_SHEETS = {
+  8: {
+    summary: 'Suivre un paquet IP de l’hôte au réseau distant et lire une table de routage.',
+    sections: [
+      ['Ce que fait IP', 'IP fournit l’adressage logique et l’acheminement des paquets entre réseaux. Il fonctionne sans connexion préalable et au mieux. TCP peut apporter la fiabilité au-dessus d’IP.'],
+      ['IPv4 et IPv6', 'IPv4 utilise des adresses de 32 bits et un en-tête de 20 octets minimum. IPv6 utilise 128 bits et un en-tête de base fixe de 40 octets. TTL et Hop Limit limitent le nombre de sauts. Les routeurs IPv6 ne fragmentent pas les paquets.'],
+      ['Choisir la route', 'Un hôte utilise son masque ou son préfixe et sa table pour déterminer le prochain saut. Un routeur choisit le préfixe correspondant le plus long. Une route par défaut s’applique en l’absence de route plus précise. Dans IOS, C indique un réseau connecté et L l’adresse locale d’une interface.']
+    ],
+    steps: ['Lire l’IP de destination', 'Choisir le préfixe le plus précis', 'Envoyer vers le prochain saut'],
+    example: '192.168.10.25 correspond à 192.168.0.0/16 et à 192.168.10.0/24. Le /24 est retenu, car il correspond à davantage de bits initiaux.',
+    pitfall: 'L’adresse IP de destination identifie l’hôte final. À chaque saut routé, l’enveloppe de liaison est remplacée. Sans traduction d’adresses, l’IP de destination reste la même.'
+  },
+  9: {
+    summary: 'Résoudre l’adresse MAC du destinataire local ou de la passerelle.',
+    sections: [
+      ['ARP avec IPv4', 'L’émetteur consulte son cache puis, si nécessaire, diffuse une requête dans son VLAN. Le détenteur de l’IPv4 recherchée répond normalement en unicast et l’émetteur mémorise l’association.'],
+      ['Neighbor Discovery avec IPv6', 'NDP utilise ICMPv6. NS et NA servent notamment à résoudre l’adresse de liaison. RS et RA servent à la découverte des routeurs et à l’annonce des préfixes.'],
+      ['Distinguer les tables', 'Le cache ARP associe IPv4 et MAC. La table MAC d’un commutateur associe MAC et port dans un VLAN. La table de routage associe un préfixe et un chemin.']
+    ],
+    steps: ['Déterminer si la cible est locale', 'Choisir l’IP à résoudre', 'Encapsuler avec la MAC obtenue'],
+    example: 'Un PC de 192.168.10.0/24 envoie un paquet vers 192.168.20.25. Il résout la MAC de sa passerelle locale, par exemple 192.168.10.1.',
+    pitfall: 'La requête ARP est locale au VLAN. Pour une destination distante, elle vise l’IP du prochain saut sur le lien.'
+  },
+  10: {
+    summary: 'Configurer et vérifier les interfaces, la passerelle et la sauvegarde dans IOS.',
+    sections: [
+      ['Modes IOS', 'enable passe de EXEC utilisateur (>) à EXEC privilégié (#). configure terminal ouvre la configuration globale. interface sélectionne une interface et line sélectionne une ligne de gestion. end revient à EXEC privilégié.'],
+      ['Interfaces et passerelles', 'Sous une interface, configure ip address ou ipv6 address, puis no shutdown. La passerelle d’un hôte doit être joignable sur son lien. Sur un commutateur L2, ip default-gateway sert au trafic de gestion vers les réseaux distants.'],
+      ['Vérifier et enregistrer', 'show ip interface brief et show ipv6 interface brief donnent une vue rapide des interfaces. show ip route affiche les routes. copy running-config startup-config sauvegarde la configuration active pour le prochain démarrage.']
+    ],
+    steps: ['Entrer dans le bon mode', 'Configurer puis activer', 'Vérifier puis sauvegarder'],
+    example: 'Pour relier deux LAN, attribue un réseau différent à chaque interface R1. Chaque PC utilise l’IP de R1 sur son propre LAN comme passerelle.',
+    pitfall: 'Une interface configurée avec une IP peut rester hors service. Vérifie les états Status et Protocol, le câblage et la configuration du voisin.'
+  },
+  11: {
+    summary: 'Calculer des sous-réseaux IPv4, le broadcast et les plages d’hôtes.',
+    sections: [
+      ['Préfixe et masque', 'Un /n compte n bits réseau et 32 − n bits hôte. Le réseau est le résultat de IP ET masque. L’adresse de diffusion place tous les bits hôte à 1. Les hôtes ordinaires se trouvent entre ces deux adresses.'],
+      ['Blocs à reconnaître', 'Les plages privées sont 10.0.0.0/8, 172.16.0.0/12 et 192.168.0.0/16. Le bloc 127.0.0.0/8 sert au bouclage, 169.254.0.0/16 à la liaison locale et 224.0.0.0/4 à la multidiffusion.'],
+      ['Dimensionner un réseau', 'Pour un sous-réseau ordinaire avec h bits hôte, 2^h − 2 adresses sont attribuables. Un /26 donne 62 hôtes, un /27 en donne 30. En VLSM, commence par le plus grand besoin et vérifie l’alignement ainsi que les chevauchements.']
+    ],
+    steps: ['Trouver le pas du masque', 'Repérer les limites du bloc', 'Retirer réseau et broadcast'],
+    example: '192.168.1.70/26 est dans le bloc .64 à .127. Réseau .64, hôtes .65 à .126, broadcast .127.',
+    pitfall: 'Un /28 fournit 14 hôtes, donc il ne convient pas à un LAN de 25 hôtes. Un /31 point à point suit une règle particulière.'
+  },
+  12: {
+    summary: 'Compresser des adresses, reconnaître leur portée et comprendre SLAAC.',
+    sections: [
+      ['Notation IPv6', 'Une adresse complète contient huit groupes hexadécimaux de 16 bits. Supprime les zéros de tête de chaque groupe. Utilise :: une seule fois pour condenser une suite de groupes nuls.'],
+      ['Portées et types', 'FE80::/10 sert aux adresses de liaison locale. FF02::1 vise tous les nœuds du lien et FF02::2 tous les routeurs du lien. ::1 est le bouclage. IPv6 utilise le multicast et ne possède pas de broadcast.'],
+      ['Configuration d’un hôte', 'SLAAC forme une adresse à partir du préfixe annoncé en RA et d’un identifiant d’interface. DHCPv6 sans état peut fournir des paramètres complémentaires. DHCPv6 avec état peut attribuer une adresse. Le routeur par défaut est découvert via RA.']
+    ],
+    steps: ['Lire le préfixe', 'Identifier la portée', 'Reconnaître le mode d’attribution'],
+    example: '2001:0db8:0000:0000:0000:0000:0000:0001 se réduit à 2001:db8::1. Un /48 découpé en /64 fournit 2^16 sous-réseaux.',
+    pitfall: 'Les bits supplémentaires d’un /52 occupent le début du quatrième groupe. Le dernier /52 de 2001:db8::/48 est 2001:db8:0:f000::/52.'
+  },
+  13: {
+    summary: 'Interpréter ICMP, ping et traceroute pour localiser une panne.',
+    sections: [
+      ['ICMP', 'ICMP transporte des informations de diagnostic et des messages d’erreur. Interprète le type et le code ensemble. En ICMPv4, type 3 code 1 indique un hôte inaccessible. En ICMPv6, type 1 code 4 indique un port inaccessible.'],
+      ['Ping', 'Une requête et une réponse d’écho permettent de mesurer le temps aller-retour. Commence par la pile locale, puis teste la passerelle et enfin une IP distante. Un échec peut venir du filtrage, d’un délai ou du chemin de retour.'],
+      ['Traceroute', 'L’outil augmente le TTL ou Hop Limit des sondes. Les routeurs traversés peuvent renvoyer Time Exceeded. La méthode d’émission diffère selon l’outil : tracert Windows utilise ICMP, alors que traceroute IOS classique utilise UDP.']
+    ],
+    steps: ['Tester la boucle locale', 'Tester la passerelle', 'Tester la destination puis tracer'],
+    example: 'Si l’IP est joignable mais que le nom ne se résout pas, interroge le DNS avec nslookup avant d’accuser le routage.',
+    pitfall: 'Une étoile dans traceroute indique qu’aucune réponse à la sonde n’est revenue à temps. Le routeur peut continuer à transférer le trafic.'
+  },
+  14: {
+    summary: 'Comparer TCP et UDP et calculer les fenêtres et les accusés TCP.',
+    sections: [
+      ['Ports et multiplexage', 'Les ports source et destination identifient les points de communication des applications. Deux connexions TCP vers le même serveur et le même port peuvent utiliser des ports source différents.'],
+      ['TCP', 'TCP fournit un flux d’octets fiable et ordonné. La connexion s’ouvre avec SYN, SYN-ACK et ACK. La fermeture peut s’effectuer avec FIN et ACK dans chaque sens. Les numéros de séquence placent les octets dans le flux.'],
+      ['UDP', 'UDP transporte des datagrammes sans négociation préalable. Son en-tête contient port source, port de destination, longueur et somme de contrôle. UDP ne fournit ni retransmission, ni remise en ordre, ni fenêtre de réception.']
+    ],
+    steps: ['Client : SYN', 'Serveur : SYN + ACK', 'Client : ACK'],
+    example: 'Avec un premier octet numéroté 1, trois blocs contigus de 1 500 octets reçus donnent un ACK cumulatif de 4 501.',
+    pitfall: 'La fenêtre annoncée indique ce que le récepteur peut accepter. L’ACK cumulatif indique le prochain octet attendu. Ces deux champs ont des rôles distincts.'
+  },
+  15: {
+    summary: 'Reconnaître les services applicatifs, leurs échanges et leurs ports.',
+    sections: [
+      ['Modèles et couches', 'La couche application TCP/IP regroupe les fonctions OSI application, présentation et session. En client-serveur, un client demande un service. En pair à pair, les participants peuvent fournir et consommer des ressources.'],
+      ['Web, noms et courriel', 'HTTP utilise notamment GET, POST et PUT. HTTP classique emploie souvent TCP 80 et HTTPS utilise normalement 443. DNS utilise UDP ou TCP 53. Une entrée MX désigne un serveur de réception de courriels. SMTP envoie et achemine les messages, POP3 et IMAP permettent de les consulter.'],
+      ['Services et ports usuels', 'DHCPv4 utilise UDP 67/68. FTP contrôle sa session sur TCP 21 et TFTP démarre sur UDP 69. POP3 utilise TCP 110, SNMP interroge les agents sur UDP 161, SSH écoute habituellement sur TCP 22 et Telnet sur TCP 23.']
+    ],
+    steps: ['DHCP Discover', 'DHCP Offer', 'DHCP Request', 'DHCP ACK'],
+    example: 'Pour livrer un courriel à un autre domaine, un serveur cherche d’abord son MX via DNS puis transfère le message via SMTP.',
+    pitfall: 'Le port 21 de FTP correspond au canal de contrôle. Les données empruntent une autre connexion, selon le mode choisi.'
+  },
+  16: {
+    summary: 'Reconnaître les menaces et sécuriser les accès de gestion.',
+    sections: [
+      ['Familles et impacts', 'Un virus est associé à un hôte, un ver peut se propager de manière autonome et un cheval de Troie se présente comme légitime. Les impacts comprennent la perte de confidentialité, l’usurpation d’identité, la destruction de données et l’indisponibilité.'],
+      ['Défense en profondeur', 'Segmenter, mettre à jour, limiter les accès et journaliser répartit la défense sur plusieurs niveaux. Un pare-feu avec état suit les connexions. Un IDS alerte. Un IPS peut aussi bloquer du trafic.'],
+      ['Gestion sécurisée', 'AAA distingue authentification, autorisation et comptabilisation. Préfère SSH, des comptes nominatifs et des secrets uniques. Sur IOS, les lignes VTY peuvent utiliser login local et transport input ssh, avec des clés et une identité de serveur configurées.']
+    ],
+    steps: ['Vérifier l’identité', 'Accorder les droits nécessaires', 'Journaliser l’activité'],
+    example: 'Un compte local à droits limités et une session SSH permettent d’administrer un équipement en réduisant l’exposition des identifiants et commandes.',
+    pitfall: 'Le chiffrement de la session protège le transport. La longueur, l’aléa et l’unicité du secret restent nécessaires.'
+  },
+  17: {
+    summary: 'Concevoir un petit réseau et isoler les causes d’un problème.',
+    sections: [
+      ['Conception', 'Inventorie les équipements, les applications et les besoins en adresses. Prévois la croissance et les chemins redondants utiles. La voix et la vidéo interactives sont sensibles au délai et à sa variation.'],
+      ['Mesures de référence', 'Relève les délais, le débit et les usages dans des conditions représentatives. Une hausse du temps aller-retour par rapport à la référence indique un symptôme à investiguer.'],
+      ['Dépannage et commandes', 'Identifie le problème, formule une hypothèse et teste-la. Applique le correctif, vérifie les services et documente. IOS : show interfaces pour le lien et le duplex, show ip route pour le routage, show cdp neighbors detail pour les voisins et terminal monitor pour les journaux sur la session distante.']
+    ],
+    steps: ['Identifier le symptôme', 'Tester une hypothèse', 'Vérifier et documenter'],
+    example: 'Si le ping vers la passerelle échoue, vérifie l’adresse, le masque, le VLAN et le lien. Si le ping distant fonctionne par IP, teste ensuite le DNS avec nslookup.',
+    pitfall: 'Une adresse automatique 169.254.x.x sur un poste Windows suggère qu’il n’a pas obtenu de bail DHCPv4. Elle ne précise pas la cause de l’échec.'
+  }
+};
+
+</script>
+<script>
 (()=>{'use strict';
 const E=window.QUIZ_ENGINE,$=s=>document.querySelector(s),main=$('#main');
 const BANKS={'8-10':{id:'8-10',label:'Modules 8–10',title:'Communication entre réseaux',description:'Couche réseau, ARP et configuration du routeur',modules:[8,9,10],questions:window.QUESTIONS,excluded:window.EXCLUDED_QUESTIONS||[],sourceURL:'https://ccnareponses.com/modules-8-10-examen-sur-la-communication-entre-les-reseaux-reponses/'},...(window.QUIZ_BANKS||{})};
@@ -8430,9 +8687,124 @@ let history=load('history',[]);if(!Array.isArray(history))history=[];history=his
 let wrong=load('wrong',[]);if(!Array.isArray(wrong))wrong=[];wrong=wrong.filter(id=>BANK.some(q=>q.id===id));
 let session=load('session',null);if(!E.validSession(session,BANK))session=null;
 let config={modules:[...moduleIds()],mode:'training',count:20},view='home',result=null,reviewFilter='all',finishWarning=false,setupNotice='';
+const sheets = window.CCNA_SHEETS || {};
+const findBank = number => Object.values(BANKS).find(bank => bank.modules.includes(number));
+const normalizeSearch = value => value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+let sheetOrigin = 'home';
+let favoriteIds = loadFavorites();
+
+function loadFavorites() {
+ const ids = load('favorites', []);
+ return new Set(Array.isArray(ids) ? ids.filter(id => BANK.some(q => q.id === id)) : []);
+}
+
+function setTheme(dark, remember = false) {
+ document.documentElement?.setAttribute('data-theme', dark ? 'dark' : 'light');
+ const toggle = $('#theme-toggle');
+ toggle.innerHTML = dark ? '<span aria-hidden="true">☀</span> Mode clair' : '<span aria-hidden="true">☾</span> Mode sombre';
+ toggle.setAttribute?.('aria-pressed', String(dark));
+ const color = document.querySelector('meta[name="theme-color"]');
+ color?.setAttribute?.('content', dark ? '#111a17' : '#f7f7f2');
+ if (remember) {
+  try { localStorage.setItem('ccnalab-theme', dark ? 'dark' : 'light'); } catch {}
+ }
+}
+function initTheme() {
+ const preference = window.matchMedia?.('(prefers-color-scheme: dark)');
+ let saved;
+ try { saved = localStorage.getItem('ccnalab-theme'); } catch {}
+ setTheme(saved ? saved === 'dark' : !!preference?.matches);
+ $('#theme-toggle').addEventListener('click', () => {
+  saved = document.documentElement?.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  setTheme(saved === 'dark', true);
+ });
+ preference?.addEventListener?.('change', event => { if (!saved) setTheme(event.matches); });
+}
+
+function renderSheets() {
+ view = 'sheets';
+ updateNav();
+ main.innerHTML = `<div class="welcome"><div><h1>Fiches de révision</h1><p>Relis un module, puis entraîne-toi sur ses questions.</p></div></div>
+ <div class="sheets-tools"><label for="sheet-search">Rechercher une notion</label><input id="sheet-search" type="search" placeholder="Ex. SLAAC, ports ou routage" autocomplete="off"><p id="sheets-count" class="muted" role="status"></p></div>
+ <div id="sheet-grid" class="sheet-grid"></div>`;
+ filterSheets('');
+ focusMain();
+}
+function filterSheets(value) {
+ const terms = normalizeSearch(value).trim().split(/\s+/).filter(Boolean);
+ const entries = Object.entries(sheets).filter(([number, sheet]) => {
+  const content = normalizeSearch([number, names[number], JSON.stringify(sheet)].join(' '));
+  return terms.every(term => content.includes(term));
+ });
+ $('#sheets-count').textContent = entries.length + (entries.length === 1 ? ' fiche' : ' fiches');
+ $('#sheet-grid').innerHTML = entries.map(([number, sheet]) => `<button type="button" class="sheet-tile" data-action="read-sheet" data-sheet="${number}">
+ <span class="module-badge">Module ${number}</span><strong>${esc(names[number])}</strong><span>${esc(sheet.summary)}</span></button>`).join('')
+ || '<p class="empty">Aucune fiche ne correspond à cette recherche.</p>';
+}
+function renderSheet(number) {
+ const sheet = sheets[number], bank = findBank(number);
+ if (!sheet || !bank) return renderSheets();
+ if (view !== 'sheets') sheetOrigin = view;
+ view = 'sheets';
+ updateNav();
+ const available = bank.questions.filter(q => q.module === number).length;
+ main.innerHTML = `<div class="sheet-back button-row no-print">
+ <button class="text-button" data-action="sheets">← Toutes les fiches</button>
+ ${sheetOrigin === 'result' ? '<button class="text-button" data-action="back-result">Retour au bilan</button>' : ''}
+ ${sheetOrigin === 'quiz' && session ? '<button class="text-button" data-action="resume">Reprendre le QCM</button>' : ''}
+ </div><article class="study-sheet panel">
+ <header><span class="module-badge">Module ${number}</span><h1>${esc(names[number])}</h1><p>${esc(sheet.summary)}</p></header>
+ <ol class="study-steps" aria-label="Séquence à retenir">${sheet.steps.map(step => `<li>${esc(step)}</li>`).join('')}</ol>
+ ${sheet.sections.map(([title, body]) => `<section><h2>${esc(title)}</h2><p>${esc(body)}</p></section>`).join('')}
+ <div class="study-callout"><h2>Exemple</h2><p>${esc(sheet.example)}</p></div>
+ <div class="study-callout caution"><h2>Piège à éviter</h2><p>${esc(sheet.pitfall)}</p></div>
+ <div class="button-row no-print"><button class="btn primary" data-action="sheet-quiz" data-sheet="${number}">S’entraîner · ${Math.min(10, available)} questions</button>
+ <button class="btn" data-action="print-sheet">Imprimer ou enregistrer en PDF</button></div>
+ </article>`;
+ focusMain();
+}
+function startSheetQuiz(number) {
+ const bank = findBank(number);
+ if (!bank) return;
+ if (bank.id !== active) switchBank(bank.id);
+ if (session) {
+  home();
+  focusMain();
+  announce('Une session est déjà en cours dans cette série.');
+  return;
+ }
+ config.modules = [number];
+ config.count = 10;
+ config.mode = 'training';
+ start();
+}
+function favoriteButton(q) {
+ const marked = favoriteIds.has(q.id);
+ return `<button type="button" class="btn favorite-button" data-action="toggle-favorite" data-question="${q.id}" aria-pressed="${marked}">${marked ? '★ Question marquée difficile' : '☆ Marquer comme difficile'}</button>`;
+}
+function toggleFavorite(id) {
+ if (!question(id)) return;
+ if (favoriteIds.has(id)) favoriteIds.delete(id);
+ else favoriteIds.add(id);
+ save('favorites', [...favoriteIds]);
+ if (view === 'quiz') renderQuiz();
+ else if (view === 'result') renderResult();
+ else errorsPage();
+ main.querySelector(`[data-action="toggle-favorite"][data-question="${id}"]`)?.focus({preventScroll:true});
+ announce(favoriteIds.has(id) ? 'Question ajoutée aux questions difficiles.' : 'Question retirée des questions difficiles.');
+}
+function favoritesPanel() {
+ const pool = BANK.filter(q => favoriteIds.has(q.id));
+ return `<section class="panel favorites-panel"><h2>Questions difficiles · ${pool.length}</h2>
+ ${pool.length ? `<button class="btn primary" data-action="favorite-quiz" ${session ? 'disabled' : ''}>Revoir les questions difficiles</button>
+ <details><summary>Voir les questions marquées</summary><ul>${pool.map(q => `<li><span>Module ${q.module} · ${esc(q.title)}</span>${favoriteButton(q)}</li>`).join('')}</ul></details>
+ ${session ? '<p class="muted">Reprends ou termine la session en cours avant de lancer cette révision.</p>' : ''}`
+ : '<p>Marque une question dans le QCM ou le corrigé pour la retrouver ici.</p>'}</section>`;
+}
+
 function switchBank(id){
  if(!BANKS[id]||id===active)return;
- active=id;BANK=group().questions;try{localStorage.setItem('ccnalab-active-bank',id);}catch{storage=false;}
+ active=id;BANK=group().questions;favoriteIds=loadFavorites();try{localStorage.setItem('ccnalab-active-bank',id);}catch{storage=false;}
  history=load('history',[]);if(!Array.isArray(history))history=[];history=history.filter(h=>h&&typeof h.correct==='number'&&h.total>0&&Number.isFinite(h.finished));
  wrong=load('wrong',[]);if(!Array.isArray(wrong))wrong=[];wrong=wrong.filter(id=>BANK.some(q=>q.id===id));
  session=load('session',null);if(!E.validSession(session,BANK))session=null;
@@ -8444,7 +8816,7 @@ const acceptedIds=q=>[...new Set((q.acceptedAnswers||[q.answer]).flat())];
 const question=id=>BANK.find(q=>q.id===id), persist=()=>save('session',session);
 function announce(text){$('#announce').textContent=text;}function focusMain(){main.focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
 function renderBankNavigation(){const banksNav=$('#sidebar-banks');if(banksNav)banksNav.innerHTML=Object.values(BANKS).map(b=>`<button type="button" class="bank-nav" data-bank="${b.id}">${b.label}<small>${esc(b.title)}</small></button>`).join('');}
-function updateNav(){const label=$('#active-bank-label');if(label)label.textContent=group().label;document.querySelectorAll('[data-bank]').forEach(b=>{b.classList.toggle('bank-selected',b.dataset.bank===active);b.setAttribute('aria-pressed',String(b.dataset.bank===active));});const nav=$('#module-nav');if(nav)nav.innerHTML=moduleIds().map(m=>`<button data-module="${m}" class="module-link"><span class="module-number">${String(m).padStart(2,'0')}</span><span>${names[m]}</span></button>`).join('');const ec=$('#error-count');ec.textContent=wrong.length;$('#home-nav').classList.toggle('active',view==='home');$('#errors-nav').classList.toggle('active',view==='errors');}
+function updateNav(){const label=$('#active-bank-label');if(label)label.textContent=group().label;document.querySelectorAll('[data-bank]').forEach(b=>{b.classList.toggle('bank-selected',b.dataset.bank===active);b.setAttribute('aria-pressed',String(b.dataset.bank===active));});const nav=$('#module-nav');if(nav)nav.innerHTML=moduleIds().map(m=>`<button data-module="${m}" class="module-link"><span class="module-number">${String(m).padStart(2,'0')}</span><span>${names[m]}</span></button>`).join('');const ec=$('#error-count');ec.textContent=wrong.length;$('#home-nav').classList.toggle('active',view==='home');$('#errors-nav').classList.toggle('active',view==='errors');$('#sheets-nav').classList.toggle('active',view==='sheets');}
 function heroGraphic(){return `<svg viewBox="0 0 450 265" role="img" aria-label="Un paquet traverse un routeur entre deux réseaux locaux"><defs><pattern id="grid" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="#a0b18b" opacity=".2"/></pattern></defs><rect width="450" height="265" fill="url(#grid)"/><path d="M94 124H354" stroke="#9baa83" stroke-width="1.5" stroke-dasharray="5 5"/><rect x="33" y="84" width="93" height="72" rx="12" fill="#385144" stroke="#7c9370"/><rect x="58" y="101" width="43" height="28" rx="3" fill="none" stroke="#dfedab" stroke-width="1.5"/><path d="M79 130v8m-13 0h26" stroke="#dfedab" stroke-width="1.5"/><text x="79" y="183" fill="#e8efd8" font-size="11" text-anchor="middle">LAN A</text><text x="79" y="201" fill="#9fae95" font-size="9" text-anchor="middle">192.168.10.0/24</text><rect x="181" y="69" width="93" height="110" rx="16" fill="#dfedab"/><ellipse cx="227" cy="108" rx="26" ry="15" fill="none" stroke="#324a36" stroke-width="1.5"/><path d="M208 108h35m-6-5 6 5-6 5" fill="none" stroke="#324a36" stroke-width="1.5"/><text x="227" y="153" fill="#324a36" font-size="10" text-anchor="middle" font-weight="600">ROUTEUR</text><rect x="327" y="84" width="93" height="72" rx="12" fill="#385144" stroke="#7c9370"/><rect x="352" y="101" width="43" height="28" rx="3" fill="none" stroke="#dfedab" stroke-width="1.5"/><path d="M373 130v8m-13 0h26" stroke="#dfedab" stroke-width="1.5"/><text x="373" y="183" fill="#e8efd8" font-size="11" text-anchor="middle">LAN B</text><text x="373" y="201" fill="#9fae95" font-size="9" text-anchor="middle">192.168.20.0/24</text><rect x="139" y="116" width="26" height="17" rx="3" fill="#d37a50"/><path d="m143 120 9 6 9-6" stroke="#ffe3cb" fill="none"/><text x="227" y="38" fill="#a8bb96" font-size="9" text-anchor="middle" letter-spacing="2">UN PAQUET. PLUSIEURS RÉSEAUX.</text><text x="227" y="240" fill="#a8bb96" font-size="9" text-anchor="middle">IP pour le trajet · MAC pour le prochain saut</text></svg>`;}
 function miniDiagram(type){if(!type)return '';if(type==='layers')return `<div class="mini-diagram"><svg viewBox="0 0 560 125" role="img" aria-label="Trame Ethernet contenant un paquet IP contenant un datagramme UDP et les données"><rect x="10" y="10" width="540" height="105" rx="9" fill="#243c33"/><text x="25" y="32" fill="#dfedab" font-size="12">Trame Ethernet</text><rect x="110" y="42" width="420" height="58" rx="7" fill="#dfecc8"/><text x="123" y="62" fill="#233832" font-size="11">Paquet IP</text><rect x="240" y="63" width="274" height="26" rx="5" fill="#fff7e5"/><text x="257" y="81" fill="#233832" font-size="11">Datagramme UDP + données</text></svg></div>`;return `<div class="mini-diagram"><svg viewBox="0 0 560 130" role="img" aria-label="PC A et sa passerelle R1 sur le LAN 10, puis PC B sur le LAN 20"><path d="M145 52H412" stroke="#81936d" stroke-width="2"/><path d="m233 47 8 5-8 5m169-10 8 5-8 5" stroke="#81936d" fill="none"/><rect x="10" y="15" width="139" height="74" rx="8" fill="#fff" stroke="#d2dcc4"/><text x="79" y="42" text-anchor="middle" font-size="12" fill="#233832">PC A</text><text x="79" y="62" text-anchor="middle" font-size="10" fill="#69766f">192.168.10.10/24</text><rect x="211" y="15" width="139" height="74" rx="8" fill="#dfecc8"/><text x="280" y="42" text-anchor="middle" font-size="12" fill="#233832">R1 · passerelle</text><text x="280" y="62" text-anchor="middle" font-size="10" fill="#69766f">.10.1 / .20.1</text><rect x="411" y="15" width="139" height="74" rx="8" fill="#fff" stroke="#d2dcc4"/><text x="480" y="42" text-anchor="middle" font-size="12" fill="#233832">PC B</text><text x="480" y="62" text-anchor="middle" font-size="10" fill="#69766f">192.168.20.20/24</text><text x="280" y="114" text-anchor="middle" font-size="10" fill="#69766f">Deux LAN distincts · Exemple sans NAT</text></svg></div>`;}
 
@@ -8473,29 +8845,39 @@ ${bankPicker()}
 ${session?`<div class="resume"><div><strong>Ta session t’attend.</strong><small>${Object.keys(session.selected).filter(id=>session.selected[id].length).length} / ${session.ids.length} questions renseignées · ${session.mode==='exam'?'Mode examen':'Mode entraînement'}</small></div><div class="button-row"><button class="btn primary" data-action="resume">Reprendre →</button><button class="text-button" data-action="discard">Abandonner</button></div></div>`:''}
 <section class="hero" aria-label="Présentation de l’entraînement"><div class="hero-content"><div class="hero-kicker">${esc(group().title.toUpperCase())}</div><h2>Le réseau devient clair.<br><em>Une question à la fois.</em></h2><p>Relie les notions, teste tes réflexes et comprends le pourquoi de chaque réponse.</p><div class="hero-meta"><span>${BANK.length} exercices · ${group().label}</span><span>⇄ Ordre aléatoire</span></div></div><div class="hero-visual">${heroGraphic()}</div></section>
 <div class="stats"><div class="stat"><span class="stat-icon">✓</span><div><strong>${history.length}</strong><small>session${history.length>1?'s':''} terminée${history.length>1?'s':''}</small></div></div><div class="stat"><span class="stat-icon">↗</span><div><strong>${best===null?'—':best+' %'}</strong><small>meilleur score enregistré</small></div></div><div class="stat"><span class="stat-icon">↻</span><div><strong>${wrong.length}</strong><small>notion${wrong.length>1?'s':''} à retravailler</small></div></div></div>
-<div class="coverage-banner"><div><strong>${group().label} · ${BANK.length} exercices disponibles</strong><p>${esc(group().description)}. Lance une série de 56 questions ou révise toute la banque.${group().excluded.length?` Activité Packet Tracer n° ${group().excluded.map(q=>q.source).join(', ')} retirée.`:''}</p></div><button class="btn" data-action="coverage">Voir les questions et les supports</button></div>
+<div class="coverage-banner"><div><strong>${group().label} · ${BANK.length} exercices disponibles</strong><p>${esc(group().description)}. Lance une série de 56 questions ou révise toute la banque.${group().excluded.length?` Activité Packet Tracer n° ${group().excluded.map(q=>q.source).join(', ')} retirée.`:''}</p></div><div class="button-row"><button class="btn" data-action="sheets">Fiches de révision</button><button class="btn" data-action="coverage">Voir les questions et les supports</button></div></div>
 <div class="section-head"><div><h2>Compose ta session</h2><p>Choisis ton terrain de jeu. On s’occupe de mélanger les cartes.</p></div><span class="step-label">01 — 03 · PRÊT EN QUELQUES CLICS</span></div><div class="setup-grid"><form id="setup-form" class="panel"><label class="field-label">01 &nbsp; Quels chapitres de cette série ?</label><div class="module-choices">${moduleIds().map(m=>`<label class="module-choice"><input type="checkbox" name="modules" value="${m}" ${config.modules.includes(m)?'checked':''}><span class="module-tile"><strong>${String(m).padStart(2,'0')}</strong>${names[m]}</span></label>`).join('')}</div><label class="field-label">02 &nbsp; À ton rythme ou en conditions d’examen ?</label><div class="mode-choices"><label class="mode-option"><input type="radio" name="mode" value="training" ${config.mode==='training'?'checked':''}><span class="mode-tile"><strong>✦ &nbsp; Entraînement</strong><small>Comprends chaque réponse grâce à la correction immédiate.</small></span></label><label class="mode-option"><input type="radio" name="mode" value="exam" ${config.mode==='exam'?'checked':''}><span class="mode-tile"><strong>◷ &nbsp; Examen</strong><small>Réponds librement, puis découvre ton bilan à la fin.</small></span></label></div><div class="setup-bottom"><div class="length-field"><label for="count-select" class="field-label">03 &nbsp; Combien de questions ?</label><select id="count-select"><option value="10">10 questions · session express</option><option value="20">20 questions · session classique</option><option value="56">56 questions · série longue</option><option value="0">Toutes les questions sélectionnées (${BANK.length})</option></select></div><button class="btn primary" type="submit" ${session?'disabled':''}>Lancer la session <span aria-hidden="true">→</span></button></div><p id="setup-note" class="muted" style="font-size:10px;margin:13px 0 0"></p><div class="full-series"><p>Une série complète sur ${group().label.toLowerCase()}, dans le mode choisi ci-dessus. Tes choix de chapitres s’appliquent au bouton « Lancer la session ».</p><div class="button-row"><button type="button" class="btn" data-action="series56" ${session?'disabled':''}>Série de 56 questions →</button><button type="button" class="btn primary" data-action="full-session" ${session?'disabled':''}>Tout revoir · ${BANK.length} questions</button></div></div>${session?'<p class="storage-note">Reprends ou abandonne ta session en cours avant d’en lancer une autre.</p>':''}${setupNotice?`<p class="storage-note" role="status">${esc(setupNotice)}</p>`:''}</form><aside class="tip-panel"><div class="overline">LE BON RÉFLEXE</div><h3>Apprends le chemin,<br>pas la réponse.</h3><p>Les questions et les propositions changent d’ordre à chaque session. Appuie-toi sur les notions, pas sur la lettre de la réponse.</p><div class="tip-list"><div><span>1</span> Lis le scénario jusqu’au bout.</div><div><span>2</span> Repère la couche concernée.</div><div><span>3</span> Explique ton choix avant de valider.</div></div></aside></div>
 ${history.length?`<section class="history"><div class="section-head"><div><h2>Tes dernières sessions</h2><p>Chaque session complète laisse une trace de ta progression.</p></div></div>${history.slice(0,4).map(h=>`<div class="history-row"><span>${new Date(h.finished).toLocaleDateString('fr-FR',{day:'numeric',month:'short'})}</span><span>${h.mode==='exam'?'Examen':'Entraînement'} · ${h.total} questions</span><span class="badge">${h.correct} / ${h.total} · ${Math.round(h.correct/h.total*100)} %</span></div>`).join('')}</section>`:''}${!storage?'<p class="storage-note">Le stockage du navigateur est indisponible. La progression est conservée seulement pendant cette visite.</p>':''}`;
 $('#count-select').value=String(config.count);updateSetup();}
 function updateSetup(){readConfig();const n=available().length,select=$('#count-select');const longOption=select.querySelector('option[value="56"]'),allOption=select.querySelector('option[value="0"]');if(longOption)longOption.disabled=n<56;if(allOption)allOption.textContent=`Toutes les questions sélectionnées (${n})`;if(config.count===56&&n<56){config.count=0;select.value='0';}const size=config.count===0?n:Math.min(config.count,n);$('#setup-note').textContent=`${size} questions dans cette session sur ${n} disponibles · Sans répétition · Ordre mélangé · Sans limite de temps`;$('#setup-form button[type="submit"]').disabled=!n||!!session;}
 function start(pool=available()){if(session)return;setupNotice='';if(!pool.length)return;session=E.createSession(pool,config);finishWarning=false;persist();renderQuiz();focusMain();}
-function renderQuiz(){if(!session)return home();view='quiz';updateNav();const q=question(session.ids[session.index]),sel=session.selected[q.id]||[],locked=session.mode==='training'&&!!session.locked[q.id],correct=E.isCorrect(q,sel),answered=session.ids.filter(id=>(session.selected[id]||[]).length).length,checked=Object.keys(session.locked).filter(id=>session.locked[id]).length;const n=session.ids.length,idx=session.index;main.innerHTML=`<div class="quiz-head"><button class="text-button" data-action="pause">← Mettre en pause</button><span>${session.mode==='exam'?'MODE EXAMEN · CORRECTION À LA FIN':'MODE ENTRAÎNEMENT · CORRECTION IMMÉDIATE'}</span><span>${idx+1} / ${n}</span></div><div class="quiz-layout"><section class="quiz-card" aria-labelledby="question-title"><div class="question-meta"><span class="module-badge">MODULE ${q.module}</span><span>${esc(q.topic)}</span><span>· Question ${idx+1}</span><span class="source-number">Source n° ${q.source}</span></div><h1 id="question-title" class="question-title verbatim-title">${esc(q.title)}</h1>${q.context?`<pre class="context">${esc(q.context)}</pre>`:''}${miniDiagram(q.visual)}${renderSupport(q)}${q.note?`<p class="source-note">${esc(q.note)}</p>`:''}${renderAnswers(q,sel,locked)}${locked?`<div class="feedback ${correct?'':'bad'}" role="status"><strong>${correct?'✓ Bien joué. Tu as trouvé.':'↗ On reprend cette notion ensemble.'}</strong><p>${esc(q.explain)}</p>${!correct?`<p style="margin-top:8px"><b>Réponse${q.answer.length>1?'s':''} attendue${q.answer.length>1?'s':''} :</b> ${q.options.filter(o=>acceptedIds(q).includes(o.id)).map(o=>esc(o.text)).join(' · ')}</p>`:''}</div>`:''}<div class="quiz-actions"><button class="btn" data-action="prev" ${idx===0?'disabled':''}>← Précédente</button>${session.mode==='training'&&!locked?`<button class="btn primary" data-action="validate" ${sel.length!==q.answer.length?'disabled':''}>Vérifier ma réponse ✓</button>`:`<button class="btn primary" data-action="${idx===n-1?'finish':'next'}">${idx===n-1?'Terminer la session':'Question suivante'} →</button>`}</div>${finishWarning?finishPanel():''}</section><aside class="quiz-side"><div class="navigation-card"><h3>Ton parcours</h3><p>${session.mode==='exam'?'Tu peux revenir sur tes réponses.':'Choisis une question pour y revenir.'}</p><div class="progress-track"><div class="progress-bar" style="width:${answered/n*100}%"></div></div><div class="progress-info"><span>${answered} renseignées</span><span>${session.mode==='training'?checked+' vérifiées':n+' au total'}</span></div><div class="question-grid">${session.ids.map((id,i)=>{const s=session.selected[id]||[],l=session.mode==='training'&&session.locked[id];return `<button class="q-dot ${i===idx?'current':''} ${s.length?'answered':''} ${l?(E.isCorrect(question(id),s)?'right':'failed'):''} ${session.flags[id]?'flagged':''}" data-jump="${i}" aria-label="Question ${i+1}${s.length?', renseignée':', non renseignée'}${session.flags[id]?', marquée':''}" ${i===idx?'aria-current="step"':''}>${i+1}</button>`;}).join('')}</div><div class="legend">● Remplie : réponse renseignée<br><span style="color:var(--orange)">●</span> Point orange : à revoir</div><button class="btn" style="width:100%" data-action="finish">Terminer la session</button><button class="flag-btn ${session.flags[q.id]?'flag-on':''}" data-action="flag" aria-pressed="${!!session.flags[q.id]}">${session.flags[q.id]?'⚑ Question marquée':'⚐ Marquer pour y revenir'}</button></div><div class="hint-card">Raccourcis clavier<br>${q.kind==='matching'?'Utilise Tab et les flèches pour les associations.':`<b>1 à ${q.options.length}</b> : sélectionner une proposition`}<br><b>Entrée</b> : vérifier ou continuer<br><br>Pour une question multiple, toutes les bonnes réponses sont nécessaires. Aucun point partiel.</div></aside></div>`;}
+function renderQuiz(){if(!session)return home();view='quiz';updateNav();const q=question(session.ids[session.index]),sel=session.selected[q.id]||[],locked=session.mode==='training'&&!!session.locked[q.id],correct=E.isCorrect(q,sel),answered=session.ids.filter(id=>(session.selected[id]||[]).length).length,checked=Object.keys(session.locked).filter(id=>session.locked[id]).length;const n=session.ids.length,idx=session.index;main.innerHTML=`<div class="quiz-head"><button class="text-button" data-action="pause">← Mettre en pause</button><span>${session.mode==='exam'?'MODE EXAMEN · CORRECTION À LA FIN':'MODE ENTRAÎNEMENT · CORRECTION IMMÉDIATE'}</span><span>${idx+1} / ${n}</span></div><div class="quiz-layout"><section class="quiz-card" aria-labelledby="question-title"><div class="question-meta"><span class="module-badge">MODULE ${q.module}</span><span>${esc(q.topic)}</span><span>· Question ${idx+1}</span><span class="source-number">Source n° ${q.source}</span></div><h1 id="question-title" class="question-title verbatim-title">${esc(q.title)}</h1>${q.context?`<pre class="context">${esc(q.context)}</pre>`:''}${miniDiagram(q.visual)}${renderSupport(q)}${q.note?`<p class="source-note">${esc(q.note)}</p>`:''}${renderAnswers(q,sel,locked)}<div class="question-study-actions">${favoriteButton(q)}${locked && sheets[q.module] ? `<button class="text-button" data-action="read-sheet" data-sheet="${q.module}">Lire la fiche du module</button>` : ''}</div>${locked?`<div class="feedback ${correct?'':'bad'}" role="status"><strong>${correct?'✓ Bien joué. Tu as trouvé.':'↗ On reprend cette notion ensemble.'}</strong><p>${esc(q.explain)}</p>${!correct?`<p style="margin-top:8px"><b>Réponse${q.answer.length>1?'s':''} attendue${q.answer.length>1?'s':''} :</b> ${q.options.filter(o=>acceptedIds(q).includes(o.id)).map(o=>esc(o.text)).join(' · ')}</p>`:''}</div>`:''}<div class="quiz-actions"><button class="btn" data-action="prev" ${idx===0?'disabled':''}>← Précédente</button>${session.mode==='training'&&!locked?`<button class="btn primary" data-action="validate" ${sel.length!==q.answer.length?'disabled':''}>Vérifier ma réponse ✓</button>`:`<button class="btn primary" data-action="${idx===n-1?'finish':'next'}">${idx===n-1?'Terminer la session':'Question suivante'} →</button>`}</div>${finishWarning?finishPanel():''}</section><aside class="quiz-side"><div class="navigation-card"><h3>Ton parcours</h3><p>${session.mode==='exam'?'Tu peux revenir sur tes réponses.':'Choisis une question pour y revenir.'}</p><div class="progress-track"><div class="progress-bar" style="width:${answered/n*100}%"></div></div><div class="progress-info"><span>${answered} renseignées</span><span>${session.mode==='training'?checked+' vérifiées':n+' au total'}</span></div><div class="question-grid">${session.ids.map((id,i)=>{const s=session.selected[id]||[],l=session.mode==='training'&&session.locked[id];return `<button class="q-dot ${i===idx?'current':''} ${s.length?'answered':''} ${l?(E.isCorrect(question(id),s)?'right':'failed'):''} ${session.flags[id]?'flagged':''}" data-jump="${i}" aria-label="Question ${i+1}${s.length?', renseignée':', non renseignée'}${session.flags[id]?', marquée':''}" ${i===idx?'aria-current="step"':''}>${i+1}</button>`;}).join('')}</div><div class="legend">● Remplie : réponse renseignée<br><span style="color:var(--orange)">●</span> Point orange : à revoir</div><button class="btn" style="width:100%" data-action="finish">Terminer la session</button><button class="flag-btn ${session.flags[q.id]?'flag-on':''}" data-action="flag" aria-pressed="${!!session.flags[q.id]}">${session.flags[q.id]?'⚑ Question marquée':'⚐ Marquer pour y revenir'}</button></div><div class="hint-card">Raccourcis clavier<br>${q.kind==='matching'?'Utilise Tab et les flèches pour les associations.':`<b>1 à ${q.options.length}</b> : sélectionner une proposition`}<br><b>Entrée</b> : vérifier ou continuer<br><br>Pour une question multiple, toutes les bonnes réponses sont nécessaires. Aucun point partiel.</div></aside></div>`;}
 function finishPanel(){const unanswered=session.ids.filter(id=>!(session.selected[id]||[]).length).length,unchecked=session.mode==='training'?session.ids.filter(id=>!session.locked[id]).length:0;return `<div class="warning" role="alert"><strong>Prêt à terminer ?</strong><p style="margin:7px 0">${unanswered?`${unanswered} question${unanswered>1?'s':''} sans réponse ${unanswered>1?'compteront':'comptera'} comme incorrecte${unanswered>1?'s':''}.`:'Toutes les questions ont une réponse.'}${unchecked?` ${unchecked} question${unchecked>1?'s':''} non vérifiée${unchecked>1?'s':''} ${unchecked>1?'seront':'sera'} également corrigée${unchecked>1?'s':''} dans le bilan.`:''}</p><div class="button-row"><button class="btn primary" data-action="confirm-finish">Afficher mon bilan</button><button class="btn" data-action="cancel-finish">Continuer</button></div></div>`;}
 function finish(){const report=E.score(session,BANK);result={...session,finished:Date.now(),report};const set=new Set(wrong);for(const id of session.ids){if(E.isCorrect(question(id),session.selected[id]||[]))set.delete(id);else set.add(id);}wrong=[...set];save('wrong',wrong);history.unshift({id:session.id,mode:session.mode,finished:result.finished,correct:report.correct,total:report.total});history=history.slice(0,100);save('history',history);session=null;persist();reviewFilter='all';renderResult();focusMain();}
-function reviewCard(q,s,i){const ok=E.isCorrect(q,s),answers=q.options.filter(o=>acceptedIds(q).includes(o.id));return `<article class="review-card"><div class="review-label ${ok?'':'bad'}">${ok?'✓ Bonne réponse':'↗ À retravailler'} · MODULE ${q.module} · Source n° ${q.source} · ${esc(q.topic)}</div><h3>${i+1}. ${esc(q.title)}</h3>${q.context?`<pre class="context">${esc(q.context)}</pre>`:''}${renderSupport(q)}<div class="answer-line"><span class="muted">Ta réponse :</span> ${s.length?q.options.filter(o=>s.includes(o.id)).map(o=>esc(o.text)).join(' · '):'Aucune réponse'}</div><div class="answer-line"><b>${q.acceptedAnswers?'Réponses acceptées (une seule suffit)':'Correction'} :</b> ${answers.map(o=>esc(o.text)).join(' · ')}</div><p class="explanation">${esc(q.explain)}</p></article>`;}
+function reviewCard(q,s,i){const ok=E.isCorrect(q,s),answers=q.options.filter(o=>acceptedIds(q).includes(o.id));return `<article class="review-card"><div class="review-label ${ok?'':'bad'}">${ok?'✓ Bonne réponse':'↗ À retravailler'} · MODULE ${q.module} · Source n° ${q.source} · ${esc(q.topic)}</div><h3>${i+1}. ${esc(q.title)}</h3>${q.context?`<pre class="context">${esc(q.context)}</pre>`:''}${renderSupport(q)}<div class="answer-line"><span class="muted">Ta réponse :</span> ${s.length?q.options.filter(o=>s.includes(o.id)).map(o=>esc(o.text)).join(' · '):'Aucune réponse'}</div><div class="answer-line"><b>${q.acceptedAnswers?'Réponses acceptées (une seule suffit)':'Correction'} :</b> ${answers.map(o=>esc(o.text)).join(' · ')}</div><p class="explanation">${esc(q.explain)}</p><div class="question-study-actions">${favoriteButton(q)}${sheets[q.module] ? `<button class="text-button" data-action="read-sheet" data-sheet="${q.module}">Lire la fiche du module</button>` : ''}</div></article>`;}
 function renderResult(){if(!result)return home();view='result';updateNav();const r=result.report,percent=Math.round(r.correct/r.total*100),failed=result.ids.filter(id=>!E.isCorrect(question(id),result.selected[id]||[]));main.innerHTML=`<div class="quiz-head"><button class="text-button" data-action="home">← Tableau de bord</button><span>SESSION TERMINÉE</span></div><section class="result-hero"><div class="score-ring" style="--score:${percent}"><span>${percent} %</span></div><div><div class="eyebrow">UN PAS DE PLUS</div><h1>${percent>=80?'Tes révisions portent leurs fruits.':percent>=50?'Les bases se construisent.':'Chaque erreur t’indique la suite.'}</h1><p>${r.correct} bonne${r.correct>1?'s':''} réponse${r.correct>1?'s':''} sur ${r.total} · ${r.unanswered} sans réponse<br>Ce score d’entraînement ne prédit pas le résultat de l’examen officiel.</p></div></section><div class="result-stats">${r.modules.map(m=>`<div class="result-module"><h3>MODULE ${m.module} · ${names[m.module]}</h3><strong>${m.total?m.correct+' / '+m.total:'—'}</strong><div class="progress-track"><div class="progress-bar" style="width:${m.total?m.correct/m.total*100:0}%"></div></div></div>`).join('')}</div><div class="button-row"><button class="btn primary" data-action="retry-errors" ${failed.length?'':'disabled'}>Retravailler ces ${failed.length} erreurs ↻</button><button class="btn" data-action="new">Nouvelle session mélangée →</button><button class="btn" data-action="home">Changer les réglages</button></div><div class="review-top"><h2>La correction, en détail</h2><div class="switch-filter" aria-label="Filtrer le corrigé"><button data-filter="all" class="${reviewFilter==='all'?'on':''}" aria-pressed="${reviewFilter==='all'}">Toutes (${r.total})</button><button data-filter="errors" class="${reviewFilter==='errors'?'on':''}" aria-pressed="${reviewFilter==='errors'}">Mes erreurs (${failed.length})</button></div></div>${result.ids.map((id,i)=>{const q=question(id),s=result.selected[id]||[];return reviewFilter==='errors'&&E.isCorrect(q,s)?'':reviewCard(q,s,i);}).join('')}${reviewFilter==='errors'&&!failed.length?'<div class="empty">Aucune erreur dans cette session. Bien joué !</div>':''}`;}
-function errorsPage(){view='errors';updateNav();main.innerHTML=`<div class="welcome"><div><div class="eyebrow">FAIRE DES ERREURS, C’EST APPRENDRE</div><h1>On reprend ensemble.</h1><p>${wrong.length} question${wrong.length>1?'s':''} à retravailler, enregistrée${wrong.length>1?'s':''} dans ce navigateur.</p></div></div>${wrong.length?`<div class="panel"><h2>Un parcours ciblé sur tes erreurs</h2><p class="muted" style="margin-top:12px">Les questions sont remélangées et corrigées immédiatement. Une bonne réponse dans une session terminée retire la question de cette liste.</p><button class="btn primary" data-action="all-errors" ${session?'disabled':''}>Revoir mes ${wrong.length} erreurs →</button>${session?'<p class="storage-note">Une session est déjà en cours. Reprends-la ou abandonne-la depuis le tableau de bord.</p>':''}</div><div class="history">${moduleIds().map(m=>`<div class="history-row"><span>Module ${m} · ${names[m]}</span><span class="badge">${wrong.filter(id=>question(id).module===m).length} à revoir</span></div>`).join('')}</div>`:`<div class="empty"><h2>Un terrain tout neuf.</h2><p>Termine une session : les questions à retravailler apparaîtront ici.</p><button class="btn primary" data-action="home">Composer une session →</button></div>`}`;focusMain();}
+function errorsPage(){view='errors';updateNav();main.innerHTML=`<div class="welcome"><div><div class="eyebrow">FAIRE DES ERREURS, C’EST APPRENDRE</div><h1>On reprend ensemble.</h1><p>${wrong.length} question${wrong.length>1?'s':''} à retravailler, enregistrée${wrong.length>1?'s':''} dans ce navigateur.</p></div></div>${wrong.length?`<div class="panel"><h2>Un parcours ciblé sur tes erreurs</h2><p class="muted" style="margin-top:12px">Les questions sont remélangées et corrigées immédiatement. Une bonne réponse dans une session terminée retire la question de cette liste.</p><button class="btn primary" data-action="all-errors" ${session?'disabled':''}>Revoir mes ${wrong.length} erreurs →</button>${session?'<p class="storage-note">Une session est déjà en cours. Reprends-la ou abandonne-la depuis le tableau de bord.</p>':''}</div><div class="history">${moduleIds().map(m=>`<div class="history-row"><span>Module ${m} · ${names[m]}</span><span class="badge">${wrong.filter(id=>question(id).module===m).length} à revoir</span>${sheets[m] ? `<button class="text-button" data-action="read-sheet" data-sheet="${m}">Lire la fiche</button>` : ''}</div>`).join('')}</div>`:`<div class="empty"><h2>Un terrain tout neuf.</h2><p>Termine une session : les questions à retravailler apparaîtront ici.</p><button class="btn primary" data-action="home">Composer une session →</button></div>`}${favoritesPanel()}`;focusMain();}
+main.addEventListener('input', ev => { if (ev.target.id === 'sheet-search') filterSheets(ev.target.value); });
 main.addEventListener('submit',ev=>{if(ev.target.id==='setup-form'){ev.preventDefault();readConfig();start();}});
 main.addEventListener('change',ev=>{
  if(ev.target.closest('#setup-form')){updateSetup();return;}
  const input=ev.target.closest('[data-match]');
  if(input&&session){const q=question(session.ids[session.index]);if(q.kind!=='matching'||(session.mode==='training'&&session.locked[q.id]))return;const rid=input.dataset.match,value=input.value;if(!q.matches.some(r=>r.id===rid))return;const selected=(session.selected[q.id]||[]).filter(id=>!id.startsWith(rid+'='));if(value&&q.options.some(o=>o.id===rid+'='+value))selected.push(rid+'='+value);session.selected[q.id]=selected;persist();renderQuiz();main.querySelector(`[data-match="${rid}"]`)?.focus({preventScroll:true});}
 });
-main.addEventListener('click',ev=>{const bankButton=ev.target.closest('[data-bank]');if(bankButton){switchBank(bankButton.dataset.bank);return;}const opt=ev.target.closest('[data-option]');if(opt&&session){const q=question(session.ids[session.index]);if(session.mode==='training'&&session.locked[q.id])return;const id=opt.dataset.option,sel=session.selected[q.id]||[];session.selected[q.id]=q.answer.length===1?[id]:sel.includes(id)?sel.filter(x=>x!==id):[...sel,id];finishWarning=false;persist();renderQuiz();main.querySelector(`[data-option="${id}"]`)?.focus({preventScroll:true});return;}const jump=ev.target.closest('[data-jump]');if(jump&&session){session.index=Number(jump.dataset.jump);finishWarning=false;persist();renderQuiz();focusMain();return;}const filter=ev.target.closest('[data-filter]');if(filter){reviewFilter=filter.dataset.filter;renderResult();main.querySelector(`[data-filter="${reviewFilter}"]`)?.focus({preventScroll:true});return;}const action=ev.target.closest('[data-action]')?.dataset.action;if(!action)return;switch(action){case 'series56':case 'full-session':readConfig();config.modules=[...moduleIds()];config.count=action==='series56'?56:0;start(BANK);break;case 'coverage':showCoverage();break;case 'home':case 'pause':home();focusMain();break;case 'resume':renderQuiz();focusMain();break;case 'discard':session=null;persist();setupNotice='Session abandonnée. Tes sessions terminées sont conservées.';home();break;case 'validate':if(session){const q=question(session.ids[session.index]);if((session.selected[q.id]||[]).length!==q.answer.length)return;session.locked[q.id]=true;persist();renderQuiz();announce(E.isCorrect(q,session.selected[q.id])?'Bonne réponse. '+q.explain:'Réponse à revoir. '+q.explain);}break;case 'prev':case 'next':session.index=Math.max(0,Math.min(session.ids.length-1,session.index+(action==='next'?1:-1)));finishWarning=false;persist();renderQuiz();focusMain();break;case 'flag':{const id=session.ids[session.index];session.flags[id]=!session.flags[id];persist();renderQuiz();main.querySelector('[data-action="flag"]')?.focus({preventScroll:true});break;}case 'finish':finishWarning=true;renderQuiz();$('.warning')?.scrollIntoView({behavior:'smooth',block:'nearest'});main.querySelector('[data-action="confirm-finish"]')?.focus({preventScroll:true});break;case 'cancel-finish':finishWarning=false;renderQuiz();break;case 'confirm-finish':finish();break;case 'new':config.modules=result.modules;start(result.ids.map(question));break;case 'retry-errors':config.mode='training';config.count=0;start(result.ids.filter(id=>!E.isCorrect(question(id),result.selected[id]||[])).map(question));break;case 'all-errors':config.mode='training';config.count=0;start(wrong.map(question));break;}});
-$('#home-nav').addEventListener('click',()=>{home();focusMain();});$('#errors-nav').addEventListener('click',errorsPage);$('#brand').addEventListener('click',ev=>{ev.preventDefault();home();focusMain();});document.querySelector('.sidebar').addEventListener('click',ev=>{const b=ev.target.closest('[data-bank]');if(b){switchBank(b.dataset.bank);return;}const button=ev.target.closest('[data-module]');if(button){config.modules=[Number(button.dataset.module)];home();$('#setup-form').scrollIntoView({behavior:'smooth',block:'center'});announce('Module '+button.dataset.module+' sélectionné.');}});
+main.addEventListener('click',ev=>{const bankButton=ev.target.closest('[data-bank]');if(bankButton){switchBank(bankButton.dataset.bank);return;}const opt=ev.target.closest('[data-option]');if(opt&&session){const q=question(session.ids[session.index]);if(session.mode==='training'&&session.locked[q.id])return;const id=opt.dataset.option,sel=session.selected[q.id]||[];session.selected[q.id]=q.answer.length===1?[id]:sel.includes(id)?sel.filter(x=>x!==id):[...sel,id];finishWarning=false;persist();renderQuiz();main.querySelector(`[data-option="${id}"]`)?.focus({preventScroll:true});return;}const jump=ev.target.closest('[data-jump]');if(jump&&session){session.index=Number(jump.dataset.jump);finishWarning=false;persist();renderQuiz();focusMain();return;}const filter=ev.target.closest('[data-filter]');if(filter){reviewFilter=filter.dataset.filter;renderResult();main.querySelector(`[data-filter="${reviewFilter}"]`)?.focus({preventScroll:true});return;}const actionButton=ev.target.closest('[data-action]');const action=actionButton?.dataset.action;if(!action)return;switch(action){
+ case 'sheets':sheetOrigin='home';renderSheets();break;
+ case 'read-sheet':renderSheet(Number(actionButton.dataset.sheet));break;
+ case 'print-sheet':window.print();break;
+ case 'sheet-quiz':startSheetQuiz(Number(actionButton.dataset.sheet));break;
+ case 'back-result':renderResult();focusMain();break;
+ case 'toggle-favorite':toggleFavorite(actionButton.dataset.question);break;
+ case 'favorite-quiz':config.count=0;config.mode='training';start(BANK.filter(q=>favoriteIds.has(q.id)));break;
+ case 'series56':case 'full-session':readConfig();config.modules=[...moduleIds()];config.count=action==='series56'?56:0;start(BANK);break;case 'coverage':showCoverage();break;case 'home':case 'pause':home();focusMain();break;case 'resume':renderQuiz();focusMain();break;case 'discard':session=null;persist();setupNotice='Session abandonnée. Tes sessions terminées sont conservées.';home();break;case 'validate':if(session){const q=question(session.ids[session.index]);if((session.selected[q.id]||[]).length!==q.answer.length)return;session.locked[q.id]=true;persist();renderQuiz();announce(E.isCorrect(q,session.selected[q.id])?'Bonne réponse. '+q.explain:'Réponse à revoir. '+q.explain);}break;case 'prev':case 'next':session.index=Math.max(0,Math.min(session.ids.length-1,session.index+(action==='next'?1:-1)));finishWarning=false;persist();renderQuiz();focusMain();break;case 'flag':{const id=session.ids[session.index];session.flags[id]=!session.flags[id];persist();renderQuiz();main.querySelector('[data-action="flag"]')?.focus({preventScroll:true});break;}case 'finish':finishWarning=true;renderQuiz();$('.warning')?.scrollIntoView({behavior:'smooth',block:'nearest'});main.querySelector('[data-action="confirm-finish"]')?.focus({preventScroll:true});break;case 'cancel-finish':finishWarning=false;renderQuiz();break;case 'confirm-finish':finish();break;case 'new':config.modules=result.modules;start(result.ids.map(question));break;case 'retry-errors':config.mode='training';config.count=0;start(result.ids.filter(id=>!E.isCorrect(question(id),result.selected[id]||[])).map(question));break;case 'all-errors':config.mode='training';config.count=0;start(wrong.map(question));break;}});
+$('#home-nav').addEventListener('click',()=>{home();focusMain();});$('#errors-nav').addEventListener('click',errorsPage);$('#sheets-nav').addEventListener('click',()=>{sheetOrigin='home';renderSheets();});$('#brand').addEventListener('click',ev=>{ev.preventDefault();home();focusMain();});document.querySelector('.sidebar').addEventListener('click',ev=>{const b=ev.target.closest('[data-bank]');if(b){switchBank(b.dataset.bank);return;}const button=ev.target.closest('[data-module]');if(button){config.modules=[Number(button.dataset.module)];home();$('#setup-form').scrollIntoView({behavior:'smooth',block:'center'});announce('Module '+button.dataset.module+' sélectionné.');}});
 $('#close-coverage').addEventListener('click',()=>$('#coverage-dialog').close());
 const dialog=$('#sources-dialog');$('#sources-button').addEventListener('click',()=>dialog.showModal());$('#close-sources').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',ev=>{if(ev.target===dialog){const r=dialog.getBoundingClientRect();if(ev.clientX<r.left||ev.clientX>r.right||ev.clientY<r.top||ev.clientY>r.bottom)dialog.close();}});
 document.addEventListener('keydown',ev=>{if(view!=='quiz'||!session||dialog.open||ev.altKey||ev.ctrlKey||ev.metaKey||/INPUT|SELECT|TEXTAREA/.test(ev.target.tagName))return;if(/^[1-9]$/.test(ev.key)){const index=Number(ev.key)-1;const oid=session.order[session.ids[session.index]][index];if(oid!==undefined){ev.preventDefault();main.querySelector(`[data-option="${oid}"]`)?.click();}}else if(ev.key==='Enter'&&(ev.target===main||ev.target===document.body)){const target=main.querySelector('[data-action="validate"]:not(:disabled),[data-action="next"],[data-action="finish"]');if(target){ev.preventDefault();target.click();}}});
+initTheme();
 renderBankNavigation();
 home();
 })();
